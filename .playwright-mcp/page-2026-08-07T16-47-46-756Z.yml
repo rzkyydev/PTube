@@ -1,0 +1,371 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - navigation [ref=e3]:
+      - link "Logo PTube PTube" [ref=e4] [cursor=pointer]:
+        - /url: "#top"
+        - img "Logo PTube" [ref=e5]
+        - generic [ref=e6]: PTube
+      - generic [ref=e7]:
+        - link "Fitur" [ref=e8] [cursor=pointer]:
+          - /url: "#fitur"
+        - link "Cara Kerja" [ref=e9] [cursor=pointer]:
+          - /url: "#cara-kerja"
+        - link "Filosofi" [ref=e10] [cursor=pointer]:
+          - /url: "#filosofi"
+        - link "Teknis" [ref=e11] [cursor=pointer]:
+          - /url: "#teknis"
+      - generic [ref=e12]:
+        - generic [ref=e13]: v4.0.0
+        - button "Aktifkan mode gelap" [ref=e15]
+        - link "Unduh Gratis" [ref=e18] [cursor=pointer]:
+          - /url: "#unduh"
+          - generic [ref=e21]: Unduh
+          - generic [ref=e22]: Gratis
+  - main [ref=e23]:
+    - generic [ref=e24]:
+      - generic [ref=e25]:
+        - generic [ref=e26]: PTube v4.0.0 · PNGTuber Desktop untuk Windows
+        - heading "Avatar PNG-mu ikut ngomong. PC-mu tetap adem." [level=1] [ref=e29]
+        - paragraph [ref=e30]: PNGTuber desktop ringan buat Windows — avatar PNG-mu gerak real-time ngikutin suara mic, RAM di bawah 100MB, mulus 60 FPS.
+        - generic [ref=e31]:
+          - link "Unduh Gratis" [ref=e32] [cursor=pointer]:
+            - /url: "#unduh"
+          - link "Lihat Fitur" [ref=e35] [cursor=pointer]:
+            - /url: "#fitur"
+      - generic [ref=e36]:
+        - generic [ref=e37]:
+          - generic [ref=e38]: PTube · Live Preview
+          - generic [ref=e44]: Idle
+          - generic [ref=e47]:
+            - generic [ref=e48]: bounce
+            - generic [ref=e49]: wobble
+            - generic [ref=e50]: float
+            - generic [ref=e51]: pulse
+            - generic [ref=e52]:
+              - img "Avatar idle" [ref=e54]
+              - img "Avatar berbicara" [ref=e56]
+          - generic [ref=e80]:
+            - button "Tahan buat ngomong" [ref=e81]
+            - button [ref=e84]
+          - generic [ref=e87]: Threshold mic
+        - paragraph [ref=e111]: Tahan tombol mic buat nguji — avatar langsung ngikutin suaramu.
+    - region "Preset animasi" [ref=e112]:
+      - generic [ref=e113]:
+        - generic [ref=e114]:
+          - generic [ref=e115]: bounce
+          - generic [ref=e118]: jump
+          - generic [ref=e121]: shake
+          - generic [ref=e124]: wobble
+          - generic [ref=e127]: pulse
+          - generic [ref=e130]: spin jump
+          - generic [ref=e133]: side hop
+          - generic [ref=e136]: cyber glitch
+        - generic [ref=e139]:
+          - generic [ref=e140]: bounce
+          - generic [ref=e143]: jump
+          - generic [ref=e146]: shake
+          - generic [ref=e149]: wobble
+          - generic [ref=e152]: pulse
+          - generic [ref=e155]: spin jump
+          - generic [ref=e158]: side hop
+          - generic [ref=e161]: cyber glitch
+    - generic [ref=e164]:
+      - generic [ref=e165]:
+        - heading "Semua yang dibutuhin avatar-mu" [level=2] [ref=e166]
+        - paragraph [ref=e167]: Fitur yang langsung terasa pas streaming — tanpa bikin aplikasi numpuk dan PC melambat.
+      - generic [ref=e168]:
+        - generic [ref=e170]:
+          - generic [ref=e171]:
+            - heading "4 Avatar State" [level=3] [ref=e176]
+            - paragraph [ref=e177]: Idle, Speaking, Blink, dan Mute — dukungan gambar terpisah per state, beralih otomatis.
+          - generic [ref=e178]:
+            - figure "Idle" [ref=e179]:
+              - img "Preview avatar idle — PTube" [ref=e180]
+            - figure "Speaking" [ref=e182]:
+              - img "Preview avatar speaking — PTube" [ref=e183]
+          - generic [ref=e185]:
+            - generic [ref=e186]: Blink
+            - generic [ref=e189]: Mute
+            - generic [ref=e192]: State ganti otomatis ikut suara
+        - generic [ref=e194]:
+          - generic [ref=e195]:
+            - heading "Audio Engine" [level=3] [ref=e200]
+            - paragraph [ref=e201]: Proses suara real-time kayak DAW ringan — presisi, tanpa suara berisik.
+          - generic [ref=e226]:
+            - generic [ref=e227]: RMS analysis
+            - generic [ref=e228]: Noise gate
+            - generic [ref=e229]: High/low-pass
+            - generic [ref=e230]: Attack & release
+            - generic [ref=e231]: Noise reduction
+        - generic [ref=e233]:
+          - generic [ref=e234]:
+            - heading "Stream Mode" [level=3] [ref=e239]
+            - paragraph [ref=e240]: Editor ↔ Stream satu tombol — canvas transparan frameless, warna stage custom.
+          - generic [ref=e246]:
+            - generic [ref=e247]: Green screen ready
+            - generic [ref=e248]: Click-through
+        - generic [ref=e250]:
+          - generic [ref=e251]:
+            - heading "Animation System" [level=3] [ref=e256]
+            - paragraph [ref=e257]: Belasan preset berbasis fisika, semuanya bisa dikustomisasi.
+          - generic [ref=e258]:
+            - generic [ref=e259]:
+              - generic [ref=e260]: Speaking
+              - generic [ref=e261]:
+                - generic [ref=e262]: bounce
+                - generic [ref=e263]: jump
+                - generic [ref=e264]: shake
+                - generic [ref=e265]: wobble
+                - generic [ref=e266]: pulse
+                - generic [ref=e267]: spin jump
+                - generic [ref=e268]: side hop
+                - generic [ref=e269]: cyber glitch
+            - generic [ref=e270]:
+              - generic [ref=e271]: Idle
+              - generic [ref=e272]:
+                - generic [ref=e273]: float
+                - generic [ref=e274]: pulse
+                - generic [ref=e275]: sway
+                - generic [ref=e276]: gentle bounce
+                - generic [ref=e277]: slight spin
+        - generic [ref=e279]:
+          - generic [ref=e280]:
+            - heading "Ringan Banget" [level=3] [ref=e285]
+            - paragraph [ref=e286]: Performance Mode + auto GC — tetap ngebut di PC kentang.
+          - generic [ref=e287]:
+            - generic [ref=e288]:
+              - generic [ref=e289]: <100MB
+              - generic [ref=e290]: RAM
+            - generic [ref=e291]:
+              - generic [ref=e292]: ~0%
+              - generic [ref=e293]: CPU idle
+            - generic [ref=e294]:
+              - generic [ref=e295]: 60 FPS
+              - generic [ref=e296]: animasi
+        - generic [ref=e298]:
+          - generic [ref=e299]:
+            - heading "Multi-language" [level=3] [ref=e304]
+            - paragraph [ref=e305]: 30+ bahasa, ganti kapan aja tanpa loading.
+          - generic [ref=e306]:
+            - generic [ref=e307]: EN
+            - generic [ref=e308]: ID
+            - generic [ref=e309]: JA
+            - generic [ref=e310]: KO
+            - generic [ref=e311]: ES
+            - generic [ref=e312]: FR
+            - generic [ref=e313]: +25 lainnya
+        - generic [ref=e315]:
+          - generic [ref=e316]:
+            - heading "Profile System" [level=3] [ref=e321]
+            - paragraph [ref=e322]: Bikin & kelola banyak preset, import/export .ptube, drag-and-drop.
+          - generic [ref=e323]:
+            - generic [ref=e324]:
+              - generic [ref=e325]: C
+              - generic [ref=e326]: Chibi
+            - generic [ref=e327]:
+              - generic [ref=e328]: M
+              - generic [ref=e329]: Miko
+            - generic [ref=e330]:
+              - generic [ref=e331]: P
+              - generic [ref=e332]: Pixel
+            - generic [ref=e333]: .ptube
+        - generic [ref=e335]:
+          - generic [ref=e336]:
+            - heading "Mode & Utilitas" [level=3] [ref=e341]
+            - paragraph [ref=e342]: Kontrol penuh pas live — semua setelan auto-save instan.
+          - list [ref=e343]:
+            - listitem [ref=e344]: Global hotkeys anti-konflik
+            - listitem [ref=e348]: Click-through (pass mouse)
+            - listitem [ref=e352]: Sembunyi ke system tray
+            - listitem [ref=e356]: Light & dark mode
+    - generic [ref=e360]:
+      - generic [ref=e361]:
+        - heading "Langsung jalan dalam 3 langkah" [level=2] [ref=e362]
+        - paragraph [ref=e363]: Dari unduh sampai siaran — tidak sampai sepuluh menit, bahkan buat yang baru pertama kali.
+      - generic [ref=e364]:
+        - generic [ref=e366]:
+          - generic [ref=e367]: "01"
+          - heading "Pilih Avatar" [level=3] [ref=e372]
+          - paragraph [ref=e373]: Pilih PNG avatar kamu, tambah preset animasi, atur setelan.
+          - generic [ref=e375]:
+            - generic [ref=e376]: C
+            - generic [ref=e377]: M
+            - generic [ref=e378]: P
+        - generic [ref=e379]:
+          - generic [ref=e380]: "02"
+          - heading "Buka Mic" [level=3] [ref=e385]
+          - paragraph [ref=e386]: Nyalain mic, set threshold, avatar mulai ngikutin suaramu.
+        - generic [ref=e414]:
+          - generic [ref=e415]: "03"
+          - heading "Go Live" [level=3] [ref=e420]
+          - paragraph [ref=e421]: Buka OBS, pakai transparan atau green screen, langsung live.
+    - generic [ref=e449]:
+      - generic [ref=e450]:
+        - heading "Lightweight first." [level=2] [ref=e455]
+        - paragraph [ref=e456]:
+          - text: "Setiap fitur yang masuk harus lolos satu pertanyaan:"
+          - emphasis [ref=e457]: apakah ini bikin PC-mu lebih berat?
+          - text: Kalau ya, PTube nggak akan bawa-bawa.
+      - generic [ref=e458]:
+        - generic [ref=e460]:
+          - heading "Yang nggak kami bikin" [level=3] [ref=e461]
+          - list [ref=e462]:
+            - listitem [ref=e463]: Face tracking
+            - listitem [ref=e466]: Webcam AI
+            - listitem [ref=e469]: Avatar GIF / video
+            - listitem [ref=e472]: Integrasi OBS yang rumit
+        - generic [ref=e476]:
+          - heading "Yang kami utamakan" [level=3] [ref=e477]
+          - list [ref=e478]:
+            - listitem [ref=e479]: Performa tinggi
+            - listitem [ref=e482]: Pemakaian memori rendah
+            - listitem [ref=e485]: Mudah dipakai pemula
+            - listitem [ref=e488]: Pengalaman desktop yang stabil
+    - generic [ref=e491]:
+      - generic [ref=e492]:
+        - text: Di balik layar
+        - heading "Dikerjain sampai level byte" [level=2] [ref=e493]
+        - paragraph [ref=e494]: Enam pilihan desain yang bikin PTube tetap kencang di PC kentang.
+      - generic [ref=e495]:
+        - generic [ref=e497]:
+          - generic [ref=e498]: "01"
+          - generic [ref=e502]:
+            - heading "Rendering GPU-Accelerated" [level=3] [ref=e503]
+            - paragraph [ref=e504]: "Chrome switches agresif: GPU rasterization, hardware overlays, anti-throttling latar belakang — animasi tetap 60 FPS walau game fullscreen."
+        - generic [ref=e506]:
+          - generic [ref=e507]: "02"
+          - generic [ref=e511]:
+            - heading "Engine Animasi Real-Time" [level=3] [ref=e512]
+            - paragraph [ref=e513]: requestAnimationFrame + translate3d dengan fisika sin/cos, bukan CSS keyframes — responsif terhadap audio, stabil 60 FPS.
+        - generic [ref=e515]:
+          - generic [ref=e516]: "03"
+          - generic [ref=e520]:
+            - heading "Preloading Anti-Flicker" [level=3] [ref=e521]
+            - paragraph [ref=e522]: Semua state avatar dimuat di memori sebelum transisi — pergantian ekspresi instan tanpa layar berkedip.
+        - generic [ref=e524]:
+          - generic [ref=e525]: "04"
+          - generic [ref=e529]:
+            - heading "Manajemen Memori Agresif" [level=3] [ref=e530]
+            - paragraph [ref=e531]: Performance Mode + GC manual — RAM tertahan di bawah 100MB walau dipakai berhari-hari.
+        - generic [ref=e533]:
+          - generic [ref=e534]: "05"
+          - generic [ref=e538]:
+            - heading "LRU Cache i18n" [level=3] [ref=e539]
+            - paragraph [ref=e540]: Hanya 3 bahasa terakhir yang disimpan di RAM, sisanya dibuang otomatis untuk hemat memori.
+        - generic [ref=e542]:
+          - generic [ref=e543]: "06"
+          - generic [ref=e547]:
+            - heading "Protocol Aman ptube://" [level=3] [ref=e548]
+            - paragraph [ref=e549]: Context isolation aktif — gambar lokal dimuat via custom protocol tanpa membuka akses file system.
+    - generic [ref=e550]:
+      - generic [ref=e551]:
+        - heading "Lancar di PC kentang, aman di mana aja" [level=2] [ref=e552]
+        - paragraph [ref=e553]: Persyaratan minim dan keamanan berlapis — buat streamer yang sensitif soal izin aplikasi.
+      - generic [ref=e554]:
+        - generic [ref=e556]:
+          - heading "Persyaratan Sistem" [level=3] [ref=e561]
+          - generic [ref=e562]:
+            - generic [ref=e563]:
+              - term [ref=e564]: OS
+              - definition [ref=e565]: Windows 10/11 (x64)
+            - generic [ref=e566]:
+              - term [ref=e567]: CPU
+              - definition [ref=e568]: Intel Celeron / AMD 3020e+
+            - generic [ref=e569]:
+              - term [ref=e570]: RAM
+              - definition [ref=e571]: 2 GB — app cuma < 80MB
+            - generic [ref=e572]:
+              - term [ref=e573]: Grafis
+              - definition [ref=e574]: Integrated GPU
+            - generic [ref=e575]:
+              - term [ref=e576]: Mikrofon
+              - definition [ref=e577]: Wajib untuk aktivasi suara
+        - generic [ref=e579]:
+          - heading "Stack Teknologi" [level=3] [ref=e586]
+          - generic [ref=e587]:
+            - generic [ref=e588]:
+              - term [ref=e589]: Core
+              - definition [ref=e590]: Electron v31+ (Node.js & Chromium)
+            - generic [ref=e591]:
+              - term [ref=e592]: Frontend
+              - definition [ref=e593]: HTML5 · CSS3 · Vanilla JS ES6+
+            - generic [ref=e594]:
+              - term [ref=e595]: Audio
+              - definition [ref=e596]: Web Audio API (AnalyserNode, BiquadFilterNode)
+            - generic [ref=e597]:
+              - term [ref=e598]: Catatan
+              - definition [ref=e599]: Tanpa React/Vue biar RAM tetap mungil
+        - generic [ref=e601]:
+          - heading "Keamanan" [level=3] [ref=e606]
+          - generic [ref=e607]:
+            - generic [ref=e608]:
+              - term [ref=e609]: Lokal 100%
+              - definition [ref=e610]: Tanpa script remote pihak ketiga
+            - generic [ref=e611]:
+              - term [ref=e612]: Anti-XSS
+              - definition [ref=e613]: Navigasi tak dikenal diblokir
+            - generic [ref=e614]:
+              - term [ref=e615]: Izin ketat
+              - definition [ref=e616]: Akses dibatasi media & mikrofon saja
+      - paragraph [ref=e618]: Aktivasi suara butuh izin mikrofon — PTube nggak pernah akses yang lain.
+    - generic [ref=e624]:
+      - generic [ref=e625]: v4.0.0 siap dicoba
+      - heading "Siap bikin avatar-mu goyang?" [level=2] [ref=e629]
+      - paragraph [ref=e630]: Gratis, ringan, dan langsung jalan di Windows. Unduh PTube dan bawa avatar PNG-mu ke layer berikutnya.
+      - generic [ref=e631]:
+        - link "Windows 10/11 (x64)" [ref=e632] [cursor=pointer]:
+          - /url: "#unduh"
+        - link "Lihat syarat" [ref=e635] [cursor=pointer]:
+          - /url: "#sistem"
+      - generic [ref=e636]:
+        - link "Unduh Gratis" [ref=e637] [cursor=pointer]:
+          - /url: "#unduh"
+        - paragraph [ref=e640]: PTube v4.0.0 · tanpa biaya · tanpa akun · tanpa plugin · Windows 10/11 (x64)
+  - contentinfo [ref=e641]:
+    - generic [ref=e642]:
+      - generic [ref=e643]:
+        - link "P PTube" [ref=e644] [cursor=pointer]:
+          - /url: "#top"
+          - generic [ref=e645]: P
+          - generic [ref=e646]: PTube
+        - paragraph [ref=e647]: PNGTuber desktop ringan — avatar PNG-mu ikut ngomong, PC-mu tetap adem.
+      - navigation "Navigasi footer" [ref=e648]:
+        - generic [ref=e649]:
+          - heading "Navigasi" [level=3] [ref=e650]
+          - list [ref=e651]:
+            - listitem [ref=e652]:
+              - link "Fitur" [ref=e653] [cursor=pointer]:
+                - /url: "#fitur"
+            - listitem [ref=e654]:
+              - link "Cara Kerja" [ref=e655] [cursor=pointer]:
+                - /url: "#cara-kerja"
+            - listitem [ref=e656]:
+              - link "Filosofi" [ref=e657] [cursor=pointer]:
+                - /url: "#filosofi"
+            - listitem [ref=e658]:
+              - link "Teknis" [ref=e659] [cursor=pointer]:
+                - /url: "#teknis"
+            - listitem [ref=e660]:
+              - link "Syarat" [ref=e661] [cursor=pointer]:
+                - /url: "#sistem"
+            - listitem [ref=e662]:
+              - link "Unduh" [ref=e663] [cursor=pointer]:
+                - /url: "#unduh"
+        - generic [ref=e664]:
+          - heading "Komunitas" [level=3] [ref=e665]
+          - list [ref=e666]:
+            - listitem [ref=e667]:
+              - link "GitHub" [ref=e668] [cursor=pointer]:
+                - /url: "#top"
+            - listitem [ref=e671]:
+              - link "Twitch" [ref=e672] [cursor=pointer]:
+                - /url: "#top"
+            - listitem [ref=e675]:
+              - link "YouTube" [ref=e676] [cursor=pointer]:
+                - /url: "#top"
+    - generic [ref=e680]:
+      - generic [ref=e681]: © 2025-2026 RzkyyDev · All Rights Reserved
+      - generic [ref=e682]:
+        - generic [ref=e683]: Bahasa Indonesia
+        - generic [ref=e685]: Lisensi Proprietary
+  - alert [ref=e686]
