@@ -98,7 +98,7 @@ href = { PTUBE_SETTINGS }
 download
 className = "mt-5 inline-flex items-center gap-2 rounded-xl bg-accent-deep px-5 py-3 text-sm font-bold text-white transition-all hover:-translate-y-0.5 hover:bg-accent-deep-strong focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent active:translate-y-0"
   >
-  <DownloadSimple size={ 18 } weight = "bold" />
+  <DownloadSimple size={ 12 } weight = "bold" />
     { dict.settingsBtn }
     </a>
     </div>
