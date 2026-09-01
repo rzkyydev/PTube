@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/icons/icon.png" alt="PTube Logo" width="128">
+  <img src="assets/icon.png" alt="PTube Logo" width="128">
 </p>
 
 <h1 align="center">PTube</h1>
