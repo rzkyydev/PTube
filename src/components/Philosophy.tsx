@@ -4,22 +4,9 @@ import {
   Prohibit,
 } from "@phosphor-icons/react/dist/ssr";
 import { Reveal } from "./Reveal";
+import type { Dictionary } from "@/i18n/dictionaries";
 
-const notBuilt = [
-  "Face tracking",
-  "Webcam AI",
-  "Avatar GIF / video",
-  "Integrasi OBS yang rumit",
-];
-
-const prioritized = [
-  "Performa tinggi",
-  "Pemakaian memori rendah",
-  "Mudah dipakai pemula",
-  "Pengalaman desktop yang stabil",
-];
-
-export function Philosophy() {
+export function Philosophy({ dict }: { dict: Dictionary["philosophy"] }) {
   return (
     <section id="filosofi" className="mx-auto max-w-6xl px-4 py-28">
       <Reveal>
@@ -27,12 +14,12 @@ export function Philosophy() {
           <span className="grid size-10 place-items-center rounded-xl bg-accent/15 text-accent">
             <Lightning size={20} weight="fill" />
           </span>
-          <h2 className="min-w-0 font-display text-4xl font-extrabold tracking-tight sm:text-6xl lg:text-7xl">
-            Lightweight <span className="text-accent">first.</span>
+          <h2 className="min-w-0 font-display text-4xl font-bold tracking-tight sm:text-6xl lg:text-7xl">
+            {dict.titlePrefix} <span className="text-accent">{dict.titleHighlight}</span>
           </h2>
         </div>
         <p className="mt-6 max-w-[58ch] text-lg leading-relaxed text-ink-3">
-          Setiap fitur yang masuk harus lolos satu pertanyaan: <em className="font-semibold not-italic text-ink-2">apakah ini bikin PC-mu lebih berat?</em> Kalau ya, PTube nggak akan bawa-bawa.
+          {dict.desc}
         </p>
       </Reveal>
 
@@ -40,10 +27,10 @@ export function Philosophy() {
         <Reveal delay={0.05}>
           <div className="glass h-full rounded-2xl p-8">
             <h3 className="font-display text-lg font-bold text-ink-4">
-              Yang nggak kami bikin
+              {dict.notBuiltTitle}
             </h3>
             <ul className="mt-6 space-y-4">
-              {notBuilt.map((item) => (
+              {dict.notBuiltItems.map((item) => (
                 <li
                   key={item}
                   className="flex items-center gap-3 text-base text-ink-4 line-through decoration-ink-5/60"
@@ -59,10 +46,10 @@ export function Philosophy() {
         <Reveal delay={0.12}>
           <div className="glass h-full rounded-2xl border-accent/20 bg-gradient-to-br from-accent/[0.08] via-transparent to-transparent p-8">
             <h3 className="font-display text-lg font-bold text-accent">
-              Yang kami utamakan
+              {dict.prioritizedTitle}
             </h3>
             <ul className="mt-6 space-y-4">
-              {prioritized.map((item) => (
+              {dict.prioritizedItems.map((item) => (
                 <li key={item} className="flex items-center gap-3 text-base font-medium text-ink-1">
                   <CheckCircle size={20} weight="fill" className="shrink-0 text-accent" />
                   {item}

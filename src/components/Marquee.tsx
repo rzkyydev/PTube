@@ -1,6 +1,8 @@
+import type { Dictionary } from "@/i18n/dictionaries";
+
 const presets = ["bounce", "jump", "shake", "wobble", "pulse", "spin jump", "side hop", "cyber glitch"];
 
-export function Marquee() {
+export function Marquee({ dict }: { dict: Dictionary["marquee"] }) {
   const row = (ariaHidden: boolean) => (
     <div
       aria-hidden={ariaHidden}
@@ -19,7 +21,7 @@ export function Marquee() {
 
   return (
     <section
-      aria-label="Preset animasi"
+      aria-label={dict.ariaLabel}
       className="relative overflow-hidden border-y border-line-soft py-6"
     >
       <div className="flex w-max animate-marquee">

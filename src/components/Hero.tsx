@@ -10,6 +10,7 @@ import {
   Sparkle,
 } from "@phosphor-icons/react";
 import { SoundWave } from "./SoundWave";
+import type { Dictionary } from "@/i18n/dictionaries";
 
 const AVATAR_IDLE =
   "https://raw.githubusercontent.com/rzkyydev/rzkyydev/refs/heads/main/db/Picsart_26-07-14_14-39-19-407.png";
@@ -18,19 +19,19 @@ const AVATAR_SPEAKING =
 
 type Mode = "idle" | "speaking" | "mute";
 
-const status = {
-  idle: { label: "Idle", dot: "bg-ink-4" },
-  speaking: { label: "Berbicara", dot: "bg-ok" },
-  mute: { label: "Mute", dot: "bg-accent" },
-};
-
-function MicTest() {
+function MicTest({ dict }: { dict: Dictionary["hero"] }) {
   const [muted, setMuted] = useState(false);
   const [holding, setHolding] = useState(false);
   const reduceMotion = useReducedMotion();
   const speaking = holding && !muted;
   const mode: Mode = muted ? "mute" : speaking ? "speaking" : "idle";
   const bob = reduceMotion ? {} : { y: [0, -4, 0] };
+
+  const status = {
+    idle: { label: dict.statusIdle, dot: "bg-ink-4" },
+    speaking: { label: dict.statusSpeaking, dot: "bg-ok" },
+    mute: { label: dict.statusMute, dot: "bg-accent" },
+  };
 
   return (
     <div className="glass-deep relative rounded-3xl p-4 sm:p-6">
@@ -40,7 +41,7 @@ function MicTest() {
           <span className="size-2.5 rounded-full bg-amber-400/80" />
           <span className="size-2.5 rounded-full bg-emerald-400/80" />
         </div>
-        <span className="text-xs font-medium text-ink-3">PTube · Live Preview</span>
+        <span className="text-xs font-medium text-ink-3">{dict.livePreview}</span>
       </div>
 
       <div className="relative mt-5 flex items-center justify-center gap-2">
@@ -66,8 +67,9 @@ function MicTest() {
 
         {mode === "mute" && (
           <motion.span
-            initial={{ scale: 0, opacity: 0 }}
+            initial={reduceMotion ? { scale: 1, opacity: 1 } : { scale: 0, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
+            transition={{ duration: reduceMotion ? 0 : 0.3 }}
             className="absolute -right-1 top-4 z-10 grid size-10 place-items-center rounded-full border border-accent/40 bg-badge text-accent shadow-lg"
           >
             <MicrophoneSlash size={20} weight="bold" />
@@ -121,7 +123,7 @@ function MicTest() {
           style={{ touchAction: "none" }}
         >
           <Microphone size={18} weight="bold" />
-          {holding ? "Lepasin…" : "Tahan buat ngomong"}
+          {holding ? dict.buttonRelease : dict.buttonHold}
         </button>
 
         <button
@@ -139,7 +141,7 @@ function MicTest() {
       </div>
 
       <div className="mt-5 flex items-center justify-between rounded-xl border border-line-soft bg-surface-2 px-3 py-2">
-        <span className="text-[11px] font-medium text-ink-3">Threshold mic</span>
+        <span className="text-[11px] font-medium text-ink-3">{dict.micThreshold}</span>
         <div className="relative flex h-5 items-center gap-[2px]">
           {Array.from({ length: 20 }).map((_, i) => (
             <span
@@ -155,23 +157,23 @@ function MicTest() {
   );
 }
 
-export function Hero() {
+export function Hero({ dict, common }: { dict: Dictionary["hero"]; common: Dictionary["common"] }) {
+  const reduce = useReducedMotion();
   return (
-    <section id="top" className="relative mx-auto grid min-h-[100dvh] max-w-6xl items-center gap-12 px-4 pb-20 pt-32 lg:grid-cols-2 lg:gap-16 lg:pt-28">
+    <section id="top" className="relative mx-auto grid min-h-[100vh] max-w-6xl items-center gap-12 px-4 pb-20 pt-32 lg:grid-cols-2 lg:gap-16 lg:pt-28">
       <div>
         <span className="inline-flex items-center gap-2 rounded-full border border-accent/30 bg-accent/10 px-3 py-1.5 text-xs font-semibold text-accent">
           <Sparkle size={14} weight="fill" />
-          PTube v4.0.0 · PNGTuber Desktop untuk Windows
+          {dict.badge}
         </span>
 
-        <h1 className="mt-6 font-display text-4xl font-extrabold leading-[1.08] tracking-tight sm:text-5xl lg:text-6xl">
-          Avatar PNG-mu ikut{" "}
-          <span className="text-accent">ngomong</span>. PC-mu tetap adem.
+        <h1 className="mt-6 font-display text-4xl font-bold leading-[1.08] tracking-tight sm:text-5xl lg:text-6xl">
+          {dict.titlePrefix}{" "}
+          <span className="text-accent">{dict.titleHighlight}</span>{dict.titleSuffix}
         </h1>
 
         <p className="mt-5 max-w-[46ch] text-base leading-relaxed text-ink-3 sm:text-lg">
-          PNGTuber desktop ringan buat Windows — avatar PNG-mu gerak real-time ngikutin suara mic,
-          RAM di bawah 100MB, mulus 60 FPS.
+          {dict.description}
         </p>
 
         <div className="mt-8 flex flex-wrap items-center gap-3">
@@ -180,25 +182,25 @@ export function Hero() {
             className="group flex items-center gap-2 rounded-xl bg-accent-deep px-5 py-3 text-sm font-bold text-white transition-all hover:bg-accent-deep-strong focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent active:translate-y-px"
           >
             <DownloadSimple weight="bold" className="size-4 transition-transform group-hover:-translate-y-0.5" />
-            Unduh Gratis
+            {common.downloadFree}
           </a>
           <a
             href="#fitur"
             className="rounded-xl border border-line bg-surface px-5 py-3 text-sm font-bold text-ink-2 transition-colors hover:border-line-strong hover:text-ink-1 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
           >
-            Lihat Fitur
+            {dict.viewFeatures}
           </a>
         </div>
       </div>
 
       <motion.div
-        initial={{ opacity: 0, y: 32, scale: 0.97 }}
+        initial={reduce ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: 32, scale: 0.97 }}
         animate={{ opacity: 1, y: 0, scale: 1 }}
-        transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+        transition={{ duration: reduce ? 0 : 0.7, ease: [0.16, 1, 0.3, 1] }}
       >
-        <MicTest />
+        <MicTest dict={dict} />
         <p className="mt-3 text-center text-xs text-ink-4">
-          Tahan tombol mic buat nguji — avatar langsung ngikutin suaramu.
+          {dict.testInstruction}
         </p>
       </motion.div>
     </section>

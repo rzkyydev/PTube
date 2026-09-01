@@ -1,6 +1,6 @@
 export function PageBackground() {
   return (
-    <div aria-hidden className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
+    <div aria-hidden="true" className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
       <div className="animate-aurora absolute -top-[30%] left-1/2 h-[70vmax] w-[70vmax] -translate-x-1/2 rounded-full bg-[radial-gradient(circle_at_center,rgba(255,93,143,0.16),transparent_62%)]" />
       <div className="animate-aurora absolute -bottom-[35%] right-[-15%] h-[60vmax] w-[60vmax] rounded-full bg-[radial-gradient(circle_at_center,rgba(120,80,255,0.1),transparent_60%)] [animation-delay:-9s]" />
       <div className="absolute -left-[20%] top-[25%] h-[45vmax] w-[45vmax] rounded-full bg-[radial-gradient(circle_at_center,rgba(255,200,120,0.06),transparent_60%)]" />

@@ -17,11 +17,11 @@ const baloo = Baloo_2({
 });
 
 export const metadata: Metadata = {
-  title: "PTube — Avatar PNG yang Ikut Ngomong",
+  title: "PTube — PNGTuber",
   description:
-    "PNGTuber desktop ringan untuk Windows: avatar PNG-mu bergerak real-time mengikuti suara mic — RAM di bawah 100MB, mulus 60 FPS, siap streaming di OBS.",
+    "PNGTuber desktop ringan untuk Windows: avatar PNG-mu bergerak real-time mengikuti suara mic — RAM di bawah 100MB, mulus 60 FPS, siap streaming di manapun.",
   icons: {
-    icon: "https://raw.githubusercontent.com/rzkyydev/rzkyydev/refs/heads/main/db/icon%20(1).png",
+    icon: "/icon.png",
   },
 };
 
@@ -32,14 +32,17 @@ export const viewport: Viewport = {
   ],
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  const { getLocale } = await import('@/i18n/server');
+  const locale = await getLocale();
+
   return (
     <html
-      lang="id"
+      lang={locale}
       suppressHydrationWarning
       className={`${geist.variable} ${baloo.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col bg-background text-foreground">
+      <body className="min-h-screen flex flex-col overflow-x-hidden bg-background text-foreground">
         <Script id="theme-init" strategy="beforeInteractive">
           {THEME_INIT}
         </Script>

@@ -5,49 +5,35 @@ import {
   Stack,
 } from "@phosphor-icons/react/dist/ssr";
 import { Reveal } from "./Reveal";
+import type { Dictionary } from "@/i18n/dictionaries";
 
-const cards = [
-  {
-    icon: DesktopTower,
-    title: "Persyaratan Sistem",
-    rows: [
-      ["OS", "Windows 10/11 (x64)"],
-      ["CPU", "Intel Celeron / AMD 3020e+"],
-      ["RAM", "2 GB — app cuma < 80MB"],
-      ["Grafis", "Integrated GPU"],
-      ["Mikrofon", "Wajib untuk aktivasi suara"],
-    ],
-  },
-  {
-    icon: Stack,
-    title: "Stack Teknologi",
-    rows: [
-      ["Core", "Electron v31+ (Node.js & Chromium)"],
-      ["Frontend", "HTML5 · CSS3 · Vanilla JS ES6+"],
-      ["Audio", "Web Audio API (AnalyserNode, BiquadFilterNode)"],
-      ["Catatan", "Tanpa React/Vue biar RAM tetap mungil"],
-    ],
-  },
-  {
-    icon: ShieldCheck,
-    title: "Keamanan",
-    rows: [
-      ["Lokal 100%", "Tanpa script remote pihak ketiga"],
-      ["Anti-XSS", "Navigasi tak dikenal diblokir"],
-      ["Izin ketat", "Akses dibatasi media & mikrofon saja"],
-    ],
-  },
-];
+export function SystemSecurity({ dict }: { dict: Dictionary["systemSecurity"] }) {
+  const cards = [
+    {
+      icon: DesktopTower,
+      title: dict.requirementsTitle,
+      rows: dict.requirements,
+    },
+    {
+      icon: Stack,
+      title: dict.stackTitle,
+      rows: dict.stack,
+    },
+    {
+      icon: ShieldCheck,
+      title: dict.securityTitle,
+      rows: dict.security,
+    },
+  ];
 
-export function SystemSecurity() {
   return (
     <section id="sistem" className="mx-auto max-w-6xl px-4 py-24">
       <Reveal>
-        <h2 className="max-w-2xl font-display text-4xl font-extrabold tracking-tight sm:text-5xl">
-          Lancar di PC kentang, aman di mana aja
+        <h2 className="max-w-2xl font-display text-4xl font-bold tracking-tight sm:text-5xl">
+          {dict.title}
         </h2>
         <p className="mt-4 max-w-[52ch] text-base leading-relaxed text-ink-3">
-          Persyaratan minim dan keamanan berlapis — buat streamer yang sensitif soal izin aplikasi.
+          {dict.desc}
         </p>
       </Reveal>
 
@@ -62,10 +48,10 @@ export function SystemSecurity() {
                 <h3 className="font-display text-lg font-bold">{c.title}</h3>
               </div>
               <dl className="space-y-2.5">
-                {c.rows.map(([k, v]) => (
-                  <div key={k} className="flex items-baseline justify-between gap-3 text-sm">
-                    <dt className="shrink-0 text-ink-4">{k}</dt>
-                    <dd className="text-right text-ink-2">{v}</dd>
+                {c.rows.map((row) => (
+                  <div key={row.k} className="flex items-baseline justify-between gap-3 text-sm">
+                    <dt className="shrink-0 text-ink-4">{row.k}</dt>
+                    <dd className="text-right text-ink-2">{row.v}</dd>
                   </div>
                 ))}
               </dl>
@@ -77,7 +63,7 @@ export function SystemSecurity() {
       <Reveal delay={0.1}>
         <p className="mt-6 flex items-center gap-2 text-xs text-ink-4">
           <Microphone size={14} weight="fill" className="text-accent" />
-          Aktivasi suara butuh izin mikrofon — PTube nggak pernah akses yang lain.
+          {dict.micWarning}
         </p>
       </Reveal>
     </section>

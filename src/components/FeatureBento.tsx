@@ -16,6 +16,7 @@ import {
 } from "@phosphor-icons/react/dist/ssr";
 import { SoundWave } from "./SoundWave";
 import { Reveal } from "./Reveal";
+import type { Dictionary } from "@/i18n/dictionaries";
 
 const AVATAR_IDLE =
   "https://raw.githubusercontent.com/rzkyydev/rzkyydev/refs/heads/main/db/Picsart_26-07-14_14-39-19-407.png";
@@ -70,15 +71,15 @@ function Pill({ children, accent = false }: { children: React.ReactNode; accent?
 const speakingFx = ["bounce", "jump", "shake", "wobble", "pulse", "spin jump", "side hop", "cyber glitch"];
 const idleFx = ["float", "pulse", "sway", "gentle bounce", "slight spin"];
 
-export function FeatureBento() {
+export function FeatureBento({ dict }: { dict: Dictionary["featureBento"] }) {
   return (
     <section id="fitur" className="mx-auto max-w-6xl px-4 py-24">
       <Reveal>
-        <h2 className="max-w-2xl font-display text-4xl font-extrabold tracking-tight sm:text-5xl">
-          Semua yang dibutuhin avatar-mu
+        <h2 className="max-w-2xl font-display text-4xl font-bold tracking-tight sm:text-5xl">
+          {dict.title}
         </h2>
         <p className="mt-4 max-w-[52ch] text-base leading-relaxed text-ink-3">
-          Fitur yang langsung terasa pas streaming — tanpa bikin aplikasi numpuk dan PC melambat.
+          {dict.desc}
         </p>
       </Reveal>
 
@@ -87,14 +88,14 @@ export function FeatureBento() {
           <div className={`${cardCls} h-full bg-gradient-to-br from-accent/[0.08] via-transparent to-transparent`}>
             <CardHeader
               icon={<Smiley size={20} weight="fill" />}
-              title="4 Avatar State"
-              desc="Idle, Speaking, Blink, dan Mute — dukungan gambar terpisah per state, beralih otomatis."
+              title={dict.cards.fourStates.title}
+              desc={dict.cards.fourStates.desc}
               tint
             />
             <div className="grid gap-3 sm:grid-cols-2">
               {[
-                { src: AVATAR_IDLE, label: "Idle", name: "Preview avatar idle" },
-                { src: AVATAR_SPEAKING, label: "Speaking", name: "Preview avatar speaking" },
+                { src: AVATAR_IDLE, label: "Idle", name: dict.cards.fourStates.idle },
+                { src: AVATAR_SPEAKING, label: "Speaking", name: dict.cards.fourStates.speaking },
               ].map((a) => (
                 <figure
                   key={a.label}
@@ -116,13 +117,13 @@ export function FeatureBento() {
             <div className="mt-1 flex flex-wrap items-center gap-2">
               <span className="inline-flex items-center gap-1.5 text-[11px] font-medium text-ink-4">
                 <Eye size={14} weight="fill" className="text-ink-3" />
-                Blink
+                {dict.cards.fourStates.blink}
               </span>
               <span className="inline-flex items-center gap-1.5 text-[11px] font-medium text-ink-4">
                 <MicrophoneSlash size={14} weight="fill" className="text-ink-3" />
-                Mute
+                {dict.cards.fourStates.mute}
               </span>
-              <span className="ml-auto text-[11px] text-ink-5">State ganti otomatis ikut suara</span>
+              <span className="ml-auto text-[11px] text-ink-5">{dict.cards.fourStates.autoSwitch}</span>
             </div>
           </div>
         </Reveal>
@@ -131,8 +132,8 @@ export function FeatureBento() {
           <div className={`${cardCls} h-full`}>
             <CardHeader
               icon={<Waveform size={20} weight="fill" />}
-              title="Audio Engine"
-              desc="Proses suara real-time kayak DAW ringan — presisi, tanpa suara berisik."
+              title={dict.cards.audioEngine.title}
+              desc={dict.cards.audioEngine.desc}
             />
             <div className="mt-auto flex flex-col gap-3">
               <SoundWave active className="h-9" />
@@ -151,8 +152,8 @@ export function FeatureBento() {
           <div className={`${cardCls} h-full`}>
             <CardHeader
               icon={<MonitorPlay size={20} weight="fill" />}
-              title="Stream Mode"
-              desc="Editor ↔ Stream satu tombol — canvas transparan frameless, warna stage custom."
+              title={dict.cards.streamMode.title}
+              desc={dict.cards.streamMode.desc}
             />
             <div className="mt-auto grid grid-cols-2 gap-2">
               <div
@@ -170,8 +171,8 @@ export function FeatureBento() {
               </div>
             </div>
             <div className="flex flex-wrap gap-1.5">
-              <Pill accent>Green screen ready</Pill>
-              <Pill>Click-through</Pill>
+              <Pill accent>{dict.cards.streamMode.greenScreen}</Pill>
+              <Pill>{dict.cards.streamMode.clickThrough}</Pill>
             </div>
           </div>
         </Reveal>
@@ -180,13 +181,13 @@ export function FeatureBento() {
           <div className={`${cardCls} h-full`}>
             <CardHeader
               icon={<MagicWand size={20} weight="fill" />}
-              title="Animation System"
-              desc="Belasan preset berbasis fisika, semuanya bisa dikustomisasi."
+              title={dict.cards.animationSystem.title}
+              desc={dict.cards.animationSystem.desc}
             />
             <div className="mt-auto flex flex-col gap-2.5">
               <div className="flex flex-col gap-1.5">
                 <span className="text-[10px] font-semibold uppercase tracking-wider text-ink-4">
-                  Speaking
+                  {dict.cards.animationSystem.speaking}
                 </span>
                 <div className="flex flex-wrap gap-1.5">
                   {speakingFx.map((p) => (
@@ -196,7 +197,7 @@ export function FeatureBento() {
               </div>
               <div className="flex flex-col gap-1.5">
                 <span className="text-[10px] font-semibold uppercase tracking-wider text-ink-4">
-                  Idle
+                  {dict.cards.animationSystem.idle}
                 </span>
                 <div className="flex flex-wrap gap-1.5">
                   {idleFx.map((p) => (
@@ -212,17 +213,17 @@ export function FeatureBento() {
           <div className={`${cardCls} h-full`}>
             <CardHeader
               icon={<Gauge size={20} weight="fill" />}
-              title="Ringan Banget"
-              desc="Performance Mode + auto GC — tetap ngebut di PC kentang."
+              title={dict.cards.lightweight.title}
+              desc={dict.cards.lightweight.desc}
             />
             <div className="mt-auto grid grid-cols-3 gap-2">
               {[
-                { num: "<100MB", label: "RAM" },
-                { num: "~0%", label: "CPU idle" },
-                { num: "60 FPS", label: "animasi" },
+                { num: "<100MB", label: dict.cards.lightweight.ram },
+                { num: "~0%", label: dict.cards.lightweight.cpu },
+                { num: "60 FPS", label: dict.cards.lightweight.anim },
               ].map((s) => (
                 <div key={s.label} className="rounded-xl border border-line-soft bg-panel p-3 text-center">
-                  <div className="font-display text-lg font-extrabold text-accent">{s.num}</div>
+                  <div className="font-display text-lg font-bold text-accent">{s.num}</div>
                   <div className="mt-0.5 text-[11px] text-ink-3">{s.label}</div>
                 </div>
               ))}
@@ -234,8 +235,8 @@ export function FeatureBento() {
           <div className={`${cardCls} h-full`}>
             <CardHeader
               icon={<GlobeHemisphereWest size={20} weight="fill" />}
-              title="Multi-language"
-              desc="30+ bahasa, ganti kapan aja tanpa loading."
+              title={dict.cards.multiLanguage.title}
+              desc={dict.cards.multiLanguage.desc}
             />
             <div className="mt-auto flex flex-wrap items-center gap-2">
               {["EN", "ID", "JA", "KO", "ES", "FR"].map((l, i) => (
@@ -243,7 +244,7 @@ export function FeatureBento() {
                   {l}
                 </Pill>
               ))}
-              <Pill>+25 lainnya</Pill>
+              <Pill>{dict.cards.multiLanguage.others}</Pill>
             </div>
           </div>
         </Reveal>
@@ -252,8 +253,8 @@ export function FeatureBento() {
           <div className={`${cardCls} h-full`}>
             <CardHeader
               icon={<UserSwitch size={20} weight="fill" />}
-              title="Profile System"
-              desc="Bikin & kelola banyak preset, import/export .ptube, drag-and-drop."
+              title={dict.cards.profileSystem.title}
+              desc={dict.cards.profileSystem.desc}
             />
             <div className="mt-auto flex flex-wrap gap-2">
               {["Chibi", "Miko", "Pixel"].map((p) => (
@@ -276,15 +277,15 @@ export function FeatureBento() {
           <div className={`${cardCls} h-full`}>
             <CardHeader
               icon={<Keyboard size={20} weight="fill" />}
-              title="Mode & Utilitas"
-              desc="Kontrol penuh pas live — semua setelan auto-save instan."
+              title={dict.cards.modesUtils.title}
+              desc={dict.cards.modesUtils.desc}
             />
             <ul className="mt-auto space-y-2.5 text-sm text-ink-2">
               {[
-                { icon: Keyboard, label: "Global hotkeys anti-konflik" },
-                { icon: Mouse, label: "Click-through (pass mouse)" },
-                { icon: Tray, label: "Sembunyi ke system tray" },
-                { icon: Moon, label: "Light & dark mode" },
+                { icon: Keyboard, label: dict.cards.modesUtils.hotkeys },
+                { icon: Mouse, label: dict.cards.modesUtils.clickThrough },
+                { icon: Tray, label: dict.cards.modesUtils.systemTray },
+                { icon: Moon, label: dict.cards.modesUtils.lightDark },
               ].map((r) => (
                 <li key={r.label} className="flex items-center gap-2.5">
                   <span className="grid size-7 place-items-center rounded-lg bg-surface text-accent">
