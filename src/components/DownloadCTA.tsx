@@ -14,7 +14,7 @@ const PTUBE_RELEASES =
   "https://github.com/rzkyydev/PTube/releases/latest/download/PTube-Setup.exe";
 
 const PTUBE_SETTINGS =
-  "https://github.com/rzkyydev/PTube/releases/download/latest/PTube-Setting-Recommend.ptube";
+  "https://github.com/rzkyydev/PTube/releases/latest/download/ptube-setting-recommend.ptube";
 
 const socials = [
   {
