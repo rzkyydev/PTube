@@ -11,7 +11,7 @@ import { Reveal } from "./Reveal";
 import type { Dictionary } from "@/i18n/dictionaries";
 
 const PTUBE_RELEASES =
-  "https://github.com/rzkyydev/PTube/releases/download/latest/PTube-Setup.exe";
+  "https://github.com/rzkyydev/PTube/releases/latest/download/PTube-Setup.exe";
 
 const PTUBE_SETTINGS =
   "https://github.com/rzkyydev/PTube/releases/download/latest/PTube-Setting-Recommend.ptube";
