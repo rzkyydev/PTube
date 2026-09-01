@@ -81,7 +81,7 @@ export function DownloadCTA({
                 className="flex items-center gap-2 rounded-xl border border-line bg-surface-2 px-5 py-3 text-sm font-bold text-ink-1 transition-colors hover:border-line-strong hover:bg-surface focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
               >
                 <DownloadSimple
-                  size={19}
+                  size={12}
                   weight="bold"
                   className="text-ink-2"
                 />
