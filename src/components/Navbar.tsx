@@ -6,7 +6,7 @@ import type { Dictionary } from "@/i18n/dictionaries";
 import type { Preference } from "@/i18n/server";
 
 const PTUBE_RELEASES =
-  "https://github.com/RzkyyDev/PTube/releases";
+  "#unduh";
 const PTUBE_ICON = "/icon.png";
 
 export function Navbar({ dict, pref }: { dict: Dictionary["navbar"]; pref: Preference }) {
