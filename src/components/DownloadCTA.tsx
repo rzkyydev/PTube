@@ -11,7 +11,9 @@ const PTUBE_RELEASES =
 const ITCH_IO = "https://rzkyydev.itch.io/ptube";
 
 const PTUBE_SETTINGS =
-  "https://github.com/rzkyydev/PTube/releases/latest/download/ptube-setting-recommend.ptube";
+  "https://github.com/rzkyydev/PTube/releases/latest/download/preset-setting.ptube";
+
+const btnTransition = { duration: 0.12 } as const;
 
 export function DownloadCTA({
   dict,
@@ -63,10 +65,14 @@ export function DownloadCTA({
           </p>
 
           <div className="mt-10 flex flex-col items-center gap-4 sm:flex-row sm:justify-center sm:gap-5">
-            <a
+            <motion.a
               href={PTUBE_RELEASES}
               download
-              className="group inline-flex items-center gap-3 rounded-xl bg-accent-deep px-8 py-3.5 text-base font-bold text-white shadow-[0_4px_20px_rgba(255,93,143,0.3)] transition-all hover:-translate-y-0.5 hover:bg-accent-deep-strong hover:shadow-[0_8px_30px_rgba(255,93,143,0.4)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent active:translate-y-0"
+              data-cursor-button
+              whileHover={{ y: -3, boxShadow: "0 8px 30px rgba(255,93,143,0.4)" }}
+              whileTap={{ y: 1, scale: 0.97 }}
+              transition={{ duration: 0.12 }}
+              className="group cursor-download-btn inline-flex items-center gap-3 rounded-xl bg-accent-deep px-8 py-3.5 text-base font-bold text-white shadow-[0_4px_20px_rgba(255,93,143,0.3)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
             >
               <DownloadSimple
                 size={20}
@@ -74,13 +80,17 @@ export function DownloadCTA({
                 className="transition-transform group-hover:-translate-y-0.5"
               />
               {dict.downloadBtn}
-            </a>
+            </motion.a>
 
-            <a
+            <motion.a
               href={ITCH_IO}
               target="_blank"
               rel="noopener noreferrer"
-              className="group inline-flex items-center gap-2.5 rounded-xl border border-line bg-surface px-8 py-3.5 text-base font-bold text-ink-1 transition-colors hover:border-line-strong hover:bg-surface focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+              data-cursor-button
+              whileHover={{ y: -2, borderColor: "rgba(255,93,143,0.4)" }}
+              whileTap={{ y: 1 }}
+              transition={{ duration: 0.12 }}
+              className="cursor-itch-btn group inline-flex items-center gap-2.5 rounded-xl border border-line bg-surface px-8 py-3.5 text-base font-bold text-ink-1 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
             >
               <ArrowRight
                 size={18}
@@ -88,7 +98,7 @@ export function DownloadCTA({
                 className="opacity-70"
               />
               {dict.itchBtn}
-            </a>
+            </motion.a>
           </div>
 
           <div className="mt-10 flex items-center gap-4">
@@ -103,10 +113,14 @@ export function DownloadCTA({
             <p className="text-sm font-medium text-ink-3">
               {dict.recommendedSettingsDesc}
             </p>
-            <a
+            <motion.a
               href={PTUBE_SETTINGS}
               download
-              className="group inline-flex items-center gap-2 rounded-lg border border-line-soft bg-surface-2 px-6 py-2.5 text-sm font-bold text-ink-2 transition-colors hover:border-line-strong hover:bg-surface focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+              data-cursor-button
+              whileHover={{ y: -2 }}
+              whileTap={{ y: 0.5 }}
+              transition={{ duration: 0.12 }}
+              className="cursor-settings-btn group inline-flex items-center gap-2 rounded-lg border border-line-soft bg-surface-2 px-6 py-2.5 text-sm font-bold text-ink-2 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
             >
               <DownloadSimple
                 size={16}
@@ -114,7 +128,7 @@ export function DownloadCTA({
                 className="transition-transform group-hover:-translate-y-0.5"
               />
               {dict.recommendedSettingsBtn}
-            </a>
+            </motion.a>
           </div>
         </div>
       </motion.div>

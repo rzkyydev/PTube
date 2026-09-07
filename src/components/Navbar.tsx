@@ -5,8 +5,6 @@ import { LanguageSelector } from "./LanguageSelector";
 import type { Dictionary } from "@/i18n/dictionaries";
 import type { Preference } from "@/i18n/server";
 
-const PTUBE_RELEASES =
-  "https://github.com/RzkyyDev/PTube/releases";
 const PTUBE_ICON = "/icon.png";
 
 export function Navbar({ dict, pref }: { dict: Dictionary["navbar"]; pref: Preference }) {
@@ -15,6 +13,7 @@ export function Navbar({ dict, pref }: { dict: Dictionary["navbar"]; pref: Prefe
     { href: "#cara-kerja", label: dict.howItWorks },
     { href: "#filosofi", label: dict.philosophy },
     { href: "#teknis", label: dict.technical },
+    { href: "#changelog", label: dict.changelog },
   ];
 
   return (
@@ -43,13 +42,9 @@ export function Navbar({ dict, pref }: { dict: Dictionary["navbar"]; pref: Prefe
           ))}
         </div>
         <div className="flex items-center gap-2">
-          <span className="hidden items-center gap-1 rounded-full border border-line bg-surface px-2.5 py-1 text-[11px] font-medium text-ink-2 sm:flex">
-            <span className="size-1.5 rounded-full bg-ok" aria-hidden="true" />
-            v4.0.0
-          </span>
           <LanguageSelector currentPref={pref} />
           <ThemeToggle />
-          <a href={PTUBE_RELEASES} className="group flex items-center gap-1.5 rounded-xl bg-accent-deep px-3.5 py-2 text-sm font-bold text-white transition-all hover:bg-accent-deep-strong focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent active:translate-y-px">
+          <a href="#unduh" className="group flex items-center gap-1.5 rounded-xl bg-accent-deep px-3.5 py-2 text-sm font-bold text-white transition-all hover:bg-accent-deep-strong focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent active:translate-y-px">
           <DownloadSimple weight="bold" className="size-4 transition-transform group-hover:-translate-y-0.5" />
           <span>{dict.download}</span>
           <span className="hidden sm:inline">{dict.free}</span>

@@ -162,6 +162,16 @@ body {
   }
 }
 
+@keyframes speakHold {
+  0%,
+  100% {
+    width: 35%;
+  }
+  50% {
+    width: 100%;
+  }
+}
+
 @keyframes aurora-drift {
   0%,
   100% {
@@ -202,4 +212,118 @@ body {
   .animate-aurora {
     animation: none;
   }
+}
+
+/* ---------- Proximity & Button Personality ---------- */
+[data-cursor-mic] {
+  transition: box-shadow 0.3s ease;
+}
+
+[data-cursor-mic]:hover {
+  box-shadow: 0 0 30px rgba(255, 93, 143, 0.15);
+}
+
+[data-cursor-mic] .mic-indicator {
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+[data-cursor-mic]:hover .mic-indicator {
+  opacity: 1;
+}
+
+.cursor-download-btn:hover {
+  animation: pt-btn-download 0.2s ease-out;
+}
+
+.cursor-settings-btn:hover {
+  animation: pt-btn-rotate 0.3s ease-out;
+}
+
+.cursor-view-btn:hover {
+  animation: pt-btn-breathe 0.25s ease-out;
+}
+
+.cursor-itch-btn:hover {
+  animation: pt-btn-breathe 0.25s ease-out;
+}
+
+@keyframes pt-btn-download {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(4px); }
+  100% { transform: translateY(0); }
+}
+
+@keyframes pt-btn-rotate {
+  0% { transform: rotate(0deg); }
+  30% { transform: rotate(15deg); }
+  60% { transform: rotate(-5deg); }
+  100% { transform: rotate(0deg); }
+}
+
+@keyframes pt-btn-breathe {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.04); }
+  100% { transform: scale(1); }
+}
+
+@keyframes pt-btn-wake {
+  0% { transform: scale(0.95); }
+  40% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+.cursor-mic-btn:hover {
+  animation: pt-btn-wake 0.2s ease-out;
+}
+
+[data-cursor-mic]:hover .proximity-ring {
+  opacity: 1;
+  animation: pt-proximity-pulse 1.5s ease-in-out infinite;
+}
+
+.proximity-ring {
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+@keyframes pt-proximity-pulse {
+  0%, 100% { transform: scale(1); opacity: 0.3; }
+  50% { transform: scale(1.08); opacity: 0.1; }
+}
+
+[data-cursor-toggle] {
+  transition: transform 0.2s ease;
+}
+
+[data-cursor-toggle]:hover {
+  animation: pt-toggle-sway 0.3s ease-out;
+}
+
+@keyframes pt-toggle-sway {
+  0% { transform: rotate(0deg); }
+  30% { transform: rotate(10deg); }
+  60% { transform: rotate(-5deg); }
+  100% { transform: rotate(0deg); }
+}
+
+/* ---------- Proximity Glow ---------- */
+.proximity-glow {
+  position: relative;
+}
+
+.proximity-glow::after {
+  content: "";
+  position: absolute;
+  inset: -8px;
+  border-radius: inherit;
+  border: 1px solid rgba(255, 93, 143, 0.2);
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none;
+}
+
+[data-cursor-mic]:hover .proximity-glow::after,
+[data-cursor-mic]:hover::after {
+  opacity: 1;
 }

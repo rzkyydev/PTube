@@ -8,6 +8,7 @@ export interface Dictionary {
     howItWorks: string;
     philosophy: string;
     technical: string;
+    changelog: string;
     download: string;
     free: string;
   };
@@ -42,6 +43,8 @@ export interface Dictionary {
       audioEngine: { title: string; desc: string; };
       streamMode: { title: string; desc: string; greenScreen: string; clickThrough: string; };
       animationSystem: { title: string; desc: string; speaking: string; idle: string; };
+      animatedImages: { title: string; desc: string; apng: string; gif: string; png: string; note: string; };
+      speakHold: { title: string; desc: string; speak: string; hold: string; note: string; };
       lightweight: { title: string; desc: string; ram: string; cpu: string; anim: string; };
       multiLanguage: { title: string; desc: string; others: string; };
       profileSystem: { title: string; desc: string; };
@@ -96,6 +99,16 @@ export interface Dictionary {
     itchBtn: string;
     recommendedSettingsBtn: string;
     recommendedSettingsDesc: string;
+  };
+  changelog: {
+    eyebrow: string;
+    title: string;
+    desc: string;
+    viewChangelog: string;
+    latest: string;
+    loading: string;
+    published: string;
+    linkRelease: string;
   };
   footer: {
     desc: string;

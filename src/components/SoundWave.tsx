@@ -4,10 +4,12 @@ import { motion, useReducedMotion } from "motion/react";
 
 export function SoundWave({
   active,
+  proximityActive = false,
   bars = 22,
   className,
 }: {
   active: boolean;
+  proximityActive?: boolean;
   bars?: number;
   className?: string;
 }) {
@@ -25,10 +27,12 @@ export function SoundWave({
               ? { scaleY: 0.25 }
               : active
                 ? { scaleY: [0.2, 1, 0.4, 0.85, 0.3] }
-                : { scaleY: 0.22 }
+                : proximityActive
+                  ? { scaleY: [0.22, 0.5, 0.22] }
+                  : { scaleY: 0.22 }
           }
           transition={
-            active && !reduce
+            (active || proximityActive) && !reduce
               ? { duration: 0.55, repeat: Infinity, delay: (i % 7) * 0.06, ease: "easeInOut" }
               : { duration: 0.3 }
           }

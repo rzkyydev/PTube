@@ -3,6 +3,7 @@ import {
   Eye,
   Gauge,
   GlobeHemisphereWest,
+  Images,
   Keyboard,
   MagicWand,
   MicrophoneSlash,
@@ -10,6 +11,7 @@ import {
   Moon,
   Mouse,
   Smiley,
+  Timer,
   Tray,
   UserSwitch,
   Waveform,
@@ -209,7 +211,90 @@ export function FeatureBento({ dict }: { dict: Dictionary["featureBento"] }) {
           </div>
         </Reveal>
 
-        <Reveal delay={0.15} className="md:col-span-2">
+         <Reveal delay={0.15} className="md:col-span-2">
+          <div className={`${cardCls} h-full`}>
+            <CardHeader
+              icon={<Keyboard size={20} weight="fill" />}
+              title={dict.cards.modesUtils.title}
+              desc={dict.cards.modesUtils.desc}
+            />
+            <ul className="mt-auto space-y-2.5 text-sm text-ink-2">
+              {[
+                { icon: Keyboard, label: dict.cards.modesUtils.hotkeys },
+                { icon: Mouse, label: dict.cards.modesUtils.clickThrough },
+                { icon: Tray, label: dict.cards.modesUtils.systemTray },
+                { icon: Moon, label: dict.cards.modesUtils.lightDark },
+              ].map((r) => (
+                <li key={r.label} className="flex items-center gap-2.5">
+                  <span className="grid size-7 place-items-center rounded-lg bg-surface text-accent">
+                    <r.icon size={15} weight="fill" />
+                  </span>
+                  {r.label}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </Reveal>
+
+        <Reveal delay={0.15} className="md:col-span-3">
+          <div className={`${cardCls} h-full`}>
+            <CardHeader
+              icon={<Images size={20} weight="fill" />}
+              title={dict.cards.animatedImages.title}
+              desc={dict.cards.animatedImages.desc}
+            />
+            <div className="mt-auto space-y-3">
+              <div className="grid grid-cols-3 gap-2">
+                {[dict.cards.animatedImages.apng, dict.cards.animatedImages.gif, dict.cards.animatedImages.png].map((l, i) => (
+                  <div
+                    key={l}
+                    className={`flex min-w-0 flex-col items-center justify-center gap-1.5 rounded-xl border p-2.5 text-center sm:p-3 ${
+                      i < 2 ? "border-accent/20 bg-accent/5" : "border-line-soft bg-panel"
+                    }`}
+                  >
+                    <span className="font-display text-sm font-bold text-ink-1">{l}</span>
+                    {i < 2 ? (
+                      <span className="flex items-center gap-1 text-[10px] font-semibold leading-tight text-accent">
+                        <span className="size-1.5 shrink-0 animate-pulse rounded-full bg-accent" />
+                        <span>{dict.cards.animatedImages.note}</span>
+                      </span>
+                    ) : (
+                      <span className="text-[10px] font-medium text-ink-4">-</span>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </Reveal>
+        
+
+        <Reveal delay={0.2} className="md:col-span-3">
+          <div className={`${cardCls} h-full`}>
+            <CardHeader
+              icon={<Timer size={20} weight="fill" />}
+              title={dict.cards.speakHold.title}
+              desc={dict.cards.speakHold.desc}
+            />
+            <div className="mt-auto flex flex-col gap-3 sm:flex-row sm:items-center">
+              <div className="flex-1">
+                <div className="flex items-center justify-between text-[11px] font-semibold">
+                  <span className="text-accent">{dict.cards.speakHold.speak}</span>
+                  <span className="text-ink-4">{dict.cards.speakHold.hold}</span>
+                </div>
+                <div className="relative mt-1.5 h-2 overflow-hidden rounded-full bg-surface-2">
+                  <div
+                    className="h-full w-2/3 rounded-full bg-gradient-to-r from-accent to-accent-deep"
+                    style={{ animation: "speakHold 1.6s ease-in-out infinite" }}
+                  />
+                </div>
+              </div>
+              <Pill accent>{dict.cards.speakHold.note}</Pill>
+            </div>
+          </div>
+        </Reveal>
+
+        <Reveal delay={0.05} className="md:col-span-2">
           <div className={`${cardCls} h-full`}>
             <CardHeader
               icon={<Gauge size={20} weight="fill" />}
@@ -270,31 +355,6 @@ export function FeatureBento({ dict }: { dict: Dictionary["featureBento"] }) {
               ))}
               <Pill accent>.ptube</Pill>
             </div>
-          </div>
-        </Reveal>
-
-        <Reveal delay={0.15} className="md:col-span-2">
-          <div className={`${cardCls} h-full`}>
-            <CardHeader
-              icon={<Keyboard size={20} weight="fill" />}
-              title={dict.cards.modesUtils.title}
-              desc={dict.cards.modesUtils.desc}
-            />
-            <ul className="mt-auto space-y-2.5 text-sm text-ink-2">
-              {[
-                { icon: Keyboard, label: dict.cards.modesUtils.hotkeys },
-                { icon: Mouse, label: dict.cards.modesUtils.clickThrough },
-                { icon: Tray, label: dict.cards.modesUtils.systemTray },
-                { icon: Moon, label: dict.cards.modesUtils.lightDark },
-              ].map((r) => (
-                <li key={r.label} className="flex items-center gap-2.5">
-                  <span className="grid size-7 place-items-center rounded-lg bg-surface text-accent">
-                    <r.icon size={15} weight="fill" />
-                  </span>
-                  {r.label}
-                </li>
-              ))}
-            </ul>
           </div>
         </Reveal>
       </div>

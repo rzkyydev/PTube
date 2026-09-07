@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState, useRef, useCallback } from "react";
 import Image from "next/image";
 import { motion, useReducedMotion } from "motion/react";
 import {
@@ -19,13 +19,17 @@ const AVATAR_SPEAKING =
 
 type Mode = "idle" | "speaking" | "mute";
 
+const btnTransition = { duration: 0.12 } as const;
+
 function MicTest({ dict }: { dict: Dictionary["hero"] }) {
   const [muted, setMuted] = useState(false);
   const [holding, setHolding] = useState(false);
+  const [proximityActive, setProximityActive] = useState(false);
   const reduceMotion = useReducedMotion();
   const speaking = holding && !muted;
   const mode: Mode = muted ? "mute" : speaking ? "speaking" : "idle";
   const bob = reduceMotion ? {} : { y: [0, -4, 0] };
+  const micRef = useRef<HTMLDivElement>(null);
 
   const status = {
     idle: { label: dict.statusIdle, dot: "bg-ink-4" },
@@ -34,7 +38,10 @@ function MicTest({ dict }: { dict: Dictionary["hero"] }) {
   };
 
   return (
-    <div className="glass-deep relative rounded-3xl p-4 sm:p-6">
+    <div
+      className="glass-deep relative rounded-3xl p-4 sm:p-6"
+      data-cursor-mic
+    >
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-1.5">
           <span className="size-2.5 rounded-full bg-accent/80" />
@@ -80,6 +87,9 @@ function MicTest({ dict }: { dict: Dictionary["hero"] }) {
           className="relative h-60 w-60 sm:h-68 sm:w-68"
           animate={speaking ? bob : { y: 0 }}
           transition={speaking ? { duration: 0.35, ease: "easeInOut", repeat: Infinity } : { duration: 0.15 }}
+          style={{
+            transformStyle: "preserve-3d",
+          }}
         >
           <motion.div
             className="absolute inset-0"
@@ -100,12 +110,14 @@ function MicTest({ dict }: { dict: Dictionary["hero"] }) {
 
       <SoundWave
         active={speaking}
+        proximityActive={proximityActive}
         className={`h-10 transition-opacity duration-300 ${mode === "mute" ? "opacity-30" : ""}`}
       />
 
       <div className="mt-4 flex items-center justify-between gap-3">
         <button
           type="button"
+          data-cursor-mic
           onPointerDown={() => setHolding(true)}
           onPointerUp={() => setHolding(false)}
           onPointerLeave={() => setHolding(false)}
@@ -115,11 +127,11 @@ function MicTest({ dict }: { dict: Dictionary["hero"] }) {
           }}
           onKeyUp={() => setHolding(false)}
           onContextMenu={(e) => e.preventDefault()}
-          className={`group flex select-none items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-bold transition-all focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent ${
+          className={`group cursor-mic-btn flex select-none items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-bold transition-all duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent ${
             holding
               ? "scale-[0.98] bg-accent-deep-strong text-white"
               : "bg-accent-deep text-white active:scale-[0.98]"
-          }`}
+          } ${proximityActive ? "scale-[1.03]" : ""}`}
           style={{ touchAction: "none" }}
         >
           <Microphone size={18} weight="bold" />
@@ -129,8 +141,9 @@ function MicTest({ dict }: { dict: Dictionary["hero"] }) {
         <button
           type="button"
           aria-pressed={muted}
+          data-cursor-toggle
           onClick={() => setMuted((m) => !m)}
-          className={`grid size-11 place-items-center rounded-xl border transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent active:scale-[0.97] ${
+          className={`cursor-toggle-btn grid size-11 place-items-center rounded-xl border transition-all duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent active:scale-[0.97] ${
             muted
               ? "border-accent/50 bg-accent/15 text-accent"
               : "border-line bg-surface text-ink-2 hover:text-ink-1"
@@ -146,7 +159,7 @@ function MicTest({ dict }: { dict: Dictionary["hero"] }) {
           {Array.from({ length: 20 }).map((_, i) => (
             <span
               key={i}
-              className={`w-[3px] rounded-full ${i < 12 ? "bg-accent/70" : "bg-line-strong"}`}
+              className={`w-[3px] rounded-full transition-colors duration-200 ${i < 12 ? "bg-accent/70" : "bg-line-strong"}`}
               style={{ height: `${5 + ((i * 11) % 14)}px` }}
             />
           ))}
@@ -159,12 +172,44 @@ function MicTest({ dict }: { dict: Dictionary["hero"] }) {
 
 export function Hero({ dict, common }: { dict: Dictionary["hero"]; common: Dictionary["common"] }) {
   const reduce = useReducedMotion();
+  const [releaseVersion, setReleaseVersion] = useState<string | null>(null);
+
+  useEffect(() => {
+    const controller = new AbortController();
+
+    fetch("https://api.github.com/repos/rzkyydev/PTube/releases/latest", {
+      headers: {
+        Accept: "application/vnd.github+json",
+      },
+      signal: controller.signal,
+      cache: "no-store",
+    })
+      .then((response) => {
+        if (!response.ok) throw new Error(`GitHub API returned ${response.status}`);
+        return response.json() as Promise<{ tag_name?: string }>;
+      })
+      .then((release) => {
+        if (release.tag_name) {
+          setReleaseVersion(release.tag_name.replace(/^v/i, ""));
+        }
+      })
+      .catch((error: unknown) => {
+        if (error instanceof DOMException && error.name === "AbortError") return;
+        console.warn("Failed to fetch the latest PTube release:", error);
+      });
+
+    return () => controller.abort();
+  }, []);
+
+  const badge = releaseVersion
+    ? dict.badge.replace(/\bv?\d+(?:\.\d+){1,2}(?:[-+][0-9A-Za-z.-]+)?\b/, "v" + releaseVersion)
+    : dict.badge;
   return (
     <section id="top" className="relative mx-auto grid min-h-[100vh] max-w-6xl items-center gap-12 px-4 pb-20 pt-32 lg:grid-cols-2 lg:gap-16 lg:pt-28">
       <div>
         <span className="inline-flex items-center gap-2 rounded-full border border-accent/30 bg-accent/10 px-3 py-1.5 text-xs font-semibold text-accent">
           <Sparkle size={14} weight="fill" />
-          {dict.badge}
+          {badge}
         </span>
 
         <h1 className="mt-6 font-display text-4xl font-bold leading-[1.08] tracking-tight sm:text-5xl lg:text-6xl">
@@ -177,19 +222,27 @@ export function Hero({ dict, common }: { dict: Dictionary["hero"]; common: Dicti
         </p>
 
         <div className="mt-8 flex flex-wrap items-center gap-3">
-          <a
+          <motion.a
             href="#unduh"
-            className="group flex items-center gap-2 rounded-xl bg-accent-deep px-5 py-3 text-sm font-bold text-white transition-all hover:bg-accent-deep-strong focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent active:translate-y-px"
+            data-cursor-button
+            whileHover={{ y: -3, boxShadow: "0 8px 30px rgba(255,93,143,0.4)" }}
+            whileTap={{ y: 1, scale: 0.97 }}
+            transition={{ duration: 0.12 }}
+            className="group cursor-download-btn inline-flex items-center gap-2 rounded-xl bg-accent-deep px-5 py-3 text-sm font-bold text-white transition-all focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
           >
             <DownloadSimple weight="bold" className="size-4 transition-transform group-hover:-translate-y-0.5" />
             {common.downloadFree}
-          </a>
-          <a
+          </motion.a>
+          <motion.a
             href="#fitur"
-            className="rounded-xl border border-line bg-surface px-5 py-3 text-sm font-bold text-ink-2 transition-colors hover:border-line-strong hover:text-ink-1 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+            data-cursor-button
+            whileHover={{ y: -2 }}
+            whileTap={{ y: 1 }}
+            transition={{ duration: 0.12 }}
+            className="cursor-view-btn rounded-xl border border-line bg-surface px-5 py-3 text-sm font-bold text-ink-2 transition-colors hover:border-line-strong hover:text-ink-1 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
           >
             {dict.viewFeatures}
-          </a>
+          </motion.a>
         </div>
       </div>
 

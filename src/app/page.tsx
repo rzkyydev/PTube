@@ -9,6 +9,7 @@ import { Philosophy } from "@/components/Philosophy";
 import { TechnicalHighlights } from "@/components/TechnicalHighlights";
 import { SystemSecurity } from "@/components/SystemSecurity";
 import { DownloadCTA } from "@/components/DownloadCTA";
+import { Changelog } from "@/components/Changelog";
 import { Footer } from "@/components/Footer";
 
 import { getDictionary, getLanguagePreference } from "@/i18n/server";
@@ -31,6 +32,7 @@ export default async function Home() {
         <SystemSecurity dict={dict.systemSecurity} />
         <HowToUse dict={dict.howToUse} />
         <DownloadCTA dict={dict.downloadCTA} />
+        <Changelog dict={dict.changelog} />
       </main>
       <Footer dict={dict.footer} />
     </>
