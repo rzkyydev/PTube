@@ -158,7 +158,7 @@ export const en: Dictionary = {
     requirements: [
       { k: "OS", v: "Windows 10/11 (x64)" },
       { k: "CPU", v: "Intel Celeron / AMD 3020e+" },
-      { k: "RAM", v: "2 GB (Application is < 80MB)" },
+      { k: "RAM", v: "500 MB (Application is < 80MB)" },
       { k: "Graphics", v: "Integrated GPU" },
       { k: "Microphone", v: "Required for voice activation" },
     ],
