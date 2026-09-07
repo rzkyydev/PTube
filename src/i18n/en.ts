@@ -193,15 +193,13 @@ howToUse: {
     "PTube-Setting-Recommend.ptube is an optional configuration preset containing recommended settings for a balanced experience.",
     settingsBtn: "Download Recommended Settings",
 },
-  downloadCTA: {
-    badge: "v4.0.0 available now",
-    titlePrefix: "Bring your PNG avatar",
-    titleHighlight: "to life.",
-    desc: "A free and efficient PNGTuber application for Windows operating systems. Download now to enhance your presentation quality.",
-    windowsBtn: "Windows 10/11 (x64)",
-    reqBtn: "View Requirements",
-    settingsBtn: "Download Recommended Settings (.ptube)",
-    footerText: "PTube v4.0.0 · Free · No Account Required · No Plugins Required · Windows 10/11 (x64)",
+   downloadCTA: {
+    titlePrefix: "Download PTube",
+    desc: "Get PTube for Windows and start creating your PNGTuber setup.",
+    downloadBtn: "Download for Windows",
+    itchBtn: "Get it on itch.io",
+    recommendedSettingsBtn: "Download Recommended Settings",
+    recommendedSettingsDesc: "Optional PTube settings preset for a balanced starting setup.",
   },
   footer: {
     desc: "A lightweight desktop PNGTuber application for efficient and stable streaming performance.",

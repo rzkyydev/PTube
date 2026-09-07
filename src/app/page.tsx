@@ -30,7 +30,7 @@ export default async function Home() {
         <TechnicalHighlights dict={dict.technicalHighlights} />
         <SystemSecurity dict={dict.systemSecurity} />
         <HowToUse dict={dict.howToUse} />
-        <DownloadCTA dict={dict.downloadCTA} common={dict.common} />
+        <DownloadCTA dict={dict.downloadCTA} />
       </main>
       <Footer dict={dict.footer} />
     </>

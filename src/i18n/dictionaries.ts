@@ -90,14 +90,12 @@ export interface Dictionary {
     settingsBtn: string;
   };
   downloadCTA: {
-    badge: string;
     titlePrefix: string;
-    titleHighlight: string;
     desc: string;
-    windowsBtn: string;
-    reqBtn: string;
-    settingsBtn: string;
-    footerText: string;
+    downloadBtn: string;
+    itchBtn: string;
+    recommendedSettingsBtn: string;
+    recommendedSettingsDesc: string;
   };
   footer: {
     desc: string;

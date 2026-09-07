@@ -193,15 +193,13 @@ export const id: Dictionary = {
     "PTube-Setting-Recommend.ptube adalah preset konfigurasi opsional yang berisi pengaturan yang direkomendasikan untuk penggunaan yang seimbang.",
     settingsBtn: "Download Recommended Settings",
 },
-  downloadCTA: {
-    badge: "v4.0.0 tersedia sekarang",
-    titlePrefix: "Jadikan avatar PNG Anda",
-    titleHighlight: "lebih hidup.",
-    desc: "Aplikasi PNGTuber gratis dan efisien untuk sistem operasi Windows. Unduh sekarang untuk meningkatkan kualitas presentasi Anda.",
-    windowsBtn: "Windows 10/11 (x64)",
-    reqBtn: "Lihat Persyaratan",
-    settingsBtn: "Download Recommended Settings (.ptube)",
-    footerText: "PTube v4.0.0 · Gratis · Tanpa Akun · Tanpa Plugin Tambahan · Windows 10/11 (x64)",
+   downloadCTA: {
+    titlePrefix: "Unduh PTube",
+    desc: "Dapatkan PTube untuk Windows dan mulai buat setup PNGTuber Anda.",
+    downloadBtn: "Unduh untuk Windows",
+    itchBtn: "Dapatkan di itch.io",
+    recommendedSettingsBtn: "Download Recommended Settings",
+    recommendedSettingsDesc: "Preset pengaturan opsional PTube untuk setup awal yang seimbang.",
   },
   footer: {
     desc: "Aplikasi PNGTuber desktop ringan untuk performa streaming yang efisien dan stabil.",
