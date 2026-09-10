@@ -11,7 +11,7 @@ import type { Dictionary } from "@/i18n/dictionaries";
 import { Reveal } from "./Reveal";
 
 const PTUBE_SETTINGS =
-  "https://github.com/rzkyydev/PTube/releases/latest/download/ptube-setting-recommend.ptube";
+  "https://github.com/rzkyydev/PTube/releases/latest/download/preset-setting.ptube";
 
 type HowToUseProps = {
   dict: Dictionary["howToUse"];
