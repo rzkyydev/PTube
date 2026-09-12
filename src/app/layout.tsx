@@ -17,7 +17,7 @@ const baloo = Baloo_2({
 });
 
 export const metadata: Metadata = {
-  title: "PTube — PNGTuber",
+  title: "PTube - PNGTuber",
   description:
     "PNGTuber desktop ringan untuk Windows: avatar PNG-mu bergerak real-time mengikuti suara mic — RAM di bawah 100MB, mulus 60 FPS, siap streaming di manapun.",
   icons: {
