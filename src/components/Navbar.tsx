@@ -4,7 +4,7 @@ import { ThemeToggle } from "./ThemeToggle";
 import { LanguageSelector } from "./LanguageSelector";
 import type { Dictionary } from "@/i18n/dictionaries";
 
-const PTUBE_ICON = "/icon.png";
+import ptubeIcon from "@/assets/icon-64.webp";
 
 export function Navbar({
   dict,
@@ -26,11 +26,12 @@ export function Navbar({
       <nav className="glass-deep mx-auto mt-4 flex max-w-5xl items-center justify-between rounded-2xl px-4 py-3 sm:px-6">
         <a href="#top" className="flex items-center gap-2.5">
           <Image
-            src={PTUBE_ICON}
+            src={ptubeIcon}
             alt="Logo PTube"
             width={32}
             height={32}
             className="size-8 rounded-xl"
+            unoptimized
             priority
           />
           <span className="font-display text-xl font-bold tracking-tight">PTube</span>

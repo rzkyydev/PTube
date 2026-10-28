@@ -5,8 +5,17 @@ import { initOpenNextCloudflareForDev } from "@opennextjs/cloudflare";
 initOpenNextCloudflareForDev();
 
 const nextConfig: NextConfig = {
+  experimental: {
+    // CSS di-inline ke HTML supaya tidak ada request CSS yang memblokir render.
+    inlineCss: true,
+  },
+  turbopack: {
+    resolveAlias: {
+      "../build/polyfills/polyfill-module": "./src/lib/polyfill-lite.js",
+    },
+  },
   images: {
-    // Hasil /_next/image (logo navbar) di-cache 7 hari, bukan default 4 jam.
+    // Cache hasil /_next/image 7 hari, bukan default 4 jam.
     minimumCacheTTL: 604800,
   },
   async headers() {

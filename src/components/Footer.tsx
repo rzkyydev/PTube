@@ -5,7 +5,7 @@ import {
   YoutubeLogo,
 } from "@phosphor-icons/react/dist/ssr";
 import type { Dictionary } from "@/i18n/dictionaries";
-const PTUBE_ICON = "/icon.png";
+import ptubeIcon from "@/assets/icon-64.webp";
 
 const socials = [
   {
@@ -41,11 +41,12 @@ export function Footer({ dict }: { dict: Dictionary["footer"] }) {
         <div className="max-w-xs">
           <a href="#top" className="flex items-center gap-2.5">
             <Image
-              src={PTUBE_ICON}
+              src={ptubeIcon}
               alt="Logo PTube"
               width={32}
               height={32}
               className="size-8 rounded-xl"
+            unoptimized
             />
 
             <span className="font-display text-xl font-bold tracking-tight">
