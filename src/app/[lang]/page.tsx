@@ -18,9 +18,6 @@ import { isLocale } from "@/i18n/config";
 import { getDictionary } from "@/i18n/get-dictionary";
 import { getLatestRelease } from "@/lib/release";
 
-// Halaman statis, dibangun ulang di background tiap 1 jam (buat versi & changelog rilis terbaru).
-export const revalidate = 3600;
-
 export default async function Home({ params }: { params: Promise<{ lang: string }> }) {
   const { lang } = await params;
   if (!isLocale(lang)) notFound();
