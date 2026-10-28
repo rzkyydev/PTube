@@ -2,7 +2,7 @@
 
 import { CaretDown, Translate } from "@phosphor-icons/react";
 import { useState, useRef, useEffect, useSyncExternalStore } from "react";
-import { LANG_COOKIE, isLocale, type Preference } from "@/i18n/config";
+import { LANG_COOKIE, isLocale, type Locale, type Preference } from "@/i18n/config";
 
 function readPref(): Preference {
   const match = document.cookie.match(new RegExp(`(?:^|; )${LANG_COOKIE}=([^;]*)`));
@@ -10,15 +10,22 @@ function readPref(): Preference {
   return isLocale(value) ? value : "auto";
 }
 
-// "/" dipilihkan bahasanya oleh proxy (cookie -> Accept-Language), jadi cukup set cookie lalu muat ulang.
+// Mode "Auto": ikut bahasa browser (diawali "id" -> id, selain itu en). Sama dengan logika di public/index.html.
+function detectLocale(): Locale {
+  const langs = navigator.languages?.length ? navigator.languages : [navigator.language || "en"];
+  return String(langs[0]).toLowerCase().startsWith("id") ? "id" : "en";
+}
+
+// Simpan pilihan di cookie, lalu langsung pindah ke /en atau /id (tidak lewat "/", jadi tanpa halaman loading).
 function applyPref(pref: Preference) {
   document.cookie =
     pref === "auto"
       ? `${LANG_COOKIE}=; path=/; max-age=0`
       : `${LANG_COOKIE}=${pref}; path=/; max-age=31536000; samesite=lax`;
+  const target: Locale = pref === "auto" ? detectLocale() : pref;
   // Sengaja full reload: root layout (<html lang>) ikut berganti.
   // eslint-disable-next-line @next/next/no-location-assign-relative-destination
-  window.location.href = "/" + window.location.hash;
+  window.location.href = `/${target}${window.location.hash}`;
 }
 
 const subscribe = () => () => {};
