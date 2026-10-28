@@ -26,7 +26,7 @@ async function github<T>(path: string): Promise<ApiResult<T>> {
     if (process.env.GITHUB_TOKEN) {
       headers.Authorization = `Bearer ${process.env.GITHUB_TOKEN}`;
     }
-    const res = await fetch(`${API}${path}`, { headers, next: { revalidate: 3600 } });
+    const res = await fetch(`${API}${path}`, { headers, cache: "force-cache" });
     if (!res.ok) {
       // 403/429 = rate limit (umum di IP build bersama), 404 = belum ada Release / repo private.
       console.warn(`[release] GET ${path} -> ${res.status}`);
@@ -43,9 +43,9 @@ async function github<T>(path: string): Promise<ApiResult<T>> {
 async function tagsFromGit(): Promise<string[]> {
   try {
     const res = await fetch(`https://github.com/${REPO}.git/info/refs?service=git-upload-pack`, {
-      headers: { "User-Agent": "git/2.43.0" },
-      next: { revalidate: 3600 },
-    });
+  headers: { "User-Agent": "git/2.43.0" },
+  cache: "force-cache",
+});
     if (!res.ok) {
       console.warn(`[release] git refs -> ${res.status}`);
       return [];
