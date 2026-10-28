@@ -29,23 +29,48 @@ export function generateStaticParams() {
 
 export const dynamicParams = false;
 
+const DESCRIPTIONS = {
+  id: "PNGTuber desktop ringan untuk Windows: avatar PNG-mu bergerak real-time mengikuti suara mic — RAM di bawah 100MB, mulus 60 FPS, siap streaming di manapun.",
+  en: "A lightweight PNGTuber for Windows: your PNG avatar moves in real time with your mic — under 100MB RAM, smooth 60 FPS, ready to stream anywhere.",
+} as const;
+
+const OG_LOCALE = { id: "id_ID", en: "en_US" } as const;
+
 export async function generateMetadata({
   params,
 }: {
   params: Promise<{ lang: string }>;
 }): Promise<Metadata> {
   const { lang } = await params;
+  const l = isLocale(lang) ? lang : "en";
+  const description = DESCRIPTIONS[l];
   return {
     metadataBase: new URL(SITE_URL),
     title: "PTube - PNGTuber",
-    description:
-      "PNGTuber desktop ringan untuk Windows: avatar PNG-mu bergerak real-time mengikuti suara mic — RAM di bawah 100MB, mulus 60 FPS, siap streaming di manapun.",
+    description,
     icons: {
       icon: "/icon.png",
     },
     alternates: {
-      canonical: `/${lang}`,
-      languages: { en: "/en", id: "/id", "x-default": "/" },
+      canonical: `/${l}`,
+      // x-default harus mengarah ke URL yang bisa di-index (bukan "/" yang cuma halaman loading).
+      languages: { en: "/en", id: "/id", "x-default": "/en" },
+    },
+    openGraph: {
+      type: "website",
+      siteName: "PTube",
+      title: "PTube - PNGTuber",
+      description,
+      url: `/${l}`,
+      locale: OG_LOCALE[l],
+      alternateLocale: l === "id" ? [OG_LOCALE.en] : [OG_LOCALE.id],
+      images: ["/icon.png"],
+    },
+    twitter: {
+      card: "summary",
+      title: "PTube - PNGTuber",
+      description,
+      images: ["/icon.png"],
     },
   };
 }
