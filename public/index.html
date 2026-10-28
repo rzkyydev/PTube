@@ -2,53 +2,114 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex">
 <meta name="color-scheme" content="light dark">
 <title>PTube</title>
 <link rel="icon" href="/icon.png">
 <link rel="canonical" href="/en">
+<noscript>
+  <meta http-equiv="refresh" content="0;url=/en">
+  <style>.help{opacity:1!important;pointer-events:auto!important}.fill{transform:scaleX(1)}</style>
+</noscript>
+<script>
+  // Samakan tema dengan situs utama sebelum halaman pertama dicat (tanpa kedip).
+  (function () {
+    var t = "dark";
+    try {
+      var s = localStorage.getItem("ptube-theme");
+      t = s === "light" || s === "dark" ? s : (matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark");
+    } catch (e) {}
+    document.documentElement.setAttribute("data-theme", t);
+  })();
+</script>
 <style>
-  :root { --bg:#faf7f5; --fg:#1b1b1f; --muted:#6b6b76; --accent:#ff6b9d; }
-  @media (prefers-color-scheme: dark) {
-    :root { --bg:#09090c; --fg:#f4f4f6; --muted:#9a9aa6; }
-  }
+  :root { --bg:#09090c; --fg:#f4f4f5; --muted:#a1a1aa; --accent:#ff5d8f; --track:rgba(255,255,255,.1); --d:700ms; }
+  [data-theme="light"] { --bg:#faf7f5; --fg:#201b1d; --muted:#6b6266; --accent:#bf2450; --track:rgba(20,14,16,.1); }
+
   * { box-sizing: border-box; }
-  html, body { height: 100%; margin: 0; }
+  html, body { height: 100%; margin: 0; background: var(--bg); }
   body {
-    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 18px;
-    background: var(--bg); color: var(--fg);
-    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    display: grid; place-items: center; overflow: hidden;
+    color: var(--fg);
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    transition: opacity .24s ease, transform .24s ease;
   }
-  img { width: 72px; height: 72px; border-radius: 18px; animation: bob 1.1s ease-in-out infinite; }
-  .name { font-size: 22px; font-weight: 700; letter-spacing: .3px; }
-  .bar { width: 120px; height: 4px; border-radius: 4px; background: var(--muted); opacity: .25; overflow: hidden; }
-  .bar i { display: block; height: 100%; width: 40%; background: var(--accent); border-radius: 4px; animation: slide 1s ease-in-out infinite; }
-  .msg { font-size: 14px; color: var(--muted); }
-  .msg a { color: inherit; }
-  @keyframes bob { 0%,100% { transform: translateY(0) } 50% { transform: translateY(-8px) } }
-  @keyframes slide { 0% { transform: translateX(-100%) } 100% { transform: translateX(250%) } }
-  @media (prefers-reduced-motion: reduce) { img, .bar i { animation: none; } }
+  body.leaving { opacity: 0; transform: scale(.985); }
+
+  .stage { position: relative; display: grid; justify-items: center; gap: 22px; }
+
+  /* cahaya lembut di belakang logo */
+  .glow {
+    position: absolute; top: -34px; left: 50%; width: 180px; height: 180px; margin-left: -90px;
+    border-radius: 50%; pointer-events: none;
+    background: radial-gradient(closest-side, color-mix(in srgb, var(--accent) 38%, transparent), transparent);
+    opacity: 0; animation: glow 2.4s ease-in-out .1s infinite;
+  }
+  .logo {
+    position: relative; width: 76px; height: 76px; border-radius: 20px; display: block;
+    opacity: 0; transform: scale(.9);
+    animation: pop .6s cubic-bezier(.2,.8,.2,1) forwards;
+  }
+  .name {
+    font-size: 15px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--muted);
+    opacity: 0; animation: rise .5s ease .2s forwards;
+  }
+  .track {
+    width: 88px; height: 3px; border-radius: 3px; background: var(--track); overflow: hidden;
+    opacity: 0; animation: rise .5s ease .3s forwards;
+  }
+  .fill { height: 100%; border-radius: inherit; background: var(--accent); transform: scaleX(0); transform-origin: left center; }
+  .go .fill { animation: fill var(--d) cubic-bezier(.45,.05,.2,1) forwards; }
+
+  /* tautan cadangan: baru muncul kalau perpindahan macet */
+  .help {
+    position: absolute; top: 100%; margin-top: 22px; white-space: nowrap; font-size: 13px; color: var(--muted);
+    opacity: 0; pointer-events: none; transition: opacity .4s ease;
+  }
+  .help.show { opacity: 1; pointer-events: auto; }
+  .help a { color: var(--fg); text-underline-offset: 3px; }
+
+  .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+
+  @keyframes pop  { to { opacity: 1; transform: scale(1); } }
+  @keyframes rise { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+  @keyframes fill { to { transform: scaleX(1); } }
+  @keyframes glow { 0%,100% { opacity: .35; transform: scale(.92); } 50% { opacity: .8; transform: scale(1.08); } }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+    .logo, .name, .track { opacity: 1; transform: none; }
+    .fill { transform: scaleX(1); }
+  }
 </style>
 </head>
 <body>
-  <img src="/icon.png" alt="" width="72" height="72">
-  <div class="name">PTube</div>
-  <div class="bar" aria-hidden="true"><i></i></div>
-  <div class="msg" id="msg" role="status">Loading…</div>
-  <noscript>
-    <div class="msg"><a href="/en">English</a> · <a href="/id">Bahasa Indonesia</a></div>
-    <meta http-equiv="refresh" content="0;url=/en">
-  </noscript>
+  <main class="stage" id="stage">
+    <div class="glow" aria-hidden="true"></div>
+    <img class="logo" src="/icon.png" alt="" width="76" height="76" decoding="async">
+    <div class="name">PTube</div>
+    <div class="track" aria-hidden="true"><div class="fill"></div></div>
+    <div class="sr" id="status" role="status">Loading</div>
+    <div class="help" id="help">
+      <noscript><a href="/en">English</a> · <a href="/id">Bahasa Indonesia</a></noscript>
+    </div>
+  </main>
 <script>
 (function () {
-  var DELAY = 900; // ms, lama tampilan loading sebelum pindah
+  var reduce = false;
+  try { reduce = matchMedia("(prefers-reduced-motion: reduce)").matches; } catch (e) {}
+  var DELAY = reduce ? 250 : 700; // lama loading (ms)
+  var LEAVE = reduce ? 0 : 240;   // lama fade-out sebelum pindah (ms), samakan dengan transition body
+
+  // 1. Tentukan bahasa: pilihan manual (cookie) menang, lalu bahasa browser, lainnya en.
   var lang = "en";
   try {
     var m = document.cookie.match(/(?:^|; )ptube-lang-pref=([^;]*)/);
     var pref = m && m[1];
     if (pref === "id" || pref === "en") {
-      lang = pref; // pilihan manual user menang
+      lang = pref;
     } else {
       var l = navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language || "en"];
       lang = String(l[0]).toLowerCase().indexOf("id") === 0 ? "id" : "en";
@@ -56,17 +117,36 @@
   } catch (e) {}
 
   var target = "/" + lang + location.search + location.hash;
-  var msg = document.getElementById("msg");
-  if (msg) {
-    msg.innerHTML = lang === "id"
-      ? 'Memuat… <a href="' + target + '">Klik di sini jika tidak berpindah</a>'
-      : 'Loading… <a href="' + target + '">Click here if you are not redirected</a>';
-  }
   document.documentElement.lang = lang;
 
-  try { var p = document.createElement("link"); p.rel = "prefetch"; p.href = "/" + lang; document.head.appendChild(p); } catch (e) {}
+  var status = document.getElementById("status");
+  var help = document.getElementById("help");
+  var id = lang === "id";
+  if (status) status.textContent = id ? "Memuat" : "Loading";
+  if (help) {
+    // Pakai DOM API (bukan innerHTML) supaya query/hash dari URL tidak bisa menyisipkan HTML.
+    var a = document.createElement("a");
+    a.href = target;
+    a.textContent = id ? "Buka situs" : "Open the site";
+    help.textContent = (id ? "Belum pindah? " : "Not redirecting? ");
+    help.appendChild(a);
+  }
 
-  setTimeout(function () { location.replace(target); }, DELAY);
+  // 2. Siapkan halaman tujuan selagi animasi berjalan.
+  try {
+    var p = document.createElement("link");
+    p.rel = "prefetch"; p.href = "/" + lang;
+    document.head.appendChild(p);
+  } catch (e) {}
+
+  // 3. Jalankan animasi, fade-out, lalu pindah (replace: tombol Back tidak kembali ke halaman ini).
+  document.documentElement.style.setProperty("--d", DELAY + "ms");
+  document.getElementById("stage").classList.add("go");
+  setTimeout(function () { if (help) help.classList.add("show"); }, 3500);
+  setTimeout(function () {
+    document.body.classList.add("leaving");
+    setTimeout(function () { location.replace(target); }, LEAVE);
+  }, DELAY);
 })();
 </script>
 </body>
