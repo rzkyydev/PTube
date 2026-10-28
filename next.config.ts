@@ -1,25 +1,13 @@
 import type { NextConfig } from "next";
+import { initOpenNextCloudflareForDev } from "@opennextjs/cloudflare";
+
+// Hanya aktif saat `next dev`, supaya binding Cloudflare bisa dipakai di lokal.
+initOpenNextCloudflareForDev();
 
 const nextConfig: NextConfig = {
   images: {
     // Hasil /_next/image (logo navbar) di-cache 7 hari, bukan default 4 jam.
     minimumCacheTTL: 604800,
-  },
-  // "/" tidak punya halaman sendiri: direwrite ke /en atau /id (URL tetap "/").
-  // Dulu dikerjakan src/proxy.ts, tapi proxy (middleware Node.js) belum didukung resmi di
-  // Cloudflare/OpenNext sehingga "/" jadi 404. Rewrite di config ini jalan di semua hosting.
-  // Urutan: cookie pilihan bahasa -> Accept-Language diawali "id" -> default "en".
-  async rewrites() {
-    return {
-      beforeFiles: [
-        { source: "/", has: [{ type: "cookie", key: "ptube-lang-pref", value: "id" }], destination: "/id" },
-        { source: "/", has: [{ type: "cookie", key: "ptube-lang-pref", value: "en" }], destination: "/en" },
-        { source: "/", has: [{ type: "header", key: "accept-language", value: "^id.*" }], destination: "/id" },
-        { source: "/", destination: "/en" },
-      ],
-      afterFiles: [],
-      fallback: [],
-    };
   },
   async headers() {
     return [
