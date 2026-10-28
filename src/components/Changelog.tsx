@@ -167,16 +167,18 @@ export function Changelog({ dict, release, locale }: ChangelogProps) {
               </div>
 
               <div className="px-6 py-5">
-                <p className="inline-flex items-center gap-2 text-xs font-medium text-ink-4">
-                  <CalendarBlank size={14} weight="bold" />
-                  {dict.published} ·{" "}
-                  {new Date(release.published_at).toLocaleDateString(locale === "id" ? "id-ID" : "en-US", {
-                    year: "numeric",
-                    month: "long",
-                    day: "numeric",
-                    timeZone: "UTC",
-                  })}
-                </p>
+                {release.published_at && (
+                  <p className="inline-flex items-center gap-2 text-xs font-medium text-ink-4">
+                    <CalendarBlank size={14} weight="bold" />
+                    {dict.published} ·{" "}
+                    {new Date(release.published_at).toLocaleDateString(locale === "id" ? "id-ID" : "en-US", {
+                      year: "numeric",
+                      month: "long",
+                      day: "numeric",
+                      timeZone: "UTC",
+                    })}
+                  </p>
+                )}
 
                 {blocks.length > 0 && (
                   <div className="mt-4">{renderBlocks}</div>
