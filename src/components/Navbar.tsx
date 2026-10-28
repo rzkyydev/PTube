@@ -3,11 +3,16 @@ import { DownloadSimple } from "@phosphor-icons/react/dist/ssr";
 import { ThemeToggle } from "./ThemeToggle";
 import { LanguageSelector } from "./LanguageSelector";
 import type { Dictionary } from "@/i18n/dictionaries";
-import type { Preference } from "@/i18n/server";
 
 const PTUBE_ICON = "/icon.png";
 
-export function Navbar({ dict, pref }: { dict: Dictionary["navbar"]; pref: Preference }) {
+export function Navbar({
+  dict,
+  themeLabels,
+}: {
+  dict: Dictionary["navbar"];
+  themeLabels: Dictionary["themeToggle"];
+}) {
   const links = [
     { href: "#fitur", label: dict.features },
     { href: "#cara-kerja", label: dict.howItWorks },
@@ -42,8 +47,8 @@ export function Navbar({ dict, pref }: { dict: Dictionary["navbar"]; pref: Prefe
           ))}
         </div>
         <div className="flex items-center gap-2">
-          <LanguageSelector currentPref={pref} />
-          <ThemeToggle />
+          <LanguageSelector />
+          <ThemeToggle labels={themeLabels} />
           <a href="#unduh" className="group flex items-center gap-1.5 rounded-xl bg-accent-deep px-3.5 py-2 text-sm font-bold text-white transition-all hover:bg-accent-deep-strong focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent active:translate-y-px">
           <DownloadSimple weight="bold" className="size-4 transition-transform group-hover:-translate-y-0.5" />
           <span>{dict.download}</span>

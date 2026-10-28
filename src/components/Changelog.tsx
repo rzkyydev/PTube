@@ -1,6 +1,4 @@
-"use client";
-
-import { useEffect, useState, type ReactNode } from "react";
+import type { ReactNode } from "react";
 import {
   ArrowSquareOut,
   CalendarBlank,
@@ -9,20 +7,13 @@ import {
 } from "@phosphor-icons/react/dist/ssr";
 import type { Dictionary } from "@/i18n/dictionaries";
 import { Reveal } from "./Reveal";
-
-const RELEASES_API =
-  "https://api.github.com/repos/rzkyydev/PTube/releases/latest";
-
-type Release = {
-  tag_name: string;
-  name: string;
-  published_at: string;
-  html_url: string;
-  body: string | null;
-};
+import type { Release } from "@/lib/release";
+import type { Locale } from "@/i18n/config";
 
 type ChangelogProps = {
   dict: Dictionary["changelog"];
+  release: Release | null;
+  locale: Locale;
 };
 
 type Block =
@@ -52,7 +43,7 @@ function Inline({ text }: { text: string }) {
           );
         }
         const link = part.match(/^\[([^\]]+)\]\(([^)]+)\)$/);
-        if (link) {
+        if (link && /^https?:\/\//i.test(link[2])) {
           return (
             <a
               key={i}
@@ -92,31 +83,7 @@ function parseBody(body: string): Block[] {
     }, []);
 }
 
-export function Changelog({ dict }: ChangelogProps) {
-  const [release, setRelease] = useState<Release | null>(null);
-  const [error, setError] = useState(false);
-
-  useEffect(() => {
-    let active = true;
-    fetch(RELEASES_API, {
-      headers: { Accept: "application/vnd.github+json" },
-      cache: "no-store",
-    })
-      .then((res) => {
-        if (!res.ok) throw new Error("fetch failed");
-        return res.json();
-      })
-      .then((data: Release) => {
-        if (active) setRelease(data);
-      })
-      .catch(() => {
-        if (active) setError(true);
-      });
-    return () => {
-      active = false;
-    };
-  }, []);
-
+export function Changelog({ dict, release, locale }: ChangelogProps) {
   const blocks = release?.body ? parseBody(release.body) : [];
 
   const renderBlocks: ReactNode[] = [];
@@ -203,7 +170,12 @@ export function Changelog({ dict }: ChangelogProps) {
                 <p className="inline-flex items-center gap-2 text-xs font-medium text-ink-4">
                   <CalendarBlank size={14} weight="bold" />
                   {dict.published} ·{" "}
-                  {new Date(release.published_at).toLocaleDateString()}
+                  {new Date(release.published_at).toLocaleDateString(locale === "id" ? "id-ID" : "en-US", {
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric",
+                    timeZone: "UTC",
+                  })}
                 </p>
 
                 {blocks.length > 0 && (
@@ -211,7 +183,7 @@ export function Changelog({ dict }: ChangelogProps) {
                 )}
               </div>
             </>
-          ) : error ? (
+          ) : (
             <div className="px-6 py-10 text-center text-sm text-ink-4">
               <GithubLogo size={24} weight="bold" className="mx-auto mb-3 opacity-50" />
               <a
@@ -223,11 +195,6 @@ export function Changelog({ dict }: ChangelogProps) {
                 {dict.linkRelease}
                 <ArrowSquareOut size={14} weight="bold" />
               </a>
-            </div>
-          ) : (
-            <div className="px-6 py-10 text-center text-sm text-ink-4">
-              <div className="mx-auto mb-3 size-5 animate-spin rounded-full border-2 border-line-strong border-t-accent" />
-              {dict.loading}
             </div>
           )}
         </div>

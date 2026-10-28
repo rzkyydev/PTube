@@ -29,11 +29,18 @@ export interface Dictionary {
     micThreshold: string;
     buttonHold: string;
     buttonRelease: string;
+    muteToggle: string;
     testInstruction: string;
     viewFeatures: string;
   };
   marquee: {
     ariaLabel: string;
+  };
+  scrolly: {
+    eyebrow: string;
+    title: string;
+    desc: string;
+    steps: { tag: string; title: string; desc: string; }[];
   };
   featureBento: {
     title: string;

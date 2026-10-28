@@ -31,11 +31,39 @@ export const id: Dictionary = {
     micThreshold: "Sensitivitas mikrofon",
     buttonHold: "Tahan untuk berbicara",
     buttonRelease: "Lepaskan...",
+    muteToggle: "Matikan mikrofon",
     testInstruction: "Tahan tombol mikrofon untuk menguji. Avatar Anda akan merespons suara secara langsung.",
     viewFeatures: "Lihat Fitur",
   },
   marquee: {
     ariaLabel: "Preset animasi",
+  },
+  scrolly: {
+    eyebrow: "Cerita singkat",
+    title: "Dari hening sampai siaran langsung",
+    desc: "Gulir pelan-pelan dan lihat avatar Anda berubah di setiap momen.",
+    steps: [
+      {
+        tag: "Idle",
+        title: "Anda diam, avatar tenang",
+        desc: "Selama suara di bawah ambang batas, PTube menampilkan gambar Idle dengan gerakan float yang halus dan ringan.",
+      },
+      {
+        tag: "Speaking",
+        title: "Anda bicara, avatar ikut hidup",
+        desc: "Begitu volume melewati sensitivitas, gambar langsung beralih ke Speaking dan preset animasi seperti bounce atau shake mulai bergerak.",
+      },
+      {
+        tag: "Mute",
+        title: "Mikrofon mati, avatar tahu",
+        desc: "Saat Anda mematikan mikrofon, PTube berpindah ke status Mute. Penonton langsung paham tanpa Anda perlu menjelaskan.",
+      },
+      {
+        tag: "Green screen",
+        title: "Siap tayang di mana saja",
+        desc: "Pakai mode Stream dengan kanvas transparan atau layar hijau. RAM tetap di bawah 100MB dan animasi stabil di 60 FPS.",
+      },
+    ],
   },
   featureBento: {
     title: "Fitur lengkap untuk avatar Anda",

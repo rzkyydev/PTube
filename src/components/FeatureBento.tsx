@@ -18,12 +18,9 @@ import {
 } from "@phosphor-icons/react/dist/ssr";
 import { SoundWave } from "./SoundWave";
 import { Reveal } from "./Reveal";
+import avatarIdle from "@/assets/avatar-idle.webp";
+import avatarSpeaking from "@/assets/avatar-speaking.webp";
 import type { Dictionary } from "@/i18n/dictionaries";
-
-const AVATAR_IDLE =
-  "https://raw.githubusercontent.com/rzkyydev/rzkyydev/refs/heads/main/db/Picsart_26-07-14_14-39-19-407.png";
-const AVATAR_SPEAKING =
-  "https://raw.githubusercontent.com/rzkyydev/rzkyydev/refs/heads/main/db/Picsart_26-07-14_14-39-39-821.png";
 
 const cardCls =
   "glass flex flex-col gap-4 rounded-2xl p-6 transition-colors hover:border-line-strong";
@@ -96,8 +93,8 @@ export function FeatureBento({ dict }: { dict: Dictionary["featureBento"] }) {
             />
             <div className="grid gap-3 sm:grid-cols-2">
               {[
-                { src: AVATAR_IDLE, label: "Idle", name: dict.cards.fourStates.idle },
-                { src: AVATAR_SPEAKING, label: "Speaking", name: dict.cards.fourStates.speaking },
+                { src: avatarIdle, label: "Idle", name: dict.cards.fourStates.idle },
+                { src: avatarSpeaking, label: "Speaking", name: dict.cards.fourStates.speaking },
               ].map((a) => (
                 <figure
                   key={a.label}
@@ -109,6 +106,7 @@ export function FeatureBento({ dict }: { dict: Dictionary["featureBento"] }) {
                     fill
                     sizes="(max-width: 768px) 100vw, 33vw"
                     className="object-contain transition-transform duration-500 group-hover:scale-[1.04]"
+                    unoptimized
                   />
                   <figcaption className="absolute bottom-2 left-2 rounded-full border border-white/15 bg-black/60 px-2.5 py-1 text-[11px] font-semibold text-white backdrop-blur">
                     {a.label}
@@ -125,7 +123,7 @@ export function FeatureBento({ dict }: { dict: Dictionary["featureBento"] }) {
                 <MicrophoneSlash size={14} weight="fill" className="text-ink-3" />
                 {dict.cards.fourStates.mute}
               </span>
-              <span className="ml-auto text-[11px] text-ink-5">{dict.cards.fourStates.autoSwitch}</span>
+              <span className="ml-auto text-[11px] text-ink-4">{dict.cards.fourStates.autoSwitch}</span>
             </div>
           </div>
         </Reveal>
@@ -284,7 +282,7 @@ export function FeatureBento({ dict }: { dict: Dictionary["featureBento"] }) {
                 </div>
                 <div className="relative mt-1.5 h-2 overflow-hidden rounded-full bg-surface-2">
                   <div
-                    className="h-full w-2/3 rounded-full bg-gradient-to-r from-accent to-accent-deep"
+                    className="h-full w-full origin-left rounded-full bg-gradient-to-r from-accent to-accent-deep"
                     style={{ animation: "speakHold 1.6s ease-in-out infinite" }}
                   />
                 </div>

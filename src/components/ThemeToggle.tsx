@@ -25,7 +25,7 @@ function getServerSnapshot(): "light" | "dark" {
   return "dark";
 }
 
-export function ThemeToggle() {
+export function ThemeToggle({ labels }: { labels: { dark: string; light: string } }) {
   const theme = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
 
   const toggle = () => {
@@ -41,7 +41,7 @@ export function ThemeToggle() {
     <button
       type="button"
       onClick={toggle}
-      aria-label={theme === "light" ? "Aktifkan mode gelap" : "Aktifkan mode terang"}
+      aria-label={theme === "light" ? labels.dark : labels.light}
       className="grid size-9 place-items-center rounded-xl border border-line bg-surface text-ink-2 transition-colors hover:border-line-strong hover:text-ink-1 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
     >
       {theme === "light" ? <Moon size={18} weight="bold" /> : <Sun size={18} weight="bold" />}

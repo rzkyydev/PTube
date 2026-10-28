@@ -1,206 +1,16 @@
-"use client";
-
-import { useEffect, useState, useRef, useCallback } from "react";
-import Image from "next/image";
-import { motion, useReducedMotion } from "motion/react";
-import {
-  DownloadSimple,
-  Microphone,
-  MicrophoneSlash,
-  Sparkle,
-} from "@phosphor-icons/react";
-import { SoundWave } from "./SoundWave";
+import { DownloadSimple, Sparkle } from "@phosphor-icons/react/dist/ssr";
+import { MicTest } from "./MicTest";
 import type { Dictionary } from "@/i18n/dictionaries";
 
-const AVATAR_IDLE =
-  "https://raw.githubusercontent.com/rzkyydev/rzkyydev/refs/heads/main/db/Picsart_26-07-14_14-39-19-407.png";
-const AVATAR_SPEAKING =
-  "https://raw.githubusercontent.com/rzkyydev/rzkyydev/refs/heads/main/db/Picsart_26-07-14_14-39-39-821.png";
-
-type Mode = "idle" | "speaking" | "mute";
-
-const btnTransition = { duration: 0.12 } as const;
-
-function MicTest({ dict }: { dict: Dictionary["hero"] }) {
-  const [muted, setMuted] = useState(false);
-  const [holding, setHolding] = useState(false);
-  const [proximityActive, setProximityActive] = useState(false);
-  const reduceMotion = useReducedMotion();
-  const speaking = holding && !muted;
-  const mode: Mode = muted ? "mute" : speaking ? "speaking" : "idle";
-  const bob = reduceMotion ? {} : { y: [0, -4, 0] };
-  const micRef = useRef<HTMLDivElement>(null);
-
-  const status = {
-    idle: { label: dict.statusIdle, dot: "bg-ink-4" },
-    speaking: { label: dict.statusSpeaking, dot: "bg-ok" },
-    mute: { label: dict.statusMute, dot: "bg-accent" },
-  };
-
-  return (
-    <div
-      className="glass-deep relative rounded-3xl p-4 sm:p-6"
-      data-cursor-mic
-    >
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-1.5">
-          <span className="size-2.5 rounded-full bg-accent/80" />
-          <span className="size-2.5 rounded-full bg-amber-400/80" />
-          <span className="size-2.5 rounded-full bg-emerald-400/80" />
-        </div>
-        <span className="text-xs font-medium text-ink-3">{dict.livePreview}</span>
-      </div>
-
-      <div className="relative mt-5 flex items-center justify-center gap-2">
-        <span className="inline-flex items-center gap-1.5 rounded-full border border-line bg-surface px-3 py-1 text-[11px] font-semibold text-ink-2">
-          <span className={`size-1.5 rounded-full ${status[mode].dot}`} aria-hidden="true" />
-          {status[mode].label}
-        </span>
-      </div>
-
-      <div className="relative mx-auto grid h-72 w-full max-w-xs place-items-center sm:h-80">
-        <span className="absolute -left-1 top-8 animate-float rounded-full border border-accent/30 bg-accent/10 px-3 py-1 text-[11px] font-semibold text-accent">
-          bounce
-        </span>
-        <span className="absolute right-0 top-20 animate-wobble rounded-full border border-line bg-surface px-3 py-1 text-[11px] font-semibold text-ink-2">
-          wobble
-        </span>
-        <span className="absolute bottom-10 left-2 animate-sway rounded-full border border-line bg-surface px-3 py-1 text-[11px] font-semibold text-ink-2">
-          float
-        </span>
-        <span className="absolute -right-2 bottom-2 animate-float rounded-full border border-line bg-surface px-3 py-1 text-[11px] font-semibold text-ink-2 [animation-delay:-2s]">
-          pulse
-        </span>
-
-        {mode === "mute" && (
-          <motion.span
-            initial={reduceMotion ? { scale: 1, opacity: 1 } : { scale: 0, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ duration: reduceMotion ? 0 : 0.3 }}
-            className="absolute -right-1 top-4 z-10 grid size-10 place-items-center rounded-full border border-accent/40 bg-badge text-accent shadow-lg"
-          >
-            <MicrophoneSlash size={20} weight="bold" />
-          </motion.span>
-        )}
-
-        <motion.div
-          className="relative h-60 w-60 sm:h-68 sm:w-68"
-          animate={speaking ? bob : { y: 0 }}
-          transition={speaking ? { duration: 0.35, ease: "easeInOut", repeat: Infinity } : { duration: 0.15 }}
-          style={{
-            transformStyle: "preserve-3d",
-          }}
-        >
-          <motion.div
-            className="absolute inset-0"
-            animate={{ opacity: speaking ? 0 : 1 }}
-            transition={{ duration: 0.15 }}
-          >
-            <Image src={AVATAR_IDLE} alt="Avatar idle" fill sizes="240px" className="object-contain" priority />
-          </motion.div>
-          <motion.div
-            className="absolute inset-0"
-            animate={{ opacity: speaking ? 1 : 0 }}
-            transition={{ duration: 0.15 }}
-          >
-            <Image src={AVATAR_SPEAKING} alt="Avatar berbicara" fill sizes="240px" className="object-contain" priority />
-          </motion.div>
-        </motion.div>
-      </div>
-
-      <SoundWave
-        active={speaking}
-        proximityActive={proximityActive}
-        className={`h-10 transition-opacity duration-300 ${mode === "mute" ? "opacity-30" : ""}`}
-      />
-
-      <div className="mt-4 flex items-center justify-between gap-3">
-        <button
-          type="button"
-          data-cursor-mic
-          onPointerDown={() => setHolding(true)}
-          onPointerUp={() => setHolding(false)}
-          onPointerLeave={() => setHolding(false)}
-          onPointerCancel={() => setHolding(false)}
-          onKeyDown={(e) => {
-            if (e.key === " " || e.key === "Enter") setHolding(true);
-          }}
-          onKeyUp={() => setHolding(false)}
-          onContextMenu={(e) => e.preventDefault()}
-          className={`group cursor-mic-btn flex select-none items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-bold transition-all duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent ${
-            holding
-              ? "scale-[0.98] bg-accent-deep-strong text-white"
-              : "bg-accent-deep text-white active:scale-[0.98]"
-          } ${proximityActive ? "scale-[1.03]" : ""}`}
-          style={{ touchAction: "none" }}
-        >
-          <Microphone size={18} weight="bold" />
-          {holding ? dict.buttonRelease : dict.buttonHold}
-        </button>
-
-        <button
-          type="button"
-          aria-pressed={muted}
-          data-cursor-toggle
-          onClick={() => setMuted((m) => !m)}
-          className={`cursor-toggle-btn grid size-11 place-items-center rounded-xl border transition-all duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent active:scale-[0.97] ${
-            muted
-              ? "border-accent/50 bg-accent/15 text-accent"
-              : "border-line bg-surface text-ink-2 hover:text-ink-1"
-          }`}
-        >
-          <MicrophoneSlash size={20} weight="bold" />
-        </button>
-      </div>
-
-      <div className="mt-5 flex items-center justify-between rounded-xl border border-line-soft bg-surface-2 px-3 py-2">
-        <span className="text-[11px] font-medium text-ink-3">{dict.micThreshold}</span>
-        <div className="relative flex h-5 items-center gap-[2px]">
-          {Array.from({ length: 20 }).map((_, i) => (
-            <span
-              key={i}
-              className={`w-[3px] rounded-full transition-colors duration-200 ${i < 12 ? "bg-accent/70" : "bg-line-strong"}`}
-              style={{ height: `${5 + ((i * 11) % 14)}px` }}
-            />
-          ))}
-          <span className="absolute inset-y-0 left-[60%] w-px bg-ink-4" />
-        </div>
-      </div>
-    </div>
-  );
-}
-
-export function Hero({ dict, common }: { dict: Dictionary["hero"]; common: Dictionary["common"] }) {
-  const reduce = useReducedMotion();
-  const [releaseVersion, setReleaseVersion] = useState<string | null>(null);
-
-  useEffect(() => {
-    const controller = new AbortController();
-
-    fetch("https://api.github.com/repos/rzkyydev/PTube/releases/latest", {
-      headers: {
-        Accept: "application/vnd.github+json",
-      },
-      signal: controller.signal,
-      cache: "no-store",
-    })
-      .then((response) => {
-        if (!response.ok) throw new Error(`GitHub API returned ${response.status}`);
-        return response.json() as Promise<{ tag_name?: string }>;
-      })
-      .then((release) => {
-        if (release.tag_name) {
-          setReleaseVersion(release.tag_name.replace(/^v/i, ""));
-        }
-      })
-      .catch((error: unknown) => {
-        if (error instanceof DOMException && error.name === "AbortError") return;
-        console.warn("Failed to fetch the latest PTube release:", error);
-      });
-
-    return () => controller.abort();
-  }, []);
-
+export function Hero({
+  dict,
+  common,
+  releaseVersion,
+}: {
+  dict: Dictionary["hero"];
+  common: Dictionary["common"];
+  releaseVersion: string | null;
+}) {
   const badge = releaseVersion
     ? dict.badge.replace(/\bv?\d+(?:\.\d+){1,2}(?:[-+][0-9A-Za-z.-]+)?\b/, "v" + releaseVersion)
     : dict.badge;
@@ -222,40 +32,30 @@ export function Hero({ dict, common }: { dict: Dictionary["hero"]; common: Dicti
         </p>
 
         <div className="mt-8 flex flex-wrap items-center gap-3">
-          <motion.a
+          <a
             href="#unduh"
             data-cursor-button
-            whileHover={{ y: -3, boxShadow: "0 8px 30px rgba(255,93,143,0.4)" }}
-            whileTap={{ y: 1, scale: 0.97 }}
-            transition={{ duration: 0.12 }}
-            className="group cursor-download-btn inline-flex items-center gap-2 rounded-xl bg-accent-deep px-5 py-3 text-sm font-bold text-white transition-all focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+            className="group cursor-download-btn inline-flex items-center gap-2 rounded-xl bg-accent-deep px-5 py-3 text-sm font-bold text-white transition-all hover:-translate-y-[3px] hover:shadow-[0_8px_30px_rgba(255,93,143,0.4)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent active:translate-y-px active:scale-[0.97]"
           >
             <DownloadSimple weight="bold" className="size-4 transition-transform group-hover:-translate-y-0.5" />
             {common.downloadFree}
-          </motion.a>
-          <motion.a
+          </a>
+          <a
             href="#fitur"
             data-cursor-button
-            whileHover={{ y: -2 }}
-            whileTap={{ y: 1 }}
-            transition={{ duration: 0.12 }}
-            className="cursor-view-btn rounded-xl border border-line bg-surface px-5 py-3 text-sm font-bold text-ink-2 transition-colors hover:border-line-strong hover:text-ink-1 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+            className="cursor-view-btn rounded-xl border border-line bg-surface px-5 py-3 text-sm font-bold text-ink-2 transition-all hover:-translate-y-0.5 hover:border-line-strong hover:text-ink-1 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent active:translate-y-px"
           >
             {dict.viewFeatures}
-          </motion.a>
+          </a>
         </div>
       </div>
 
-      <motion.div
-        initial={reduce ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: 32, scale: 0.97 }}
-        animate={{ opacity: 1, y: 0, scale: 1 }}
-        transition={{ duration: reduce ? 0 : 0.7, ease: [0.16, 1, 0.3, 1] }}
-      >
+      <div className="animate-hero-in">
         <MicTest dict={dict} />
         <p className="mt-3 text-center text-xs text-ink-4">
           {dict.testInstruction}
         </p>
-      </motion.div>
+      </div>
     </section>
   );
 }

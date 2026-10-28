@@ -31,11 +31,39 @@ export const en: Dictionary = {
     micThreshold: "Microphone threshold",
     buttonHold: "Hold to speak",
     buttonRelease: "Release...",
+    muteToggle: "Mute microphone",
     testInstruction: "Hold the microphone button to test. Your avatar will immediately respond to your voice.",
     viewFeatures: "View Features",
   },
   marquee: {
     ariaLabel: "Animation presets",
+  },
+  scrolly: {
+    eyebrow: "A short story",
+    title: "From silence to going live",
+    desc: "Scroll slowly and watch your avatar change at every moment.",
+    steps: [
+      {
+        tag: "Idle",
+        title: "You stay quiet, your avatar stays calm",
+        desc: "While your voice is below the threshold, PTube shows the Idle image with a gentle, lightweight float.",
+      },
+      {
+        tag: "Speaking",
+        title: "You talk, your avatar comes alive",
+        desc: "As soon as the volume passes your sensitivity, the image switches to Speaking and animation presets like bounce or shake kick in.",
+      },
+      {
+        tag: "Mute",
+        title: "Mic off, your avatar knows",
+        desc: "When you mute your microphone, PTube moves to the Mute state. Your viewers get it instantly, no explanation needed.",
+      },
+      {
+        tag: "Green screen",
+        title: "Ready to go live anywhere",
+        desc: "Use Stream mode with a transparent canvas or a green screen. RAM stays under 100MB and animation holds a steady 60 FPS.",
+      },
+    ],
   },
   featureBento: {
     title: "Comprehensive features for your avatar",

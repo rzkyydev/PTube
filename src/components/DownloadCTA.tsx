@@ -1,8 +1,6 @@
-"use client";
-
-import { motion } from "motion/react";
 import { DownloadSimple, ArrowRight } from "@phosphor-icons/react/dist/ssr";
 import { Mascot } from "./Mascot";
+import { Reveal } from "./Reveal";
 import type { Dictionary } from "@/i18n/dictionaries";
 
 const PTUBE_RELEASES =
@@ -13,8 +11,6 @@ const ITCH_IO = "https://rzkyydev.itch.io/ptube";
 const PTUBE_SETTINGS =
   "https://github.com/rzkyydev/PTube/releases/latest/download/preset-setting.ptube";
 
-const btnTransition = { duration: 0.12 } as const;
-
 export function DownloadCTA({
   dict,
 }: {
@@ -24,29 +20,15 @@ export function DownloadCTA({
     <section id="unduh" className="relative mx-auto max-w-6xl px-4 py-20 lg:py-28">
       <div className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] rounded-full bg-[radial-gradient(ellipse_at_center,rgba(255,93,143,0.12),transparent_60%)]" />
 
-      <motion.div
-        className="absolute left-[5%] top-[20%] -translate-y-1/2 lg:left-[10%]"
-        animate={{ y: [-10, 0, -10] }}
-        transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-      >
+      <div className="animate-float absolute left-[5%] top-[20%] -translate-y-1/2 lg:left-[10%]">
         <Mascot mode="idle" className="h-36 w-36 animate-sway drop-shadow-[0_12px_24px_rgba(255,93,143,0.15)]" />
-      </motion.div>
+      </div>
 
-      <motion.div
-        className="absolute right-[8%] top-[30%] -translate-y-1/2 lg:right-[10%]"
-        animate={{ y: [8, 0, 8] }}
-        transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1.2 }}
-      >
+      <div className="animate-float absolute right-[8%] top-[30%] -translate-y-1/2 [animation-delay:-2s] lg:right-[10%]">
         <Mascot mode="speaking" className="h-30 w-30 drop-shadow-[0_12px_24px_rgba(255,93,143,0.12)]" />
-      </motion.div>
+      </div>
 
-      <motion.div
-        className="mx-auto max-w-2xl text-center"
-        initial={{ opacity: 0, y: 24 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.3 }}
-        transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-      >
+      <Reveal className="mx-auto max-w-2xl text-center">
         <div className="relative">
           <div className="mb-5 flex items-center justify-center gap-2">
             <span className="size-1.5 rounded-full bg-accent" />
@@ -65,14 +47,11 @@ export function DownloadCTA({
           </p>
 
           <div className="mt-10 flex flex-col items-center gap-4 sm:flex-row sm:justify-center sm:gap-5">
-            <motion.a
+            <a
               href={PTUBE_RELEASES}
               download
               data-cursor-button
-              whileHover={{ y: -3, boxShadow: "0 8px 30px rgba(255,93,143,0.4)" }}
-              whileTap={{ y: 1, scale: 0.97 }}
-              transition={{ duration: 0.12 }}
-              className="group cursor-download-btn inline-flex items-center gap-3 rounded-xl bg-accent-deep px-8 py-3.5 text-base font-bold text-white shadow-[0_4px_20px_rgba(255,93,143,0.3)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+              className="group cursor-download-btn inline-flex items-center gap-3 rounded-xl bg-accent-deep px-8 py-3.5 text-base font-bold text-white shadow-[0_4px_20px_rgba(255,93,143,0.3)] transition-all hover:-translate-y-[3px] hover:shadow-[0_8px_30px_rgba(255,93,143,0.4)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent active:translate-y-px active:scale-[0.97]"
             >
               <DownloadSimple
                 size={20}
@@ -80,17 +59,14 @@ export function DownloadCTA({
                 className="transition-transform group-hover:-translate-y-0.5"
               />
               {dict.downloadBtn}
-            </motion.a>
+            </a>
 
-            <motion.a
+            <a
               href={ITCH_IO}
               target="_blank"
               rel="noopener noreferrer"
               data-cursor-button
-              whileHover={{ y: -2, borderColor: "rgba(255,93,143,0.4)" }}
-              whileTap={{ y: 1 }}
-              transition={{ duration: 0.12 }}
-              className="cursor-itch-btn group inline-flex items-center gap-2.5 rounded-xl border border-line bg-surface px-8 py-3.5 text-base font-bold text-ink-1 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+              className="cursor-itch-btn group inline-flex items-center gap-2.5 rounded-xl border border-line bg-surface px-8 py-3.5 text-base font-bold text-ink-1 transition-all hover:-translate-y-0.5 hover:border-accent/40 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent active:translate-y-px"
             >
               <ArrowRight
                 size={18}
@@ -98,7 +74,7 @@ export function DownloadCTA({
                 className="opacity-70"
               />
               {dict.itchBtn}
-            </motion.a>
+            </a>
           </div>
 
           <div className="mt-10 flex items-center gap-4">
@@ -113,14 +89,11 @@ export function DownloadCTA({
             <p className="text-sm font-medium text-ink-3">
               {dict.recommendedSettingsDesc}
             </p>
-            <motion.a
+            <a
               href={PTUBE_SETTINGS}
               download
               data-cursor-button
-              whileHover={{ y: -2 }}
-              whileTap={{ y: 0.5 }}
-              transition={{ duration: 0.12 }}
-              className="cursor-settings-btn group inline-flex items-center gap-2 rounded-lg border border-line-soft bg-surface-2 px-6 py-2.5 text-sm font-bold text-ink-2 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+              className="cursor-settings-btn group inline-flex items-center gap-2 rounded-lg border border-line-soft bg-surface-2 px-6 py-2.5 text-sm font-bold text-ink-2 transition-all hover:-translate-y-0.5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent active:translate-y-px"
             >
               <DownloadSimple
                 size={16}
@@ -128,10 +101,10 @@ export function DownloadCTA({
                 className="transition-transform group-hover:-translate-y-0.5"
               />
               {dict.recommendedSettingsBtn}
-            </motion.a>
+            </a>
           </div>
         </div>
-      </motion.div>
+      </Reveal>
     </section>
   );
 }

@@ -46,7 +46,6 @@ export function Footer({ dict }: { dict: Dictionary["footer"] }) {
               width={32}
               height={32}
               className="size-8 rounded-xl"
-              priority
             />
 
             <span className="font-display text-xl font-bold tracking-tight">

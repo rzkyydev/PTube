@@ -1,7 +1,7 @@
 "use client";
 
-import { motion, useReducedMotion } from "motion/react";
-import { useEffect, useState } from "react";
+import { m, useInView, useReducedMotion } from "motion/react";
+import { useEffect, useRef, useState } from "react";
 
 export type MascotMode = "idle" | "speaking" | "mute" | "blink";
 
@@ -12,7 +12,11 @@ export function Mascot({
   mode?: MascotMode;
   className?: string;
 }) {
-  const reduce = useReducedMotion();
+  const prefersReduced = useReducedMotion();
+  const ref = useRef<HTMLDivElement>(null);
+  // Animasi & timer cuma jalan saat maskot kelihatan (hemat main thread, bantu INP).
+  const inView = useInView(ref, { margin: "120px" });
+  const reduce = prefersReduced || !inView;
   const [blink, setBlink] = useState(false);
   const [mouthScale, setMouthScale] = useState(1);
 
@@ -48,7 +52,8 @@ export function Mascot({
   const eyesClosed = mode === "blink" || (mode === "idle" && blink);
 
   return (
-    <motion.div
+    <m.div
+      ref={ref}
       className={className}
       animate={
         reduce
@@ -86,7 +91,7 @@ export function Mascot({
         </defs>
 
         {/* arms */}
-        <motion.g
+        <m.g
           animate={
             reduce
               ? { rotate: 0 }
@@ -101,7 +106,7 @@ export function Mascot({
         >
           <ellipse cx="40" cy="132" rx="16" ry="24" fill="url(#ptBody)" stroke="#c22b5c" strokeWidth="2.5" transform="rotate(22 40 132)" />
           <ellipse cx="160" cy="132" rx="16" ry="24" fill="url(#ptBody)" stroke="#c22b5c" strokeWidth="2.5" transform="rotate(-22 160 132)" />
-        </motion.g>
+        </m.g>
 
         {/* antenna */}
         <path
@@ -148,7 +153,7 @@ export function Mascot({
 
         {/* mouth */}
         {mode === "speaking" ? (
-          <motion.ellipse
+          <m.ellipse
             cx="100"
             cy="142"
             rx="11"
@@ -176,6 +181,6 @@ export function Mascot({
           />
         )}
       </svg>
-    </motion.div>
+    </m.div>
   );
 }
