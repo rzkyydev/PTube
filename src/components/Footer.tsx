@@ -2,7 +2,8 @@ import Image from "next/image";
 import {
   GithubLogo,
   InstagramLogo,
-  YoutubeLogo,
+  TiktokLogo,
+  HandHeart,
 } from "@phosphor-icons/react/dist/ssr";
 import type { Dictionary } from "@/i18n/dictionaries";
 import ptubeIcon from "@/assets/icon-64.webp";
@@ -19,9 +20,14 @@ const socials = [
     link: "https://www.instagram.com/rzkyy.dev/",
   },
   {
-    icon: YoutubeLogo,
-    label: "YouTube",
-    link: "https://www.youtube.com/@rzkyydev",
+    icon: TiktokLogo,
+    label: "Tiktok",
+    link: "https://www.youtube.com/@kitsunekyy",
+  },
+  {
+    icon: HandHeart,
+    label: "Support Me",
+    link: "https://sociabuzz.com/rzkyydev/tribe",
   },
 ];
 
