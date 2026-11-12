@@ -1,7 +1,7 @@
 "use client";
 
 import { CaretDown, Translate } from "@phosphor-icons/react";
-import { useState, useRef, useEffect, useSyncExternalStore } from "react";
+import { useState, useRef, useEffect, useId, useSyncExternalStore } from "react";
 import { LANG_COOKIE, isLocale, type Locale, type Preference } from "@/i18n/config";
 
 function readPref(): Preference {
@@ -31,18 +31,27 @@ function applyPref(pref: Preference) {
 const subscribe = () => () => {};
 const getServerPref = (): Preference => "auto";
 
-export function LanguageSelector() {
+const OPTIONS: { pref: Preference; short: string; long: string }[] = [
+  { pref: "auto", short: "Auto", long: "Auto" },
+  { pref: "en", short: "EN", long: "English (EN)" },
+  { pref: "id", short: "ID", long: "Bahasa Indonesia" },
+];
+
+const ARIA_LABEL = "Pilih Bahasa / Select Language";
+
+// variant "menu": tombol + dropdown (bar utama). variant "inline": tiga tombol segmented (panel sentuh).
+export function LanguageSelector({ variant = "menu" }: { variant?: "menu" | "inline" }) {
   const currentPref = useSyncExternalStore(subscribe, readPref, getServerPref);
   const [isOpen, setIsOpen] = useState(false);
-  const dropdownRef = useRef<HTMLDivElement>(null);
+  const [pos, setPos] = useState<{ top: number; right: number } | null>(null);
+  const wrapRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
+  const menuId = useId();
 
   useEffect(() => {
     if (!isOpen) return;
-    function handleClickOutside(event: MouseEvent) {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-        setIsOpen(false);
-      }
+    function handleClickOutside(event: PointerEvent) {
+      if (wrapRef.current && !wrapRef.current.contains(event.target as Node)) setIsOpen(false);
     }
     // Escape menutup menu dan mengembalikan fokus ke tombol (pola disclosure yang aksesibel).
     function handleKeyDown(event: KeyboardEvent) {
@@ -51,11 +60,17 @@ export function LanguageSelector() {
         triggerRef.current?.focus();
       }
     }
-    document.addEventListener("mousedown", handleClickOutside);
+    // Menu memakai posisi fixed (supaya tidak terpotong navbar), jadi tutup saat halaman bergerak.
+    const close = () => setIsOpen(false);
+    document.addEventListener("pointerdown", handleClickOutside);
     document.addEventListener("keydown", handleKeyDown);
+    window.addEventListener("scroll", close, { passive: true, once: true });
+    window.addEventListener("resize", close, { once: true });
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("pointerdown", handleClickOutside);
       document.removeEventListener("keydown", handleKeyDown);
+      window.removeEventListener("scroll", close);
+      window.removeEventListener("resize", close);
     };
   }, [isOpen]);
 
@@ -64,43 +79,81 @@ export function LanguageSelector() {
     applyPref(pref);
   };
 
-  const getDisplay = () => {
-    if (currentPref === "en") return "EN";
-    if (currentPref === "id") return "ID";
-    return "Auto";
+  const toggleMenu = () => {
+    if (!isOpen && triggerRef.current) {
+      const r = triggerRef.current.getBoundingClientRect();
+      setPos({ top: r.bottom + 8, right: Math.max(8, window.innerWidth - r.right) });
+    }
+    setIsOpen((v) => !v);
   };
 
+  const current = OPTIONS.find((o) => o.pref === currentPref) ?? OPTIONS[0];
+
+  if (variant === "inline") {
+    return (
+      <div
+        role="group"
+        aria-label={ARIA_LABEL}
+        className="flex min-w-0 flex-1 items-center gap-1 rounded-xl border border-line bg-surface-2 p-1"
+      >
+        {OPTIONS.map((o) => (
+          <button
+            key={o.pref}
+            type="button"
+            aria-pressed={currentPref === o.pref}
+            onClick={() => handleSelect(o.pref)}
+            className={`min-h-9 flex-1 rounded-lg px-2 text-sm font-semibold transition-colors ${
+              currentPref === o.pref
+                ? "bg-accent-deep text-white"
+                : "text-ink-2 hover:bg-surface hover:text-ink-1"
+            }`}
+          >
+            {o.short}
+          </button>
+        ))}
+      </div>
+    );
+  }
+
   return (
-    <div className="relative" ref={dropdownRef}>
+    <div ref={wrapRef}>
       <button
         ref={triggerRef}
         type="button"
-        onClick={() => setIsOpen(!isOpen)}
+        onClick={toggleMenu}
         aria-expanded={isOpen}
-        aria-controls="lang-menu"
-        aria-label="Pilih Bahasa / Select Language"
-        className="flex h-9 items-center gap-1.5 rounded-xl border border-line bg-surface px-2.5 text-sm sm:px-3 font-medium text-ink-2 transition-colors hover:border-line-strong hover:text-ink-1 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+        aria-controls={menuId}
+        aria-label={ARIA_LABEL}
+        className="ptnav-ctl"
       >
         <Translate size={16} weight="bold" />
-        <span className="min-w-7 text-left">{getDisplay()}</span>
-        <CaretDown size={12} weight="bold" className={`hidden transition-transform sm:block ${isOpen ? "rotate-180" : ""}`} />
+        <span className="lang-code min-w-7 text-left">{current.short}</span>
+        <CaretDown
+          size={12}
+          weight="bold"
+          className={`hidden transition-transform sm:block ${isOpen ? "rotate-180" : ""}`}
+        />
       </button>
 
-      {isOpen && (
-        <div id="lang-menu" className="absolute right-0 top-full z-50 mt-2 w-44 overflow-hidden rounded-xl border border-line bg-panel p-1 shadow-lg">
-          {(["auto", "en", "id"] as Preference[]).map((pref) => (
+      {isOpen && pos && (
+        <div
+          id={menuId}
+          style={{ top: pos.top, right: pos.right }}
+          className="fixed z-[60] w-48 overflow-hidden rounded-xl border border-line bg-panel p-1 shadow-[var(--shadow-pop)]"
+        >
+          {OPTIONS.map((o) => (
             <button
-              key={pref}
+              key={o.pref}
               type="button"
-              aria-current={currentPref === pref ? "true" : undefined}
-              onClick={() => handleSelect(pref)}
-              className={`flex w-full items-center justify-between rounded-lg px-3 py-2 text-sm transition-colors ${
-                currentPref === pref
-                  ? "bg-accent/15 text-accent font-bold"
+              aria-current={currentPref === o.pref ? "true" : undefined}
+              onClick={() => handleSelect(o.pref)}
+              className={`flex min-h-10 w-full items-center justify-between rounded-lg px-3 text-sm transition-colors ${
+                currentPref === o.pref
+                  ? "bg-accent/15 font-bold text-accent"
                   : "text-ink-2 hover:bg-surface hover:text-ink-1"
               }`}
             >
-              {pref === "auto" ? "Auto" : pref === "en" ? "English (EN)" : "Bahasa Indonesia"}
+              {o.long}
             </button>
           ))}
         </div>

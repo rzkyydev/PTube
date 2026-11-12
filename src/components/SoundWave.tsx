@@ -1,5 +1,6 @@
 const heights = [8, 14, 20, 26, 16, 24, 11, 22, 15, 23, 10, 19, 25, 13, 21, 12, 26, 17, 20, 24, 13, 18];
 
+// data-motion: animasi dijeda otomatis saat di luar layar (lihat RevealObserver + globals.css).
 export function SoundWave({
   active,
   proximityActive = false,
@@ -16,6 +17,7 @@ export function SoundWave({
     <div
       className={`soundwave flex items-center justify-center gap-[3px] ${className ?? ""}`}
       data-state={state}
+      data-motion
       aria-hidden="true"
     >
       {Array.from({ length: bars }).map((_, i) => (

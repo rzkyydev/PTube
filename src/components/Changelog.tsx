@@ -6,7 +6,7 @@ import {
   Tag,
 } from "@phosphor-icons/react/dist/ssr";
 import type { Dictionary } from "@/i18n/dictionaries";
-import { Reveal } from "./Reveal";
+import { SectionHeader } from "./SectionHeader";
 import type { Release } from "@/lib/release";
 import type { Locale } from "@/i18n/config";
 
@@ -29,7 +29,7 @@ function Inline({ text }: { text: string }) {
           return (
             <code
               key={i}
-              className="break-all rounded bg-surface-2 px-1 py-0.5 font-mono text-[0.85em] text-accent"
+              className="break-words rounded bg-surface px-1.5 py-0.5 font-mono text-[0.85em] text-ink-1"
             >
               {part.slice(1, -1)}
             </code>
@@ -50,7 +50,7 @@ function Inline({ text }: { text: string }) {
               href={link[2]}
               target="_blank"
               rel="noopener noreferrer"
-              className="font-medium text-accent transition-colors hover:text-accent-deep"
+              className="font-medium text-accent underline underline-offset-2 transition-colors hover:text-ink-1"
             >
               {link[1]}
             </a>
@@ -94,115 +94,97 @@ export function Changelog({ dict, release, locale }: ChangelogProps) {
           key={i}
           className={
             block.level >= 3
-              ? "mt-6 first:mt-0 pt-4 text-sm font-bold text-accent first:pt-0"
-              : "mt-7 first:mt-0 pt-4 text-lg font-bold text-ink-1 first:pt-0"
+              ? "mt-6 text-sm font-bold text-accent first:mt-0"
+              : "mt-8 border-t border-line pt-6 font-display text-xl font-bold text-ink-1 first:mt-0 first:border-0 first:pt-0"
           }
         >
           <Inline text={block.text} />
-        </h3>
+        </h3>,
       );
     } else {
       renderBlocks.push(
-        <div key={i} className="mt-1.5 flex items-start gap-2.5 text-sm leading-relaxed text-ink-3">
-          <span className="mt-2 size-1.5 shrink-0 rounded-full bg-accent" />
+        <div key={i} className="mt-2 flex items-start gap-3 text-sm leading-relaxed text-ink-2 sm:text-[0.9375rem]">
+          <span aria-hidden="true" className="mt-[0.6rem] size-1 shrink-0 rounded-full bg-accent" />
           <span className="min-w-0 break-words">
             <Inline text={block.text} />
           </span>
-        </div>
+        </div>,
       );
     }
   });
 
+  const date = release?.published_at
+    ? new Date(release.published_at).toLocaleDateString(locale === "id" ? "id-ID" : "en-US", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+        timeZone: "UTC",
+      })
+    : null;
+
   return (
-    <section id="changelog" className="mx-auto max-w-6xl px-4 py-16 lg:py-20">
-      <Reveal>
-        <div className="mx-auto max-w-2xl text-center">
-          <span className="text-sm font-semibold text-accent">
-            {dict.eyebrow}
-          </span>
+    <section id="changelog" className="wrap section-y">
+      <div className="grid grid-cols-1 gap-8 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-16">
+        <div className="lg:sticky lg:top-28 lg:self-start">
+          <SectionHeader title={dict.title} desc={dict.desc} />
 
-          <h2 className="mt-3 font-display text-4xl font-bold tracking-tight sm:text-5xl">
-            {dict.title}
-          </h2>
-
-          <p className="mt-5 text-base leading-relaxed text-ink-3 sm:text-lg">
-            {dict.desc}
-          </p>
-        </div>
-      </Reveal>
-
-      <Reveal delay={0.1}>
-        <div className="mx-auto mt-8 max-w-3xl overflow-hidden sm:mt-10 rounded-2xl border border-line bg-surface">
-          {release ? (
-            <>
-              <div className="flex flex-wrap items-center justify-between gap-3 border-b border-line px-4 py-4 sm:px-6 sm:py-5">
-                <div className="flex min-w-0 items-center gap-3">
-                  <div className="flex size-11 shrink-0 items-center justify-center rounded-xl border border-accent/20 bg-accent/10 text-accent">
-                    <Tag size={22} weight="bold" />
-                  </div>
-
-                  <div className="min-w-0">
-                    <p className="text-xs font-semibold text-ink-4">
-                      {dict.latest}
-                    </p>
-                    <a
-                      href={release.html_url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="block truncate text-lg font-bold text-ink-1 transition-colors hover:text-accent"
-                    >
-                      {release.name || release.tag_name}
-                    </a>
-                  </div>
-                </div>
-
+          {release && (
+            <div className="mt-8 flex flex-col gap-4 border-t border-line pt-6">
+              <div className="min-w-0">
+                <p className="text-sm font-medium text-ink-4">{dict.latest}</p>
                 <a
                   href={release.html_url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex w-full items-center justify-center gap-2 rounded-lg border border-line bg-surface-2 px-4 py-2.5 text-sm sm:w-auto font-bold text-ink-2 transition-colors hover:border-line-strong hover:text-ink-1"
+                  className="mt-1 flex items-center gap-2 font-display text-2xl font-bold text-ink-1 transition-colors hover:text-accent"
                 >
-                  <GithubLogo size={16} weight="bold" />
-                  {dict.viewChangelog}
-                  <ArrowSquareOut size={14} weight="bold" />
+                  <Tag size={22} weight="bold" className="shrink-0 text-accent" aria-hidden="true" />
+                  <span className="min-w-0 break-words">{release.name || release.tag_name}</span>
                 </a>
-              </div>
-
-              <div className="px-4 py-4 sm:px-6 sm:py-5">
-                {release.published_at && (
-                  <p className="inline-flex items-center gap-2 text-xs font-medium text-ink-4">
-                    <CalendarBlank size={14} weight="bold" />
-                    {dict.published} ·{" "}
-                    {new Date(release.published_at).toLocaleDateString(locale === "id" ? "id-ID" : "en-US", {
-                      year: "numeric",
-                      month: "long",
-                      day: "numeric",
-                      timeZone: "UTC",
-                    })}
+                {date && (
+                  <p className="mt-2 inline-flex items-center gap-2 text-sm text-ink-3">
+                    <CalendarBlank size={16} weight="bold" aria-hidden="true" />
+                    {dict.published} {date}
                   </p>
                 )}
-
-                {blocks.length > 0 && (
-                  <div className="mt-4">{renderBlocks}</div>
-                )}
               </div>
-            </>
-          ) : (
-            <div className="px-6 py-10 text-center text-sm text-ink-4">
-              <GithubLogo size={24} weight="bold" className="mx-auto mb-3 opacity-50" />
               <a
-                href="https://github.com/rzkyydev/PTube/releases"
+                href={release.html_url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 font-bold text-accent transition-colors hover:text-accent-deep"
+                className="btn btn-secondary w-full sm:w-auto lg:self-start"
               >
-                {dict.linkRelease}
-                <ArrowSquareOut size={14} weight="bold" />
+                <GithubLogo size={16} weight="bold" aria-hidden="true" />
+                {dict.viewChangelog}
+                <ArrowSquareOut size={14} weight="bold" aria-hidden="true" />
               </a>
             </div>
           )}
         </div>
-      </Reveal>
+
+        <div className="min-w-0 rounded-2xl border border-line bg-surface-2 p-5 sm:p-7">
+          {release && blocks.length > 0 ? (
+            renderBlocks
+          ) : (
+            // Keadaan kosong: jelaskan apa yang terjadi dan beri jalan keluar.
+            <div className="flex flex-col items-start gap-4 py-2">
+              <GithubLogo size={26} weight="bold" className="text-ink-4" aria-hidden="true" />
+              <p className="max-w-[48ch] text-base leading-relaxed text-ink-2">
+                {release ? dict.noNotes : dict.unavailable}
+              </p>
+              <a
+                href={release?.html_url ?? "https://github.com/rzkyydev/PTube/releases"}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn btn-secondary"
+              >
+                {dict.linkRelease}
+                <ArrowSquareOut size={14} weight="bold" aria-hidden="true" />
+              </a>
+            </div>
+          )}
+        </div>
+      </div>
     </section>
   );
 }

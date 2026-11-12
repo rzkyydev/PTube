@@ -6,6 +6,8 @@ export const en: Dictionary = {
     downloadBtn: "Download for Free",
   },
   navbar: {
+    home: "Home",
+    skip: "Skip to content",
     features: "Features",
     howItWorks: "How It Works",
     philosophy: "About",
@@ -271,6 +273,8 @@ export const en: Dictionary = {
     loading: "Loading release notes...",
     published: "Published",
     linkRelease: "View release on GitHub",
+    unavailable: "Release notes could not be loaded right now. The latest version is always on GitHub.",
+    noNotes: "This release has no written notes yet. See the full release on GitHub.",
   },
   footer: {
     desc: "A lightweight desktop PNGTuber for Windows, macOS and Linux.",

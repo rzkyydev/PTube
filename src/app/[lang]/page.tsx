@@ -28,9 +28,12 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
 
   return (
     <>
+      <a href="#main" className="skip-link">
+        {dict.navbar.skip}
+      </a>
       <PageBackground />
       <Navbar dict={dict.navbar} themeLabels={dict.themeToggle} />
-      <main>
+      <main id="main">
         <Hero dict={dict.hero} common={dict.common} releaseVersion={releaseVersion} />
         <Marquee dict={dict.marquee} />
         <Scrollytelling dict={dict.scrolly} common={dict.common} />

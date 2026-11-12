@@ -1,6 +1,12 @@
-import { AppleLogo, DownloadSimple, LinuxLogo, Sparkle, WindowsLogo } from "@phosphor-icons/react/dist/ssr";
+import { AppleLogo, DownloadSimple, LinuxLogo, WindowsLogo } from "@phosphor-icons/react/dist/ssr";
 import { MicTest } from "./MicTest";
 import type { Dictionary } from "@/i18n/dictionaries";
+
+const platforms = [
+  { icon: WindowsLogo, label: "Windows" },
+  { icon: AppleLogo, label: "macOS" },
+  { icon: LinuxLogo, label: "Linux" },
+];
 
 export function Hero({
   dict,
@@ -15,56 +21,49 @@ export function Hero({
     ? dict.badge.replace(/\bv?\d+(?:\.\d+){1,2}(?:[-+][0-9A-Za-z.-]+)?\b/, "v" + releaseVersion)
     : dict.badge;
   return (
-    <section id="top" className="relative mx-auto grid min-h-svh grid-cols-1 max-w-6xl items-center gap-10 px-4 pb-16 pt-28 sm:gap-12 sm:pb-20 sm:pt-32 lg:grid-cols-2 lg:gap-16 lg:pt-28">
+    <section
+      id="top"
+      className="wrap relative grid min-h-[min(100svh,58rem)] grid-cols-1 items-center gap-12 pb-16 pt-28 sm:pb-20 sm:pt-32 lg:grid-cols-[1.05fr_minmax(0,0.95fr)] lg:gap-16 lg:pt-28"
+    >
       <div className="min-w-0">
-        <span className="inline-flex max-w-full items-center gap-2 rounded-full border border-accent/30 bg-accent/10 px-3 py-1.5 text-xs font-semibold text-accent">
-          <Sparkle size={14} weight="fill" />
+        <p className="flex items-start gap-2.5 text-sm font-medium leading-snug text-ink-3">
+          <span aria-hidden="true" className="mt-[0.42rem] size-2 shrink-0 rounded-full bg-ok" />
           {badge}
-        </span>
-
-        <h1 className="mt-6 font-display text-4xl font-bold leading-[1.08] tracking-tight sm:text-5xl lg:text-6xl">
-          {dict.titlePrefix} {dict.titleHighlight}{dict.titleSuffix}
-        </h1>
-
-        <p className="mt-5 max-w-[46ch] text-base leading-relaxed text-ink-3 sm:text-lg">
-          {dict.description}
         </p>
 
+        <h1 className="mt-5 max-w-[18ch] font-display text-[clamp(2.25rem,1.4rem+3.6vw,4rem)] font-bold leading-[1.06] tracking-tight text-balance sm:max-w-[20ch]">
+          {dict.titlePrefix} {dict.titleHighlight}
+          {dict.titleSuffix}
+        </h1>
+
+        <p className="t-lead mt-5 max-w-[48ch]">{dict.description}</p>
+
         <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
-          <a
-            href="#unduh"
-            data-cursor-button
-            className="group cursor-download-btn inline-flex w-full items-center justify-center gap-2 rounded-xl sm:w-auto bg-accent-deep px-5 py-3 text-sm font-bold text-white transition-all hover:-translate-y-[3px] hover:shadow-[0_8px_30px_rgba(255,93,143,0.4)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent active:translate-y-px active:scale-[0.97]"
-          >
-            <DownloadSimple weight="bold" className="size-4 transition-transform group-hover:-translate-y-0.5" />
+          <a href="#unduh" className="btn btn-primary group w-full sm:w-auto">
+            <DownloadSimple
+              weight="bold"
+              className="size-[1.125rem] transition-transform group-hover:translate-y-0.5"
+            />
             {common.downloadFree}
           </a>
-          <a
-            href="#fitur"
-            data-cursor-button
-            className="cursor-view-btn w-full rounded-xl border text-center sm:w-auto border-line bg-surface px-5 py-3 text-sm font-bold text-ink-2 transition-all hover:-translate-y-0.5 hover:border-line-strong hover:text-ink-1 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent active:translate-y-px"
-          >
+          <a href="#fitur" className="btn btn-secondary w-full sm:w-auto">
             {dict.viewFeatures}
           </a>
         </div>
 
-        <ul className="mt-6 flex flex-wrap items-center gap-2 text-xs font-semibold text-ink-3">
-          {[
-            { icon: WindowsLogo, label: "Windows" },
-            { icon: AppleLogo, label: "macOS" },
-            { icon: LinuxLogo, label: "Linux" },
-          ].map((p) => (
-            <li key={p.label} className="inline-flex items-center gap-1.5 rounded-full border border-line bg-surface-2 px-3 py-1.5">
-              <p.icon size={14} weight="fill" className="text-ink-2" />
+        <ul className="mt-7 flex flex-wrap items-center gap-x-5 gap-y-2 text-sm font-medium text-ink-3">
+          {platforms.map((p) => (
+            <li key={p.label} className="inline-flex items-center gap-2">
+              <p.icon size={18} weight="fill" className="text-ink-2" aria-hidden="true" />
               {p.label}
             </li>
           ))}
         </ul>
       </div>
 
-      <div className="animate-hero-in min-w-0">
+      <div className="animate-hero-in mx-auto w-full min-w-0 max-w-md sm:max-w-lg lg:mx-0 lg:max-w-none">
         <MicTest dict={dict} />
-        <p className="mt-3 text-center text-xs text-ink-4">
+        <p className="mx-auto mt-4 max-w-[44ch] text-center text-sm leading-relaxed text-ink-4">
           {dict.testInstruction}
         </p>
       </div>

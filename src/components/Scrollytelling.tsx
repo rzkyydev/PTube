@@ -6,7 +6,7 @@ import {
   MonitorPlay,
   Smiley,
 } from "@phosphor-icons/react/dist/ssr";
-import { Reveal } from "./Reveal";
+import { SectionHeader } from "./SectionHeader";
 import { SoundWave } from "./SoundWave";
 import { ScrollyObserver } from "./ScrollyObserver";
 import avatarIdle from "@/assets/avatar-idle.webp";
@@ -33,22 +33,11 @@ export function Scrollytelling({
       id={ROOT_ID}
       data-step="0"
       aria-labelledby="cerita-title"
-      className="scrolly relative mx-auto max-w-6xl px-4 py-16 sm:py-24"
+      className="scrolly wrap relative py-16 sm:py-24"
     >
-      <Reveal>
-        <span className="text-sm font-semibold text-accent">
-          {dict.eyebrow}
-        </span>
-        <h2
-          id="cerita-title"
-          className="mt-4 max-w-2xl font-display text-4xl font-bold tracking-tight sm:text-5xl"
-        >
-          {dict.title}
-        </h2>
-        <p className="mt-4 max-w-[52ch] text-base leading-relaxed text-ink-3">{dict.desc}</p>
-      </Reveal>
+      <SectionHeader id="cerita-title" title={dict.title} desc={dict.desc} />
 
-      <div className="scrolly-grid mt-12">
+      <div className="scrolly-grid mt-10 sm:mt-12">
         <div className="scrolly-stage-wrap">
           <div className="scrolly-stage" aria-hidden="true">
             <div className="sl sl-bg" />
@@ -77,7 +66,7 @@ export function Scrollytelling({
               </div>
             </div>
 
-            <span className="sl-badge absolute right-6 top-14 grid size-10 place-items-center rounded-full border border-accent/40 bg-badge text-accent shadow-lg">
+            <span className="sl-badge absolute right-6 top-14 grid size-10 place-items-center rounded-full border border-accent/40 bg-badge text-accent">
               <MicrophoneSlash size={20} weight="bold" />
             </span>
 
@@ -85,7 +74,7 @@ export function Scrollytelling({
               {dict.steps.map((s, i) => (
                 <span
                   key={s.tag}
-                  className="sl-pill inline-flex items-center gap-1.5 rounded-full border border-line bg-panel px-3 py-1 text-[11px] font-semibold text-ink-2"
+                  className="sl-pill chip border-line bg-panel !text-[11px]"
                 >
                   <span className={`size-1.5 rounded-full ${pillDots[i]}`} />
                   {s.tag}
@@ -117,29 +106,19 @@ export function Scrollytelling({
                 className="scrolly-step"
               >
                 <div className="scrolly-card w-full">
-                  <div className="flex items-center gap-3">
-                    <span className="font-display text-sm font-bold text-accent">
-                      {String(i + 1).padStart(2, "0")}
-                    </span>
-                    <span className="grid size-8 place-items-center rounded-lg bg-surface text-ink-2">
-                      {Icon && <Icon size={17} weight="fill" />}
-                    </span>
-                    <span className="rounded-full border border-line bg-surface-2 px-2.5 py-1 text-[11px] font-semibold text-ink-2">
-                      {s.tag}
-                    </span>
-                  </div>
-                  <h3 className="mt-4 font-display text-2xl font-bold leading-tight tracking-tight sm:text-3xl">
+                  <p className="flex items-center gap-2 text-sm font-semibold text-ink-3">
+                    {Icon && <Icon size={18} weight="fill" className="text-accent" aria-hidden="true" />}
+                    {s.tag}
+                  </p>
+                  <h3 className="mt-3 font-display text-2xl font-bold leading-tight tracking-tight text-balance sm:text-3xl">
                     {s.title}
                   </h3>
                   <p className="mt-3 text-sm leading-relaxed text-ink-3 sm:text-base">{s.desc}</p>
                   {i === last && (
-                    <a
-                      href="#unduh"
-                      className="group mt-6 inline-flex items-center gap-2 rounded-xl bg-accent-deep px-5 py-3 text-sm font-bold text-white transition-colors hover:bg-accent-deep-strong focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent active:translate-y-px"
-                    >
+                    <a href="#unduh" className="btn btn-primary group mt-6">
                       <DownloadSimple
                         weight="bold"
-                        className="size-4 transition-transform group-hover:-translate-y-0.5"
+                        className="size-[1.125rem] transition-transform group-hover:translate-y-0.5"
                       />
                       {common.downloadFree}
                     </a>

@@ -1,5 +1,5 @@
 // Server component: tidak ada JS per elemen. Animasinya diurus CSS (.reveal di globals.css)
-// dan satu IntersectionObserver global di <RevealObserver />.
+// dan satu IntersectionObserver global di <RevealObserver />. Dipakai hemat: blok judul section saja.
 export function Reveal({
   children,
   delay = 0,

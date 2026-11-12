@@ -7,6 +7,8 @@ export const id: Dictionary = {
     downloadBtn: "Unduh Gratis",
   },
   navbar: {
+    home: "Beranda",
+    skip: "Lewati ke konten",
     features: "Fitur",
     howItWorks: "Cara Kerja",
     philosophy: "Tentang",
@@ -272,6 +274,8 @@ export const id: Dictionary = {
     loading: "Memuat catatan rilis...",
     published: "Diterbitkan",
     linkRelease: "Lihat rilis di GitHub",
+    unavailable: "Catatan rilis belum bisa dimuat saat ini. Versi terbaru selalu ada di GitHub.",
+    noNotes: "Rilis ini belum punya catatan tertulis. Lihat rilis lengkapnya di GitHub.",
   },
   footer: {
     desc: "Aplikasi PNGTuber desktop yang ringan untuk Windows, macOS, dan Linux.",

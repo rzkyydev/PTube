@@ -11,14 +11,15 @@ import type { Dictionary } from "@/i18n/dictionaries";
 
 type Mode = "idle" | "speaking" | "mute";
 
+// Demo interaktif: tahan tombol = bicara. Ini satu-satunya "momen" utama di halaman, jadi dibuat nyata
+// (avatar, gelombang, dan meter ambang semuanya bereaksi), bukan dekorasi.
 export function MicTest({ dict }: { dict: Dictionary["hero"] }) {
   const [muted, setMuted] = useState(false);
   const [holding, setHolding] = useState(false);
-  const [proximityActive, setProximityActive] = useState(false);
   const reduceMotion = useReducedMotion();
   const speaking = holding && !muted;
   const mode: Mode = muted ? "mute" : speaking ? "speaking" : "idle";
-  const bob = reduceMotion ? {} : { y: [0, -4, 0] };
+  const bob = reduceMotion ? {} : { y: [0, -6, 0] };
 
   const status = {
     idle: { label: dict.statusIdle, dot: "bg-ink-4" },
@@ -26,134 +27,130 @@ export function MicTest({ dict }: { dict: Dictionary["hero"] }) {
     mute: { label: dict.statusMute, dot: "bg-accent" },
   };
 
-  return (
-    <div
-      className="glass-deep relative rounded-3xl p-4 sm:p-6"
-      data-cursor-mic
-    >
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-1.5">
-          <span className="size-2.5 rounded-full bg-accent/80" />
-          <span className="size-2.5 rounded-full bg-amber-400/80" />
-          <span className="size-2.5 rounded-full bg-emerald-400/80" />
-        </div>
-        <span className="text-xs font-medium text-ink-3">{dict.livePreview}</span>
-      </div>
+  const start = () => {
+    if (!muted) setHolding(true);
+  };
+  const stop = () => setHolding(false);
 
-      <div className="relative mt-5 flex items-center justify-center gap-2">
-        <span className="inline-flex items-center gap-1.5 rounded-full border border-line bg-surface px-3 py-1 text-[11px] font-semibold text-ink-2">
-          <span className={`size-1.5 rounded-full ${status[mode].dot}`} aria-hidden="true" />
+  return (
+    <div className="rounded-3xl border border-line bg-panel p-4 sm:p-5">
+      <div className="flex items-center justify-between gap-3">
+        <span className="min-w-0 truncate text-sm font-semibold text-ink-2">{dict.livePreview}</span>
+        <span
+          role="status"
+          className="inline-flex shrink-0 items-center gap-2 rounded-full border border-line bg-surface-2 px-3 py-1 text-xs font-semibold text-ink-1"
+        >
+          <span aria-hidden="true" className={`size-2 rounded-full ${status[mode].dot}`} />
           {status[mode].label}
         </span>
       </div>
 
-      <div className="relative mx-auto grid h-72 w-full max-w-xs place-items-center sm:h-80">
-        <span className="absolute left-0 top-8 animate-float rounded-full border border-accent/30 bg-accent/10 px-3 py-1 text-[11px] font-semibold text-accent">
-          bounce
-        </span>
-        <span className="absolute right-0 top-20 animate-wobble rounded-full border border-line bg-surface px-3 py-1 text-[11px] font-semibold text-ink-2">
-          wobble
-        </span>
-        <span className="absolute bottom-10 left-2 animate-sway rounded-full border border-line bg-surface px-3 py-1 text-[11px] font-semibold text-ink-2">
-          float
-        </span>
-        <span className="absolute right-0 bottom-2 animate-float rounded-full border border-line bg-surface px-3 py-1 text-[11px] font-semibold text-ink-2 [animation-delay:-2s]">
-          pulse
-        </span>
-
+      <div className="relative mt-4 grid h-64 place-items-center overflow-hidden rounded-2xl border border-line-soft bg-[color-mix(in_srgb,var(--background)_55%,var(--panel))] sm:h-72">
         {mode === "mute" && (
           <m.span
-            initial={reduceMotion ? { scale: 1, opacity: 1 } : { scale: 0, opacity: 0 }}
+            initial={reduceMotion ? { scale: 1, opacity: 1 } : { scale: 0.6, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
-            transition={{ duration: reduceMotion ? 0 : 0.3 }}
-            className="absolute right-0 top-4 z-10 grid size-10 place-items-center rounded-full border border-accent/40 bg-badge text-accent shadow-lg"
+            transition={{ duration: reduceMotion ? 0 : 0.25 }}
+            className="absolute right-4 top-4 z-10 grid size-10 place-items-center rounded-full border border-accent/40 bg-badge text-accent"
           >
             <MicrophoneSlash size={20} weight="bold" />
           </m.span>
         )}
 
         <m.div
-          className="relative h-60 w-60 sm:h-68 sm:w-68"
+          className="relative h-52 w-52 sm:h-60 sm:w-60"
           animate={speaking ? bob : { y: 0 }}
           transition={speaking ? { duration: 0.35, ease: "easeInOut", repeat: Infinity } : { duration: 0.15 }}
-          style={{
-            transformStyle: "preserve-3d",
-          }}
         >
           <m.div
             className="absolute inset-0"
-            animate={{ opacity: speaking ? 0 : 1 }}
+            animate={{ opacity: speaking ? 0 : mode === "mute" ? 0.55 : 1 }}
             transition={{ duration: 0.15 }}
           >
-            <Image src={avatarIdle} alt={dict.statusIdle} fill sizes="272px" className="object-contain" priority unoptimized />
+            <Image src={avatarIdle} alt={dict.statusIdle} fill sizes="240px" className="object-contain" priority unoptimized />
           </m.div>
           <m.div
             className="absolute inset-0"
             animate={{ opacity: speaking ? 1 : 0 }}
             transition={{ duration: 0.15 }}
           >
-            <Image src={avatarSpeaking} alt={dict.statusSpeaking} fill sizes="272px" className="object-contain" fetchPriority="low" loading="eager" unoptimized />
+            <Image
+              src={avatarSpeaking}
+              alt={dict.statusSpeaking}
+              fill
+              sizes="240px"
+              className="object-contain"
+              fetchPriority="low"
+              loading="eager"
+              unoptimized
+            />
           </m.div>
         </m.div>
+
+        <SoundWave
+          active={speaking}
+          bars={26}
+          className={`absolute inset-x-6 bottom-3 h-8 transition-opacity duration-300 ${mode === "mute" ? "opacity-30" : ""}`}
+        />
       </div>
 
-      <SoundWave
-        active={speaking}
-        proximityActive={proximityActive}
-        className={`h-10 transition-opacity duration-300 ${mode === "mute" ? "opacity-30" : ""}`}
-      />
-
-      <div className="mt-4 flex items-center justify-between gap-3">
+      <div className="mt-4 flex items-center gap-3">
         <button
           type="button"
-          data-cursor-mic
-          onPointerDown={() => setHolding(true)}
-          onPointerUp={() => setHolding(false)}
-          onPointerLeave={() => setHolding(false)}
-          onPointerCancel={() => setHolding(false)}
+          aria-disabled={muted}
+          onPointerDown={start}
+          onPointerUp={stop}
+          onPointerLeave={stop}
+          onPointerCancel={stop}
+          onBlur={stop}
           onKeyDown={(e) => {
-            if (e.key === " " || e.key === "Enter") setHolding(true);
+            if (e.key === " " || e.key === "Enter") {
+              e.preventDefault();
+              start();
+            }
           }}
-          onKeyUp={() => setHolding(false)}
+          onKeyUp={stop}
           onContextMenu={(e) => e.preventDefault()}
-          className={`group cursor-mic-btn flex min-w-0 select-none items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-bold transition-all duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent ${
-            holding
-              ? "scale-[0.98] bg-accent-deep-strong text-white"
-              : "bg-accent-deep text-white active:scale-[0.98]"
-          } ${proximityActive ? "scale-[1.03]" : ""}`}
           style={{ touchAction: "none" }}
+          className={`btn btn-primary min-w-0 flex-1 select-none ${holding ? "!bg-accent-deep-strong" : ""}`}
         >
           <Microphone size={18} weight="bold" />
-          {holding ? dict.buttonRelease : dict.buttonHold}
+          <span className="truncate">{holding ? dict.buttonRelease : dict.buttonHold}</span>
         </button>
 
         <button
           type="button"
           aria-pressed={muted}
           aria-label={dict.muteToggle}
-          data-cursor-toggle
-          onClick={() => setMuted((m) => !m)}
-          className={`cursor-toggle-btn grid size-11 place-items-center rounded-xl border transition-all duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent active:scale-[0.97] ${
+          onClick={() => {
+            setMuted((v) => !v);
+            setHolding(false);
+          }}
+          className={`btn size-11 shrink-0 !p-0 ${
             muted
-              ? "border-accent/50 bg-accent/15 text-accent"
-              : "border-line bg-surface text-ink-2 hover:text-ink-1"
+              ? "!border-accent/50 !bg-accent/15 text-accent"
+              : "btn-secondary"
           }`}
         >
           <MicrophoneSlash size={20} weight="bold" />
         </button>
       </div>
 
-      <div className="mt-5 flex items-center justify-between gap-3 rounded-xl border border-line-soft bg-surface-2 px-3 py-2">
-        <span className="min-w-0 text-[11px] font-medium text-ink-3">{dict.micThreshold}</span>
-        <div className="relative flex h-5 shrink-0 items-center gap-[2px]">
+      <div className="mt-4 flex items-center justify-between gap-4 rounded-xl border border-line-soft bg-surface-2 px-3.5 py-2.5">
+        <span className="min-w-0 text-xs font-medium text-ink-3">{dict.micThreshold}</span>
+        <div
+          aria-hidden="true"
+          data-speaking={speaking}
+          className="mic-meter relative flex h-5 shrink-0 items-center gap-[2px]"
+        >
           {Array.from({ length: 20 }).map((_, i) => (
             <span
               key={i}
-              className={`w-[3px] rounded-full transition-colors duration-200 ${i < 12 ? "bg-accent/70" : "bg-line-strong"}`}
+              className="w-[3px] rounded-full"
               style={{ height: `${5 + ((i * 11) % 14)}px` }}
             />
           ))}
-          <span className="absolute inset-y-0 left-[60%] w-px bg-ink-4" />
+          <span className="absolute inset-y-0 left-[60%] !w-px !rounded-none !bg-ink-4" />
         </div>
       </div>
     </div>

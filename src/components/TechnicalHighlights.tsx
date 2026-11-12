@@ -6,43 +6,32 @@ import {
   LockKey,
   Timer,
 } from "@phosphor-icons/react/dist/ssr";
-import { Reveal } from "./Reveal";
+import { SectionHeader } from "./SectionHeader";
 import type { Dictionary } from "@/i18n/dictionaries";
 
+const icons = [Cpu, Timer, Images, Database, ArrowsClockwise, LockKey];
+
+// Desktop: judul menempel di kiri (sticky) selagi daftar di kanan bergulir. Tablet/HP: tumpuk biasa.
 export function TechnicalHighlights({ dict }: { dict: Dictionary["technicalHighlights"] }) {
-  const icons = [Cpu, Timer, Images, Database, ArrowsClockwise, LockKey];
-
   return (
-    <section id="teknis" className="mx-auto max-w-6xl px-4 py-16 sm:py-24">
-      <Reveal>
-        <span className="text-sm font-semibold text-accent">
-          {dict.badge}
-        </span>
-        <h2 className="mt-4 max-w-2xl font-display text-4xl font-bold tracking-tight sm:text-5xl">
-          {dict.title}
-        </h2>
-        <p className="mt-4 max-w-[52ch] text-base leading-relaxed text-ink-3">
-          {dict.desc}
-        </p>
-      </Reveal>
+    <section id="teknis" className="wrap section-y">
+      <div className="grid grid-cols-1 gap-10 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-16">
+        <div className="lg:sticky lg:top-28 lg:self-start">
+          <SectionHeader title={dict.title} desc={dict.desc} />
+        </div>
 
-      <div className="mt-10 grid grid-cols-1 gap-x-10 sm:mt-12 md:grid-cols-2">
-        {dict.items.map((it, i) => {
-          const Icon = icons[i];
-          return (
-            <Reveal key={it.title} delay={(i % 3) * 0.06}>
-              <div className="flex gap-4 border-t border-line-soft py-5 sm:gap-5 sm:py-6">
-                <span className="grid size-10 shrink-0 place-items-center rounded-xl bg-surface text-accent">
-                  {Icon && <Icon size={19} weight="fill" />}
-                </span>
-                <div className="min-w-0">
-                  <h3 className="font-display text-base font-bold">{it.title}</h3>
-                  <p className="mt-1 text-sm leading-relaxed text-ink-3">{it.desc}</p>
-                </div>
-              </div>
-            </Reveal>
-          );
-        })}
+        <ul className="grid grid-cols-1 gap-x-8 sm:grid-cols-2">
+          {dict.items.map((it, i) => {
+            const Icon = icons[i];
+            return (
+              <li key={it.title} className="border-t border-line py-6">
+                {Icon && <Icon size={22} weight="duotone" className="text-accent" aria-hidden="true" />}
+                <h3 className="mt-3 font-display text-lg font-bold leading-snug">{it.title}</h3>
+                <p className="mt-1.5 text-sm leading-relaxed text-ink-3">{it.desc}</p>
+              </li>
+            );
+          })}
+        </ul>
       </div>
     </section>
   );

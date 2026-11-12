@@ -76,7 +76,7 @@ export function Mascot({
     >
       <svg
         viewBox="0 0 200 200"
-        className="h-full w-full drop-shadow-[0_14px_28px_rgba(255,93,143,0.3)]"
+        className="h-full w-full"
         aria-hidden="true"
       >
         <defs>

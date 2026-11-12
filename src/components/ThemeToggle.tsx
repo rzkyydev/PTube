@@ -3,9 +3,10 @@
 import { useSyncExternalStore } from "react";
 import { Moon, Sun } from "@phosphor-icons/react";
 
+// Harus sama dengan themeColor di app/[lang]/layout.tsx.
 const COLORS: Record<"light" | "dark", string> = {
   light: "#faf7f5",
-  dark: "#09090c",
+  dark: "#201b1d",
 };
 
 function subscribe(callback: () => void) {
@@ -31,10 +32,14 @@ export function ThemeToggle({ labels }: { labels: { dark: string; light: string 
   const toggle = () => {
     const next = theme === "light" ? "dark" : "light";
     document.documentElement.dataset.theme = next;
-    localStorage.setItem("ptube-theme", next);
+    try {
+      localStorage.setItem("ptube-theme", next);
+    } catch {
+      // Penyimpanan bisa diblokir (mode privat); tema tetap berganti untuk sesi ini.
+    }
     document
-      .querySelector('meta[name="theme-color"]')
-      ?.setAttribute("content", COLORS[next]);
+      .querySelectorAll('meta[name="theme-color"]')
+      .forEach((m) => m.setAttribute("content", COLORS[next]));
   };
 
   return (
@@ -42,7 +47,7 @@ export function ThemeToggle({ labels }: { labels: { dark: string; light: string 
       type="button"
       onClick={toggle}
       aria-label={theme === "light" ? labels.dark : labels.light}
-      className="grid size-9 place-items-center rounded-xl border border-line bg-surface text-ink-2 transition-colors hover:border-line-strong hover:text-ink-1 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+      className="ptnav-ctl"
     >
       {theme === "light" ? <Moon size={18} weight="bold" /> : <Sun size={18} weight="bold" />}
     </button>

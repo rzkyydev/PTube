@@ -41,46 +41,34 @@ export function Footer({ dict }: { dict: Dictionary["footer"] }) {
     { href: "#unduh", label: dict.nav[5].label },
   ];
 
+  const linkCls =
+    "inline-flex min-h-8 items-center gap-2 rounded text-sm text-ink-3 transition-colors hover:text-ink-1";
+
   return (
     <footer className="border-t border-line-soft">
-      <div className="mx-auto flex max-w-6xl flex-col gap-8 px-4 py-10 sm:py-12 md:flex-row md:items-start md:justify-between">
-        <div className="max-w-xs">
-          <a href="#top" className="flex items-center gap-2.5">
+      <div className="wrap grid grid-cols-1 gap-10 py-12 sm:py-14 md:grid-cols-[minmax(0,1fr)_auto] md:gap-16 lg:gap-24">
+        <div className="max-w-sm">
+          <a href="#top" className="inline-flex items-center gap-2.5 rounded-lg">
             <Image
               src={ptubeIcon}
               alt="PTube logo"
               width={32}
               height={32}
-              className="size-8 rounded-xl"
-            unoptimized
+              className="size-8 rounded-[0.625rem]"
+              unoptimized
             />
-
-            <span className="font-display text-xl font-bold tracking-tight">
-              PTube
-            </span>
+            <span className="font-display text-xl font-bold tracking-tight">PTube</span>
           </a>
-
-          <p className="mt-4 text-sm leading-relaxed text-ink-4">
-            {dict.desc}
-          </p>
+          <p className="mt-4 text-sm leading-relaxed text-ink-4">{dict.desc}</p>
         </div>
 
-        <nav
-          aria-label={dict.navTitle}
-          className="grid grid-cols-2 gap-8 sm:flex sm:gap-12"
-        >
+        <nav aria-label={dict.navTitle} className="grid grid-cols-2 gap-x-10 gap-y-8 sm:gap-x-16">
           <div>
-            <h3 className="text-sm font-semibold text-ink-3">
-              {dict.navTitle}
-            </h3>
-
-            <ul className="mt-4 space-y-2.5">
+            <h3 className="text-sm font-semibold text-ink-2">{dict.navTitle}</h3>
+            <ul className="mt-3 space-y-0.5">
               {nav.map((l) => (
                 <li key={l.href}>
-                  <a
-                    href={l.href}
-                    className="text-sm text-ink-3 transition-colors hover:text-ink-1 focus-visible:outline-2 focus-visible:outline-accent"
-                  >
+                  <a href={l.href} className={linkCls}>
                     {l.label}
                   </a>
                 </li>
@@ -89,20 +77,12 @@ export function Footer({ dict }: { dict: Dictionary["footer"] }) {
           </div>
 
           <div>
-            <h3 className="text-sm font-semibold text-ink-3">
-              {dict.communityTitle}
-            </h3>
-
-            <ul className="mt-4 space-y-2.5">
+            <h3 className="text-sm font-semibold text-ink-2">{dict.communityTitle}</h3>
+            <ul className="mt-3 space-y-0.5">
               {socials.map((s) => (
                 <li key={s.label}>
-                  <a
-                    href={s.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 text-sm text-ink-3 transition-colors hover:text-ink-1 focus-visible:outline-2 focus-visible:outline-accent"
-                  >
-                    <s.icon size={16} weight="fill" />
+                  <a href={s.link} target="_blank" rel="noopener noreferrer" className={linkCls}>
+                    <s.icon size={16} weight="fill" aria-hidden="true" />
                     {s.label}
                   </a>
                 </li>
@@ -113,21 +93,10 @@ export function Footer({ dict }: { dict: Dictionary["footer"] }) {
       </div>
 
       <div className="border-t border-line-soft">
-        <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-3 px-4 py-6 text-center text-xs text-ink-4 sm:flex-row sm:text-left">
+        <div className="wrap flex flex-col gap-2 py-6 text-xs text-ink-4 sm:flex-row sm:items-center sm:justify-between">
           <span>{dict.rights}</span>
-
-          <span className="inline-flex flex-wrap items-center justify-center gap-2">
-            <span className="inline-flex items-center gap-1.5 rounded-full border border-line bg-surface px-2.5 py-1 font-medium">
-              <span
-                className="size-1.5 rounded-full bg-accent"
-                aria-hidden="true"
-              />
-              {dict.language}
-            </span>
-
-            <span className="inline-flex items-center gap-1.5 rounded-full border border-line bg-surface px-2.5 py-1 font-medium">
-              {dict.license}
-            </span>
+          <span>
+            {dict.language} · {dict.license}
           </span>
         </div>
       </div>

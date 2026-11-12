@@ -35,13 +35,11 @@ function FileButton({ file, label, primary = false }: { file: string; label: str
   return (
     <a
       href={downloadUrl(file)}
-      className={`group flex items-center justify-between gap-3 rounded-xl px-4 py-3 text-left transition-all focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent active:translate-y-px ${
-        primary
-          ? "bg-accent-deep text-white shadow-[0_8px_24px_-8px_rgba(255,93,143,0.55)] hover:bg-accent-deep-strong"
-          : "border border-line bg-surface text-ink-1 hover:border-accent/40"
+      className={`btn group !justify-between !px-4 !py-3 text-left ${
+        primary ? "btn-primary" : "btn-secondary"
       }`}
     >
-      <span className="min-w-0">
+      <span className="min-w-0 flex-1">
         <span className="block text-sm font-bold leading-snug">{label}</span>
         <span className={`mt-0.5 block truncate font-mono text-[11px] ${primary ? "text-white/80" : "text-ink-4"}`}>
           {file}
@@ -49,10 +47,10 @@ function FileButton({ file, label, primary = false }: { file: string; label: str
       </span>
       <span
         className={`grid size-9 shrink-0 place-items-center rounded-lg transition-transform group-hover:translate-y-0.5 ${
-          primary ? "bg-white/15" : "bg-accent/10 text-accent"
+          primary ? "bg-white/15" : "bg-surface text-accent"
         }`}
       >
-        <DownloadSimple size={18} weight="bold" />
+        <DownloadSimple size={18} weight="bold" aria-hidden="true" />
       </span>
     </a>
   );
@@ -86,14 +84,14 @@ function Command({
 
   return (
     <div className="flex items-stretch overflow-hidden rounded-lg border border-line-soft bg-panel">
-      <code className="min-w-0 flex-1 overflow-x-auto whitespace-nowrap px-3 py-2.5 font-mono text-xs text-ink-2 select-all">
+      <code tabIndex={0} className="min-w-0 flex-1 overflow-x-auto whitespace-nowrap px-3 py-3 font-mono text-xs text-ink-2 select-all">
         {children}
       </code>
       <button
         type="button"
         onClick={copy}
         aria-label={copied ? copiedLabel : copyLabel}
-        className="inline-flex shrink-0 items-center gap-1.5 border-l border-line-soft px-3 text-[11px] font-semibold text-ink-3 transition-colors hover:bg-surface hover:text-ink-1 focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-accent"
+        className="inline-flex min-h-11 shrink-0 items-center gap-1.5 border-l border-line-soft px-3.5 text-xs font-semibold text-ink-3 transition-colors hover:bg-surface hover:text-ink-1 focus-visible:-outline-offset-2"
       >
         {copied ? (
           <Check size={14} weight="bold" className="text-ok" />
@@ -123,16 +121,19 @@ function PlatformCard({
 }) {
   return (
     <div
-      className={`flex h-full min-w-0 flex-col gap-5 rounded-2xl border p-5 transition-colors sm:p-6 ${
+      className={`flex h-full min-w-0 flex-col gap-5 rounded-2xl border p-5 sm:p-6 ${
         recommended
-          ? "order-first border-accent/50 bg-accent/[0.06] lg:order-none"
-          : "border-line bg-surface"
+          ? "order-first border-accent/60 bg-accent/[0.06] lg:order-none"
+          : "border-line bg-surface-2"
       }`}
     >
       <div className="flex items-center gap-3">
-        <span className="grid size-12 shrink-0 place-items-center rounded-xl bg-accent/15 text-accent">
-          <PlatformIcon size={26} weight="fill" />
-        </span>
+        <PlatformIcon
+          size={30}
+          weight="fill"
+          className={`shrink-0 ${recommended ? "text-accent" : "text-ink-2"}`}
+          aria-hidden="true"
+        />
         <div className="min-w-0">
           <h3 className="font-display text-xl font-bold leading-tight">{name}</h3>
           <p className="mt-0.5 text-xs leading-snug text-ink-4">{req}</p>
@@ -140,8 +141,8 @@ function PlatformCard({
       </div>
 
       {recommended && (
-        <span className="inline-flex w-fit items-center gap-1.5 rounded-full border border-accent/40 bg-accent/15 px-2.5 py-1 text-[11px] font-semibold text-accent">
-          <CheckCircle size={14} weight="fill" />
+        <span className="inline-flex w-fit items-center gap-1.5 text-xs font-semibold text-accent">
+          <CheckCircle size={16} weight="fill" aria-hidden="true" />
           {recommendedLabel}
         </span>
       )}
@@ -161,7 +162,7 @@ export function DownloadPicker({ dict }: { dict: Dictionary["downloadCTA"] }) {
   const rec = dict.recommended;
 
   return (
-    <div className="grid grid-cols-1 items-stretch gap-4 lg:grid-cols-3">
+    <div className="grid grid-cols-1 items-stretch gap-4 md:grid-cols-2 lg:grid-cols-3 md:[&>*:nth-child(3)]:col-span-2 lg:[&>*:nth-child(3)]:col-span-1">
       <PlatformCard icon={WindowsLogo} name={dict.windows.name} req={dict.windows.req} recommended={os === "windows"} recommendedLabel={rec}>
         <div className="flex flex-col gap-2.5">
           <FileButton file={FILES.windows} label={dict.windows.installer} primary={os === "windows"} />

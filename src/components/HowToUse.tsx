@@ -1,62 +1,52 @@
-import type { Icon } from "@phosphor-icons/react";
-import { DownloadSimple, FileArrowDown, Gear, Play } from "@phosphor-icons/react/dist/ssr";
+import { DownloadSimple, FileArrowDown } from "@phosphor-icons/react/dist/ssr";
 import type { Dictionary } from "@/i18n/dictionaries";
-import { Reveal } from "./Reveal";
+import { SectionHeader } from "./SectionHeader";
 import { FILES, downloadUrl } from "@/lib/downloads";
 
-const icons: Icon[] = [DownloadSimple, Play, Gear, FileArrowDown];
-
+// Satu-satunya section yang rata tengah: urutan instalasi vertikal dengan garis penghubung.
 export function HowToUse({ dict }: { dict: Dictionary["howToUse"] }) {
   return (
-    <section id="cara-pakai" className="mx-auto max-w-6xl px-4 py-20 sm:py-28">
-      <Reveal>
-        <div className="mx-auto max-w-2xl text-center">
-          <span className="text-sm font-semibold text-accent">{dict.eyebrow}</span>
-          <h2 className="mt-3 font-display text-4xl font-bold tracking-tight sm:text-5xl">{dict.title}</h2>
-          <p className="mt-5 text-base leading-relaxed text-ink-3 sm:text-lg">{dict.desc}</p>
-        </div>
-      </Reveal>
+    <section id="cara-pakai" className="wrap section-y">
+      <SectionHeader center title={dict.title} desc={dict.desc} />
 
-      <div className="mt-10 grid grid-cols-1 gap-4 sm:mt-14 sm:gap-5 md:grid-cols-2">
-        {dict.steps.map((step, index) => {
-          const StepIcon = icons[index];
-          return (
-            <Reveal key={step.title} delay={index * 0.08}>
-              <div className="h-full rounded-2xl border border-line bg-surface p-5 transition-colors sm:p-6 hover:border-line-strong">
-                <div className="flex items-start gap-4">
-                  <div className="flex size-11 shrink-0 items-center justify-center rounded-xl border border-accent/20 bg-accent/10 text-accent">
-                    {StepIcon && <StepIcon size={22} weight="bold" />}
-                  </div>
-                  <div className="min-w-0">
-                    <span className="text-xs font-semibold text-ink-4">
-                      {dict.stepLabel} {index + 1}
-                    </span>
-                    <h3 className="mt-1 text-lg font-bold text-ink-1">{step.title}</h3>
-                    <p className="mt-2 text-sm leading-relaxed text-ink-3">{step.description}</p>
-                  </div>
-                </div>
-              </div>
-            </Reveal>
-          );
-        })}
-      </div>
-
-      <Reveal delay={0.2}>
-        <div className="mx-auto mt-8 max-w-3xl rounded-2xl border border-line bg-surface-2 p-5 text-center sm:p-6">
-          <div className="flex flex-col items-center">
-            <FileArrowDown size={22} weight="bold" className="text-accent" />
-            <h3 className="mt-3 font-bold text-ink-1">{dict.presetTitle}</h3>
-            <p className="mt-2 max-w-xl text-sm leading-relaxed text-ink-3">{dict.presetDesc}</p>
-            <a
-              href={downloadUrl(FILES.preset)}
-              className="mt-5 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-accent-deep px-5 py-3 text-sm font-bold text-white transition-all hover:-translate-y-0.5 hover:bg-accent-deep-strong focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent active:translate-y-0 sm:w-auto"
+      <ol className="relative mx-auto mt-10 max-w-2xl sm:mt-14">
+        {dict.steps.map((step, index) => (
+          <li key={step.title} className="relative flex gap-4 pb-8 last:pb-0 sm:gap-5">
+            {index < dict.steps.length - 1 && (
+              <span aria-hidden="true" className="absolute bottom-0 left-[1.0625rem] top-10 w-px bg-line" />
+            )}
+            <span
+              aria-hidden="true"
+              className="relative z-10 grid size-[2.125rem] shrink-0 place-items-center rounded-full bg-accent-deep font-display text-sm font-bold text-white"
             >
-              <DownloadSimple size={18} weight="bold" />
-              {dict.settingsBtn}
-            </a>
+              {index + 1}
+            </span>
+            <div className="min-w-0 pt-0.5">
+              <h3 className="text-lg font-bold leading-snug text-ink-1">
+                <span className="sr-only">
+                  {dict.stepLabel} {index + 1}:{" "}
+                </span>
+                {step.title}
+              </h3>
+              <p className="mt-1.5 text-sm leading-relaxed text-ink-3 sm:text-base">{step.description}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
+
+      <div className="mx-auto mt-12 flex max-w-2xl flex-col gap-4 rounded-2xl border border-line bg-surface-2 p-5 sm:flex-row sm:items-center sm:justify-between sm:p-6">
+        <div className="flex min-w-0 items-start gap-3.5">
+          <FileArrowDown size={22} weight="bold" className="mt-0.5 shrink-0 text-accent" aria-hidden="true" />
+          <div className="min-w-0">
+            <h3 className="font-bold text-ink-1">{dict.presetTitle}</h3>
+            <p className="mt-1 text-sm leading-relaxed text-ink-3">{dict.presetDesc}</p>
           </div>
         </div>
-      </Reveal>
+        <a href={downloadUrl(FILES.preset)} className="btn btn-primary w-full shrink-0 sm:w-auto">
+          <DownloadSimple size={18} weight="bold" aria-hidden="true" />
+          {dict.settingsBtn}
+        </a>
+      </div>
     </section>
   );
 }

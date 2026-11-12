@@ -1,63 +1,42 @@
-import {
-  CheckCircle,
-  Lightning,
-  Prohibit,
-} from "@phosphor-icons/react/dist/ssr";
-import { Reveal } from "./Reveal";
+import { Check, Minus } from "@phosphor-icons/react/dist/ssr";
+import { SectionHeader } from "./SectionHeader";
 import type { Dictionary } from "@/i18n/dictionaries";
 
+// Pernyataan sikap, bukan grid kartu: dua daftar berdampingan, dipisah satu garis.
+// Kiri (yang tidak dikerjakan) sengaja lebih redup; kanan (fokus) memakai warna penuh.
 export function Philosophy({ dict }: { dict: Dictionary["philosophy"] }) {
   return (
-    <section id="filosofi" className="mx-auto max-w-6xl px-4 py-20 sm:py-28">
-      <Reveal>
-        <div className="flex items-center gap-3">
-          <span className="grid size-10 shrink-0 place-items-center rounded-xl bg-accent/15 text-accent">
-            <Lightning size={20} weight="fill" />
-          </span>
-          <h2 className="min-w-0 font-display text-4xl font-bold tracking-tight sm:text-6xl lg:text-7xl">
-            {dict.titlePrefix} {dict.titleHighlight}
-          </h2>
+    <section id="filosofi" className="wrap section-y">
+      <SectionHeader
+        title={`${dict.titlePrefix} ${dict.titleHighlight}`}
+        desc={dict.desc}
+        className="[&_h2]:text-[clamp(2.25rem,1.4rem+3.4vw,4rem)]"
+      />
+
+      <div className="mt-10 grid grid-cols-1 gap-10 sm:mt-14 md:grid-cols-2 md:gap-0">
+        <div className="md:border-r md:border-line md:pr-10 lg:pr-16">
+          <h3 className="font-display text-lg font-bold text-ink-3">{dict.notBuiltTitle}</h3>
+          <ul className="mt-5 divide-y divide-line-soft">
+            {dict.notBuiltItems.map((item) => (
+              <li key={item} className="flex items-start gap-3 py-3 text-base text-ink-4">
+                <Minus size={16} weight="bold" className="mt-1 shrink-0 text-ink-5" aria-hidden="true" />
+                {item}
+              </li>
+            ))}
+          </ul>
         </div>
-        <p className="mt-5 max-w-[58ch] text-base leading-relaxed text-ink-3 sm:mt-6 sm:text-lg">
-          {dict.desc}
-        </p>
-      </Reveal>
 
-      <div className="mt-10 grid grid-cols-1 gap-4 sm:mt-14 md:grid-cols-2">
-        <Reveal delay={0.05}>
-          <div className="glass h-full rounded-2xl p-6 sm:p-8">
-            <h3 className="font-display text-lg font-bold text-ink-4">
-              {dict.notBuiltTitle}
-            </h3>
-            <ul className="mt-6 space-y-4">
-              {dict.notBuiltItems.map((item) => (
-                <li
-                  key={item}
-                  className="flex items-start gap-3 text-base text-ink-4 line-through decoration-ink-5/60"
-                >
-                  <Prohibit size={18} weight="fill" className="mt-0.5 shrink-0 text-ink-5" />
-                  {item}
-                </li>
-              ))}
-            </ul>
-          </div>
-        </Reveal>
-
-        <Reveal delay={0.12}>
-          <div className="glass h-full rounded-2xl border-accent/20 bg-gradient-to-br from-accent/[0.08] via-transparent to-transparent p-6 sm:p-8">
-            <h3 className="font-display text-lg font-bold text-accent">
-              {dict.prioritizedTitle}
-            </h3>
-            <ul className="mt-6 space-y-4">
-              {dict.prioritizedItems.map((item) => (
-                <li key={item} className="flex items-start gap-3 text-base font-medium text-ink-1">
-                  <CheckCircle size={20} weight="fill" className="mt-0.5 shrink-0 text-accent" />
-                  {item}
-                </li>
-              ))}
-            </ul>
-          </div>
-        </Reveal>
+        <div className="md:pl-10 lg:pl-16">
+          <h3 className="font-display text-lg font-bold text-accent">{dict.prioritizedTitle}</h3>
+          <ul className="mt-5 divide-y divide-line-soft">
+            {dict.prioritizedItems.map((item) => (
+              <li key={item} className="flex items-start gap-3 py-3.5 text-base font-medium text-ink-1 sm:text-lg">
+                <Check size={18} weight="bold" className="mt-1.5 shrink-0 text-accent" aria-hidden="true" />
+                {item}
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
     </section>
   );

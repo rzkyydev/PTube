@@ -4,6 +4,8 @@ export interface Dictionary {
     downloadBtn: string;
   };
   navbar: {
+    home: string;
+    skip: string;
     features: string;
     howItWorks: string;
     philosophy: string;
@@ -128,6 +130,8 @@ export interface Dictionary {
     loading: string;
     published: string;
     linkRelease: string;
+    unavailable: string;
+    noNotes: string;
   };
   footer: {
     desc: string;
