@@ -30,7 +30,7 @@ export function generateStaticParams() {
 export const dynamicParams = false;
 
 const DESCRIPTIONS = {
-  id: "PNGTuber desktop ringan untuk Windows, macOS, dan Linux: avatar PNG-mu bergerak real-time mengikuti suara mic. Tanpa webcam, tanpa OBS, siap streaming di mana saja.",
+  id: "PNGTuber desktop yang ringan untuk Windows, macOS, dan Linux: avatar PNG-mu bergerak secara real-time mengikuti suara dari mikrofon. Tanpa webcam, tanpa OBS, siap untuk streaming di mana saja.",
   en: "A lightweight PNGTuber for Windows, macOS and Linux: your PNG avatar moves in real time with your mic. No webcam or OBS needed, ready to stream anywhere.",
 } as const;
 

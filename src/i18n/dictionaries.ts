@@ -11,6 +11,9 @@ export interface Dictionary {
     changelog: string;
     download: string;
     free: string;
+    menuLabel: string;
+    menuOpen: string;
+    menuClose: string;
   };
   themeToggle: {
     dark: string;
@@ -110,10 +113,11 @@ export interface Dictionary {
     mac: { name: string; req: string; arm: string; intel: string; hint: string; quarantine: string; };
     linux: { name: string; req: string; appimage: string; deb: string; hint: string; };
     optional: string;
+    presetTitle: string;
     recommendedSettingsBtn: string;
     recommendedSettingsDesc: string;
-    updatesTitle: string;
-    updatesDesc: string;
+    copy: string;
+    copied: string;
   };
   changelog: {
     eyebrow: string;

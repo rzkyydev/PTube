@@ -79,15 +79,15 @@ export function LanguageSelector() {
         aria-expanded={isOpen}
         aria-controls="lang-menu"
         aria-label="Pilih Bahasa / Select Language"
-        className="flex h-9 items-center gap-1.5 rounded-xl border border-line bg-surface px-3 text-sm font-medium text-ink-2 transition-colors hover:border-line-strong hover:text-ink-1 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+        className="flex h-9 items-center gap-1.5 rounded-xl border border-line bg-surface px-2.5 text-sm sm:px-3 font-medium text-ink-2 transition-colors hover:border-line-strong hover:text-ink-1 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
       >
         <Translate size={16} weight="bold" />
-        <span className="w-8 text-left">{getDisplay()}</span>
-        <CaretDown size={12} weight="bold" className={`transition-transform ${isOpen ? "rotate-180" : ""}`} />
+        <span className="min-w-7 text-left">{getDisplay()}</span>
+        <CaretDown size={12} weight="bold" className={`hidden transition-transform sm:block ${isOpen ? "rotate-180" : ""}`} />
       </button>
 
       {isOpen && (
-        <div id="lang-menu" className="absolute right-0 top-full mt-2 w-36 overflow-hidden rounded-xl border border-line bg-panel p-1 shadow-lg">
+        <div id="lang-menu" className="absolute right-0 top-full z-50 mt-2 w-44 overflow-hidden rounded-xl border border-line bg-panel p-1 shadow-lg">
           {(["auto", "en", "id"] as Preference[]).map((pref) => (
             <button
               key={pref}
@@ -100,7 +100,7 @@ export function LanguageSelector() {
                   : "text-ink-2 hover:bg-surface hover:text-ink-1"
               }`}
             >
-              {pref === "auto" ? "Auto" : pref === "en" ? "English (EN)" : "Indonesian (ID)"}
+              {pref === "auto" ? "Auto" : pref === "en" ? "English (EN)" : "Bahasa Indonesia"}
             </button>
           ))}
         </div>

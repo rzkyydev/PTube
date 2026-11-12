@@ -29,7 +29,7 @@ function Inline({ text }: { text: string }) {
           return (
             <code
               key={i}
-              className="rounded bg-surface-2 px-1 py-0.5 font-mono text-[0.85em] text-accent"
+              className="break-all rounded bg-surface-2 px-1 py-0.5 font-mono text-[0.85em] text-accent"
             >
               {part.slice(1, -1)}
             </code>
@@ -105,7 +105,9 @@ export function Changelog({ dict, release, locale }: ChangelogProps) {
       renderBlocks.push(
         <div key={i} className="mt-1.5 flex items-start gap-2.5 text-sm leading-relaxed text-ink-3">
           <span className="mt-2 size-1.5 shrink-0 rounded-full bg-accent" />
-          <Inline text={block.text} />
+          <span className="min-w-0 break-words">
+            <Inline text={block.text} />
+          </span>
         </div>
       );
     }
@@ -130,10 +132,10 @@ export function Changelog({ dict, release, locale }: ChangelogProps) {
       </Reveal>
 
       <Reveal delay={0.1}>
-        <div className="mx-auto mt-10 max-w-3xl overflow-hidden rounded-2xl border border-line bg-surface">
+        <div className="mx-auto mt-8 max-w-3xl overflow-hidden sm:mt-10 rounded-2xl border border-line bg-surface">
           {release ? (
             <>
-              <div className="flex flex-wrap items-center justify-between gap-3 border-b border-line px-6 py-5">
+              <div className="flex flex-wrap items-center justify-between gap-3 border-b border-line px-4 py-4 sm:px-6 sm:py-5">
                 <div className="flex min-w-0 items-center gap-3">
                   <div className="flex size-11 shrink-0 items-center justify-center rounded-xl border border-accent/20 bg-accent/10 text-accent">
                     <Tag size={22} weight="bold" />
@@ -158,7 +160,7 @@ export function Changelog({ dict, release, locale }: ChangelogProps) {
                   href={release.html_url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 rounded-lg border border-line bg-surface-2 px-4 py-2 text-sm font-bold text-ink-2 transition-colors hover:border-line-strong hover:text-ink-1"
+                  className="inline-flex w-full items-center justify-center gap-2 rounded-lg border border-line bg-surface-2 px-4 py-2.5 text-sm sm:w-auto font-bold text-ink-2 transition-colors hover:border-line-strong hover:text-ink-1"
                 >
                   <GithubLogo size={16} weight="bold" />
                   {dict.viewChangelog}
@@ -166,7 +168,7 @@ export function Changelog({ dict, release, locale }: ChangelogProps) {
                 </a>
               </div>
 
-              <div className="px-6 py-5">
+              <div className="px-4 py-4 sm:px-6 sm:py-5">
                 {release.published_at && (
                   <p className="inline-flex items-center gap-2 text-xs font-medium text-ink-4">
                     <CalendarBlank size={14} weight="bold" />

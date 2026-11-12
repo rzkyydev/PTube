@@ -56,7 +56,7 @@ export function HowItWorks({ dict }: { dict: Dictionary["howItWorks"] }) {
   ];
 
   return (
-    <section id="cara-kerja" className="mx-auto max-w-6xl px-4 py-24">
+    <section id="cara-kerja" className="mx-auto max-w-6xl px-4 py-16 sm:py-24">
       <Reveal>
         <h2 className="max-w-2xl font-display text-4xl font-bold tracking-tight sm:text-5xl">
           {dict.title}
@@ -66,7 +66,7 @@ export function HowItWorks({ dict }: { dict: Dictionary["howItWorks"] }) {
         </p>
       </Reveal>
 
-      <div className="relative mt-14 grid gap-10 md:grid-cols-3 md:gap-6">
+      <div className="relative mt-10 grid gap-10 sm:mt-14 md:grid-cols-3 md:gap-6">
         <div
           aria-hidden="true"
           className="absolute left-0 right-0 top-5 hidden h-px bg-gradient-to-r from-transparent via-accent/40 to-transparent md:block"

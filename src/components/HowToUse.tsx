@@ -8,7 +8,7 @@ const icons: Icon[] = [DownloadSimple, Play, Gear, FileArrowDown];
 
 export function HowToUse({ dict }: { dict: Dictionary["howToUse"] }) {
   return (
-    <section id="cara-pakai" className="mx-auto max-w-6xl px-4 py-28">
+    <section id="cara-pakai" className="mx-auto max-w-6xl px-4 py-20 sm:py-28">
       <Reveal>
         <div className="mx-auto max-w-2xl text-center">
           <span className="text-sm font-semibold text-accent">{dict.eyebrow}</span>
@@ -17,17 +17,17 @@ export function HowToUse({ dict }: { dict: Dictionary["howToUse"] }) {
         </div>
       </Reveal>
 
-      <div className="mt-14 grid gap-5 md:grid-cols-2">
+      <div className="mt-10 grid gap-4 sm:mt-14 sm:gap-5 md:grid-cols-2">
         {dict.steps.map((step, index) => {
           const StepIcon = icons[index];
           return (
             <Reveal key={step.title} delay={index * 0.08}>
-              <div className="h-full rounded-2xl border border-line bg-surface p-6 transition-colors hover:border-line-strong">
+              <div className="h-full rounded-2xl border border-line bg-surface p-5 transition-colors sm:p-6 hover:border-line-strong">
                 <div className="flex items-start gap-4">
                   <div className="flex size-11 shrink-0 items-center justify-center rounded-xl border border-accent/20 bg-accent/10 text-accent">
                     {StepIcon && <StepIcon size={22} weight="bold" />}
                   </div>
-                  <div>
+                  <div className="min-w-0">
                     <span className="text-xs font-semibold text-ink-4">
                       {dict.stepLabel} {index + 1}
                     </span>
@@ -42,14 +42,14 @@ export function HowToUse({ dict }: { dict: Dictionary["howToUse"] }) {
       </div>
 
       <Reveal delay={0.2}>
-        <div className="mx-auto mt-8 max-w-3xl rounded-2xl border border-line bg-surface-2 p-6 text-center">
+        <div className="mx-auto mt-8 max-w-3xl rounded-2xl border border-line bg-surface-2 p-5 text-center sm:p-6">
           <div className="flex flex-col items-center">
             <FileArrowDown size={22} weight="bold" className="text-accent" />
             <h3 className="mt-3 font-bold text-ink-1">{dict.presetTitle}</h3>
             <p className="mt-2 max-w-xl text-sm leading-relaxed text-ink-3">{dict.presetDesc}</p>
             <a
               href={downloadUrl(FILES.preset)}
-              className="mt-5 inline-flex items-center gap-2 rounded-xl bg-accent-deep px-5 py-3 text-sm font-bold text-white transition-all hover:-translate-y-0.5 hover:bg-accent-deep-strong focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent active:translate-y-0"
+              className="mt-5 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-accent-deep px-5 py-3 text-sm font-bold text-white transition-all hover:-translate-y-0.5 hover:bg-accent-deep-strong focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent active:translate-y-0 sm:w-auto"
             >
               <DownloadSimple size={18} weight="bold" />
               {dict.settingsBtn}

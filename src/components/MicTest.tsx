@@ -48,7 +48,7 @@ export function MicTest({ dict }: { dict: Dictionary["hero"] }) {
       </div>
 
       <div className="relative mx-auto grid h-72 w-full max-w-xs place-items-center sm:h-80">
-        <span className="absolute -left-1 top-8 animate-float rounded-full border border-accent/30 bg-accent/10 px-3 py-1 text-[11px] font-semibold text-accent">
+        <span className="absolute left-0 top-8 animate-float rounded-full border border-accent/30 bg-accent/10 px-3 py-1 text-[11px] font-semibold text-accent">
           bounce
         </span>
         <span className="absolute right-0 top-20 animate-wobble rounded-full border border-line bg-surface px-3 py-1 text-[11px] font-semibold text-ink-2">
@@ -57,7 +57,7 @@ export function MicTest({ dict }: { dict: Dictionary["hero"] }) {
         <span className="absolute bottom-10 left-2 animate-sway rounded-full border border-line bg-surface px-3 py-1 text-[11px] font-semibold text-ink-2">
           float
         </span>
-        <span className="absolute -right-2 bottom-2 animate-float rounded-full border border-line bg-surface px-3 py-1 text-[11px] font-semibold text-ink-2 [animation-delay:-2s]">
+        <span className="absolute right-0 bottom-2 animate-float rounded-full border border-line bg-surface px-3 py-1 text-[11px] font-semibold text-ink-2 [animation-delay:-2s]">
           pulse
         </span>
 
@@ -66,7 +66,7 @@ export function MicTest({ dict }: { dict: Dictionary["hero"] }) {
             initial={reduceMotion ? { scale: 1, opacity: 1 } : { scale: 0, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ duration: reduceMotion ? 0 : 0.3 }}
-            className="absolute -right-1 top-4 z-10 grid size-10 place-items-center rounded-full border border-accent/40 bg-badge text-accent shadow-lg"
+            className="absolute right-0 top-4 z-10 grid size-10 place-items-center rounded-full border border-accent/40 bg-badge text-accent shadow-lg"
           >
             <MicrophoneSlash size={20} weight="bold" />
           </m.span>
@@ -116,7 +116,7 @@ export function MicTest({ dict }: { dict: Dictionary["hero"] }) {
           }}
           onKeyUp={() => setHolding(false)}
           onContextMenu={(e) => e.preventDefault()}
-          className={`group cursor-mic-btn flex select-none items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-bold transition-all duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent ${
+          className={`group cursor-mic-btn flex min-w-0 select-none items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-bold transition-all duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent ${
             holding
               ? "scale-[0.98] bg-accent-deep-strong text-white"
               : "bg-accent-deep text-white active:scale-[0.98]"
@@ -143,9 +143,9 @@ export function MicTest({ dict }: { dict: Dictionary["hero"] }) {
         </button>
       </div>
 
-      <div className="mt-5 flex items-center justify-between rounded-xl border border-line-soft bg-surface-2 px-3 py-2">
-        <span className="text-[11px] font-medium text-ink-3">{dict.micThreshold}</span>
-        <div className="relative flex h-5 items-center gap-[2px]">
+      <div className="mt-5 flex items-center justify-between gap-3 rounded-xl border border-line-soft bg-surface-2 px-3 py-2">
+        <span className="min-w-0 text-[11px] font-medium text-ink-3">{dict.micThreshold}</span>
+        <div className="relative flex h-5 shrink-0 items-center gap-[2px]">
           {Array.from({ length: 20 }).map((_, i) => (
             <span
               key={i}

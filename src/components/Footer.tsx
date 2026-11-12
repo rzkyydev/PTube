@@ -43,7 +43,7 @@ export function Footer({ dict }: { dict: Dictionary["footer"] }) {
 
   return (
     <footer className="border-t border-line-soft">
-      <div className="mx-auto flex max-w-6xl flex-col gap-8 px-4 py-12 md:flex-row md:items-start md:justify-between">
+      <div className="mx-auto flex max-w-6xl flex-col gap-8 px-4 py-10 sm:py-12 md:flex-row md:items-start md:justify-between">
         <div className="max-w-xs">
           <a href="#top" className="flex items-center gap-2.5">
             <Image
@@ -67,7 +67,7 @@ export function Footer({ dict }: { dict: Dictionary["footer"] }) {
 
         <nav
           aria-label={dict.navTitle}
-          className="flex gap-12"
+          className="grid grid-cols-2 gap-8 sm:flex sm:gap-12"
         >
           <div>
             <h3 className="text-sm font-semibold text-ink-3">
@@ -113,10 +113,10 @@ export function Footer({ dict }: { dict: Dictionary["footer"] }) {
       </div>
 
       <div className="border-t border-line-soft">
-        <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-3 px-4 py-6 text-xs text-ink-4 sm:flex-row">
+        <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-3 px-4 py-6 text-center text-xs text-ink-4 sm:flex-row sm:text-left">
           <span>{dict.rights}</span>
 
-          <span className="inline-flex items-center gap-2">
+          <span className="inline-flex flex-wrap items-center justify-center gap-2">
             <span className="inline-flex items-center gap-1.5 rounded-full border border-line bg-surface px-2.5 py-1 font-medium">
               <span
                 className="size-1.5 rounded-full bg-accent"

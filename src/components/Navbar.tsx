@@ -2,6 +2,7 @@ import Image from "next/image";
 import { DownloadSimple } from "@phosphor-icons/react/dist/ssr";
 import { ThemeToggle } from "./ThemeToggle";
 import { LanguageSelector } from "./LanguageSelector";
+import { MobileNav } from "./MobileNav";
 import type { Dictionary } from "@/i18n/dictionaries";
 
 import ptubeIcon from "@/assets/icon-64.webp";
@@ -22,9 +23,10 @@ export function Navbar({
   ];
 
   return (
-    <header className="fixed inset-x-0 top-0 z-40">
-      <nav className="glass-deep mx-auto mt-4 flex max-w-5xl items-center justify-between rounded-2xl px-4 py-3 sm:px-6">
-        <a href="#top" className="flex items-center gap-2.5">
+    // Padding header memberi jarak ke tepi layar di HP. Link desktop tampil mulai lg, di bawah itu pakai menu hamburger.
+    <header className="fixed inset-x-0 top-0 z-40 px-3 sm:px-4">
+      <nav className="glass-deep relative mx-auto mt-3 flex max-w-5xl items-center justify-between gap-2 rounded-2xl px-3 py-2.5 sm:mt-4 sm:px-6 sm:py-3">
+        <a href="#top" className="flex shrink-0 items-center gap-2.5 rounded-lg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent">
           <Image
             src={ptubeIcon}
             alt="PTube logo"
@@ -36,7 +38,8 @@ export function Navbar({
           />
           <span className="font-display text-xl font-bold tracking-tight">PTube</span>
         </a>
-        <div className="hidden items-center gap-1 md:flex">
+
+        <div className="hidden items-center gap-1 lg:flex">
           {links.map((l) => (
             <a
               key={l.href}
@@ -47,14 +50,24 @@ export function Navbar({
             </a>
           ))}
         </div>
-        <div className="flex items-center gap-2">
+
+        <div className="flex items-center gap-1.5 sm:gap-2">
           <LanguageSelector />
           <ThemeToggle labels={themeLabels} />
-          <a href="#unduh" className="group flex items-center gap-1.5 rounded-xl bg-accent-deep px-3.5 py-2 text-sm font-bold text-white transition-all hover:bg-accent-deep-strong focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent active:translate-y-px">
-          <DownloadSimple weight="bold" className="size-4 transition-transform group-hover:-translate-y-0.5" />
-          <span>{dict.download}</span>
-          <span className="hidden sm:inline">{dict.free}</span>
+          <a
+            href="#unduh"
+            className="group hidden items-center gap-1.5 rounded-xl bg-accent-deep px-3.5 py-2 text-sm font-bold text-white transition-all hover:bg-accent-deep-strong focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent active:translate-y-px sm:flex"
+          >
+            <DownloadSimple weight="bold" className="size-4 transition-transform group-hover:-translate-y-0.5" />
+            <span>{dict.download}</span>
+            <span className="hidden sm:inline">{dict.free}</span>
           </a>
+          <MobileNav
+            links={links}
+            downloadLabel={dict.download}
+            freeLabel={dict.free}
+            labels={{ menu: dict.menuLabel, open: dict.menuOpen, close: dict.menuClose }}
+          />
         </div>
       </nav>
     </header>

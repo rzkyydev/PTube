@@ -13,7 +13,7 @@ export function TechnicalHighlights({ dict }: { dict: Dictionary["technicalHighl
   const icons = [Cpu, Timer, Images, Database, ArrowsClockwise, LockKey];
 
   return (
-    <section id="teknis" className="mx-auto max-w-6xl px-4 py-24">
+    <section id="teknis" className="mx-auto max-w-6xl px-4 py-16 sm:py-24">
       <Reveal>
         <span className="text-sm font-semibold text-accent">
           {dict.badge}
@@ -26,16 +26,16 @@ export function TechnicalHighlights({ dict }: { dict: Dictionary["technicalHighl
         </p>
       </Reveal>
 
-      <div className="mt-12 grid gap-x-10 md:grid-cols-2">
+      <div className="mt-10 grid gap-x-10 sm:mt-12 md:grid-cols-2">
         {dict.items.map((it, i) => {
           const Icon = icons[i];
           return (
             <Reveal key={it.title} delay={(i % 3) * 0.06}>
-              <div className="flex gap-5 border-t border-line-soft py-6">
+              <div className="flex gap-4 border-t border-line-soft py-5 sm:gap-5 sm:py-6">
                 <span className="grid size-10 shrink-0 place-items-center rounded-xl bg-surface text-accent">
                   {Icon && <Icon size={19} weight="fill" />}
                 </span>
-                <div>
+                <div className="min-w-0">
                   <h3 className="font-display text-base font-bold">{it.title}</h3>
                   <p className="mt-1 text-sm leading-relaxed text-ink-3">{it.desc}</p>
                 </div>

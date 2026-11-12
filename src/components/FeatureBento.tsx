@@ -22,7 +22,7 @@ import avatarSpeaking from "@/assets/avatar-speaking.webp";
 import type { Dictionary } from "@/i18n/dictionaries";
 
 const cardCls =
-  "glass flex flex-col gap-4 rounded-2xl p-6 transition-colors hover:border-line-strong";
+  "glass flex flex-col gap-4 rounded-2xl p-5 transition-colors hover:border-line-strong sm:p-6";
 
 function CardHeader({
   icon,
@@ -71,7 +71,7 @@ const idleFx = ["float / breathe", "pulse", "sway", "gentle bounce", "subtle til
 
 export function FeatureBento({ dict }: { dict: Dictionary["featureBento"] }) {
   return (
-    <section id="fitur" className="mx-auto max-w-6xl px-4 py-24">
+    <section id="fitur" className="mx-auto max-w-6xl px-4 py-16 sm:py-24">
       <Reveal>
         <h2 className="max-w-2xl font-display text-4xl font-bold tracking-tight sm:text-5xl">
           {dict.title}
@@ -81,8 +81,8 @@ export function FeatureBento({ dict }: { dict: Dictionary["featureBento"] }) {
         </p>
       </Reveal>
 
-      <div className="mt-12 grid grid-cols-1 gap-4 md:grid-cols-6">
-        <Reveal delay={0.05} className="md:col-span-4">
+      <div className="mt-10 grid grid-cols-1 sm:mt-12 gap-4 md:grid-cols-2 lg:grid-cols-6">
+        <Reveal delay={0.05} className="md:col-span-2 lg:col-span-4">
           <div className={`${cardCls} h-full bg-gradient-to-br from-accent/[0.08] via-transparent to-transparent`}>
             <CardHeader
               icon={<Smiley size={20} weight="fill" />}
@@ -127,7 +127,7 @@ export function FeatureBento({ dict }: { dict: Dictionary["featureBento"] }) {
           </div>
         </Reveal>
 
-        <Reveal delay={0.1} className="md:col-span-2">
+        <Reveal delay={0.1} className="lg:col-span-2">
           <div className={`${cardCls} h-full`}>
             <CardHeader
               icon={<Waveform size={20} weight="fill" />}
@@ -147,7 +147,7 @@ export function FeatureBento({ dict }: { dict: Dictionary["featureBento"] }) {
           </div>
         </Reveal>
 
-        <Reveal delay={0.05} className="md:col-span-2">
+        <Reveal delay={0.05} className="lg:col-span-2">
           <div className={`${cardCls} h-full`}>
             <CardHeader
               icon={<MonitorPlay size={20} weight="fill" />}
@@ -177,7 +177,7 @@ export function FeatureBento({ dict }: { dict: Dictionary["featureBento"] }) {
           </div>
         </Reveal>
 
-        <Reveal delay={0.1} className="md:col-span-2">
+        <Reveal delay={0.1} className="lg:col-span-2">
           <div className={`${cardCls} h-full`}>
             <CardHeader
               icon={<MagicWand size={20} weight="fill" />}
@@ -209,7 +209,7 @@ export function FeatureBento({ dict }: { dict: Dictionary["featureBento"] }) {
           </div>
         </Reveal>
 
-         <Reveal delay={0.15} className="md:col-span-2">
+         <Reveal delay={0.15} className="lg:col-span-2">
           <div className={`${cardCls} h-full`}>
             <CardHeader
               icon={<Keyboard size={20} weight="fill" />}
@@ -234,7 +234,7 @@ export function FeatureBento({ dict }: { dict: Dictionary["featureBento"] }) {
           </div>
         </Reveal>
 
-        <Reveal delay={0.15} className="md:col-span-3">
+        <Reveal delay={0.15} className="lg:col-span-3">
           <div className={`${cardCls} h-full`}>
             <CardHeader
               icon={<Images size={20} weight="fill" />}
@@ -242,7 +242,7 @@ export function FeatureBento({ dict }: { dict: Dictionary["featureBento"] }) {
               desc={dict.cards.animatedImages.desc}
             />
             <div className="mt-auto space-y-3">
-              <div className="grid grid-cols-3 gap-2">
+              <div className="grid grid-cols-1 gap-2 min-[480px]:grid-cols-3">
                 {[dict.cards.animatedImages.apng, dict.cards.animatedImages.gif, dict.cards.animatedImages.png].map((l, i) => (
                   <div
                     key={l}
@@ -267,7 +267,7 @@ export function FeatureBento({ dict }: { dict: Dictionary["featureBento"] }) {
         </Reveal>
         
 
-        <Reveal delay={0.2} className="md:col-span-3">
+        <Reveal delay={0.2} className="lg:col-span-3">
           <div className={`${cardCls} h-full`}>
             <CardHeader
               icon={<Timer size={20} weight="fill" />}
@@ -292,7 +292,7 @@ export function FeatureBento({ dict }: { dict: Dictionary["featureBento"] }) {
           </div>
         </Reveal>
 
-        <Reveal delay={0.05} className="md:col-span-2">
+        <Reveal delay={0.05} className="lg:col-span-2">
           <div className={`${cardCls} h-full`}>
             <CardHeader
               icon={<Gauge size={20} weight="fill" />}
@@ -305,8 +305,8 @@ export function FeatureBento({ dict }: { dict: Dictionary["featureBento"] }) {
                 { num: "192 MB", label: dict.cards.lightweight.balanced },
                 { num: "384 MB", label: dict.cards.lightweight.high },
               ].map((s) => (
-                <div key={s.label} className="rounded-xl border border-line-soft bg-panel p-3 text-center">
-                  <div className="font-display text-lg font-bold text-accent">{s.num}</div>
+                <div key={s.label} className="rounded-xl border border-line-soft bg-panel p-2 text-center sm:p-3">
+                  <div className="font-display text-base font-bold text-accent sm:text-lg">{s.num}</div>
                   <div className="mt-0.5 text-[11px] text-ink-3">{s.label}</div>
                 </div>
               ))}
@@ -315,7 +315,7 @@ export function FeatureBento({ dict }: { dict: Dictionary["featureBento"] }) {
           </div>
         </Reveal>
 
-        <Reveal delay={0.05} className="md:col-span-2">
+        <Reveal delay={0.05} className="lg:col-span-2">
           <div className={`${cardCls} h-full`}>
             <CardHeader
               icon={<GlobeHemisphereWest size={20} weight="fill" />}
@@ -333,7 +333,7 @@ export function FeatureBento({ dict }: { dict: Dictionary["featureBento"] }) {
           </div>
         </Reveal>
 
-        <Reveal delay={0.1} className="md:col-span-2">
+        <Reveal delay={0.1} className="md:col-span-2 lg:col-span-2">
           <div className={`${cardCls} h-full`}>
             <CardHeader
               icon={<UserSwitch size={20} weight="fill" />}

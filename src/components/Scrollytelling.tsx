@@ -33,7 +33,7 @@ export function Scrollytelling({
       id={ROOT_ID}
       data-step="0"
       aria-labelledby="cerita-title"
-      className="scrolly relative mx-auto max-w-6xl px-4 py-24"
+      className="scrolly relative mx-auto max-w-6xl px-4 py-16 sm:py-24"
     >
       <Reveal>
         <span className="text-sm font-semibold text-accent">
