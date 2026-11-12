@@ -1,0 +1,362 @@
+import Image from "next/image";
+import {
+  Eye,
+  Gauge,
+  GlobeHemisphereWest,
+  Images,
+  Keyboard,
+  MagicWand,
+  MicrophoneSlash,
+  MonitorPlay,
+  Moon,
+  Smiley,
+  Timer,
+  Tray,
+  UserSwitch,
+  Waveform,
+} from "@phosphor-icons/react/dist/ssr";
+import { SoundWave } from "./SoundWave";
+import { Reveal } from "./Reveal";
+import avatarIdle from "@/assets/avatar-idle.webp";
+import avatarSpeaking from "@/assets/avatar-speaking.webp";
+import type { Dictionary } from "@/i18n/dictionaries";
+
+const cardCls =
+  "glass flex flex-col gap-4 rounded-2xl p-6 transition-colors hover:border-line-strong";
+
+function CardHeader({
+  icon,
+  title,
+  desc,
+  tint = false,
+}: {
+  icon: React.ReactNode;
+  title: string;
+  desc: string;
+  tint?: boolean;
+}) {
+  return (
+    <div className="flex flex-col gap-3">
+      <div className="flex items-center gap-2.5">
+        <span
+          className={`grid size-9 place-items-center rounded-xl ${
+            tint ? "bg-accent/15 text-accent" : "bg-surface text-ink-2"
+          }`}
+        >
+          {icon}
+        </span>
+        <h3 className="font-display text-lg font-bold">{title}</h3>
+      </div>
+      <p className="text-sm leading-relaxed text-ink-3">{desc}</p>
+    </div>
+  );
+}
+
+function Pill({ children, accent = false }: { children: React.ReactNode; accent?: boolean }) {
+  return (
+    <span
+      className={`rounded-full border px-2.5 py-1 text-[11px] font-semibold ${
+        accent
+          ? "border-accent/40 bg-accent/15 text-accent"
+          : "border-line bg-surface-2 text-ink-2"
+      }`}
+    >
+      {children}
+    </span>
+  );
+}
+
+const speakingFx = ["bounce & squish", "high jump", "shake", "wobble", "pulse zoom", "spin jump", "side hop", "glitch"];
+const idleFx = ["float / breathe", "pulse", "sway", "gentle bounce", "subtle tilt"];
+
+export function FeatureBento({ dict }: { dict: Dictionary["featureBento"] }) {
+  return (
+    <section id="fitur" className="mx-auto max-w-6xl px-4 py-24">
+      <Reveal>
+        <h2 className="max-w-2xl font-display text-4xl font-bold tracking-tight sm:text-5xl">
+          {dict.title}
+        </h2>
+        <p className="mt-4 max-w-[52ch] text-base leading-relaxed text-ink-3">
+          {dict.desc}
+        </p>
+      </Reveal>
+
+      <div className="mt-12 grid grid-cols-1 gap-4 md:grid-cols-6">
+        <Reveal delay={0.05} className="md:col-span-4">
+          <div className={`${cardCls} h-full bg-gradient-to-br from-accent/[0.08] via-transparent to-transparent`}>
+            <CardHeader
+              icon={<Smiley size={20} weight="fill" />}
+              title={dict.cards.fourStates.title}
+              desc={dict.cards.fourStates.desc}
+              tint
+            />
+            <div className="grid gap-3 sm:grid-cols-2">
+              {[
+                { src: avatarIdle, label: "Idle", name: dict.cards.fourStates.idle },
+                { src: avatarSpeaking, label: "Speaking", name: dict.cards.fourStates.speaking },
+              ].map((a) => (
+                <figure
+                  key={a.label}
+                  className="group relative aspect-[4/3] overflow-hidden rounded-xl border border-line bg-panel"
+                >
+                  <Image
+                    src={a.src}
+                    alt={`${a.name} — PTube`}
+                    fill
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                    className="object-contain transition-transform duration-500 group-hover:scale-[1.04]"
+                    unoptimized
+                  />
+                  <figcaption className="absolute bottom-2 left-2 rounded-full border border-white/15 bg-black/60 px-2.5 py-1 text-[11px] font-semibold text-white backdrop-blur">
+                    {a.label}
+                  </figcaption>
+                </figure>
+              ))}
+            </div>
+            <div className="mt-1 flex flex-wrap items-center gap-2">
+              <span className="inline-flex items-center gap-1.5 text-[11px] font-medium text-ink-4">
+                <Eye size={14} weight="fill" className="text-ink-3" />
+                {dict.cards.fourStates.blink}
+              </span>
+              <span className="inline-flex items-center gap-1.5 text-[11px] font-medium text-ink-4">
+                <MicrophoneSlash size={14} weight="fill" className="text-ink-3" />
+                {dict.cards.fourStates.mute}
+              </span>
+              <span className="ml-auto text-[11px] text-ink-4">{dict.cards.fourStates.autoSwitch}</span>
+            </div>
+          </div>
+        </Reveal>
+
+        <Reveal delay={0.1} className="md:col-span-2">
+          <div className={`${cardCls} h-full`}>
+            <CardHeader
+              icon={<Waveform size={20} weight="fill" />}
+              title={dict.cards.audioEngine.title}
+              desc={dict.cards.audioEngine.desc}
+            />
+            <div className="mt-auto flex flex-col gap-3">
+              <SoundWave active className="h-9" />
+              <div className="flex flex-wrap gap-1.5">
+                <Pill>Volume meter</Pill>
+                <Pill>Noise gate</Pill>
+                <Pill accent>Noise suppression</Pill>
+                <Pill accent>Mic boost</Pill>
+                <Pill>Attack & release</Pill>
+              </div>
+            </div>
+          </div>
+        </Reveal>
+
+        <Reveal delay={0.05} className="md:col-span-2">
+          <div className={`${cardCls} h-full`}>
+            <CardHeader
+              icon={<MonitorPlay size={20} weight="fill" />}
+              title={dict.cards.streamMode.title}
+              desc={dict.cards.streamMode.desc}
+            />
+            <div className="mt-auto grid grid-cols-2 gap-2">
+              <div
+                className="grid h-24 place-items-center rounded-xl border border-line"
+                style={{
+                  backgroundImage:
+                    "conic-gradient(var(--panel-2) 25%, var(--panel) 0 50%, var(--panel-2) 0 75%, var(--panel) 0)",
+                  backgroundSize: "16px 16px",
+                }}
+              >
+                <span className="size-10 rounded-full bg-accent/90" />
+              </div>
+              <div className="grid h-24 place-items-center rounded-xl border border-line bg-[#00b140]">
+                <span className="size-10 rounded-full bg-white" />
+              </div>
+            </div>
+            <div className="flex flex-wrap gap-1.5">
+              <Pill accent>{dict.cards.streamMode.greenScreen}</Pill>
+              <Pill>{dict.cards.streamMode.transparent}</Pill>
+              <Pill>{dict.cards.streamMode.hotkey}</Pill>
+            </div>
+          </div>
+        </Reveal>
+
+        <Reveal delay={0.1} className="md:col-span-2">
+          <div className={`${cardCls} h-full`}>
+            <CardHeader
+              icon={<MagicWand size={20} weight="fill" />}
+              title={dict.cards.animationSystem.title}
+              desc={dict.cards.animationSystem.desc}
+            />
+            <div className="mt-auto flex flex-col gap-2.5">
+              <div className="flex flex-col gap-1.5">
+                <span className="text-[11px] font-semibold text-ink-4">
+                  {dict.cards.animationSystem.speaking}
+                </span>
+                <div className="flex flex-wrap gap-1.5">
+                  {speakingFx.map((p) => (
+                    <Pill key={p}>{p}</Pill>
+                  ))}
+                </div>
+              </div>
+              <div className="flex flex-col gap-1.5">
+                <span className="text-[11px] font-semibold text-ink-4">
+                  {dict.cards.animationSystem.idle}
+                </span>
+                <div className="flex flex-wrap gap-1.5">
+                  {idleFx.map((p) => (
+                    <Pill key={p}>{p}</Pill>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </Reveal>
+
+         <Reveal delay={0.15} className="md:col-span-2">
+          <div className={`${cardCls} h-full`}>
+            <CardHeader
+              icon={<Keyboard size={20} weight="fill" />}
+              title={dict.cards.modesUtils.title}
+              desc={dict.cards.modesUtils.desc}
+            />
+            <ul className="mt-auto space-y-2.5 text-sm text-ink-2">
+              {[
+                { icon: Keyboard, label: dict.cards.modesUtils.hotkeys },
+                { icon: Eye, label: dict.cards.modesUtils.autoStream },
+                { icon: Tray, label: dict.cards.modesUtils.systemTray },
+                { icon: Moon, label: dict.cards.modesUtils.lightDark },
+              ].map((r) => (
+                <li key={r.label} className="flex items-center gap-2.5">
+                  <span className="grid size-7 place-items-center rounded-lg bg-surface text-accent">
+                    <r.icon size={15} weight="fill" />
+                  </span>
+                  {r.label}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </Reveal>
+
+        <Reveal delay={0.15} className="md:col-span-3">
+          <div className={`${cardCls} h-full`}>
+            <CardHeader
+              icon={<Images size={20} weight="fill" />}
+              title={dict.cards.animatedImages.title}
+              desc={dict.cards.animatedImages.desc}
+            />
+            <div className="mt-auto space-y-3">
+              <div className="grid grid-cols-3 gap-2">
+                {[dict.cards.animatedImages.apng, dict.cards.animatedImages.gif, dict.cards.animatedImages.png].map((l, i) => (
+                  <div
+                    key={l}
+                    className={`flex min-w-0 flex-col items-center justify-center gap-1.5 rounded-xl border p-2.5 text-center sm:p-3 ${
+                      i < 2 ? "border-accent/20 bg-accent/5" : "border-line-soft bg-panel"
+                    }`}
+                  >
+                    <span className="font-display text-sm font-bold text-ink-1">{l}</span>
+                    {i < 2 ? (
+                      <span className="flex items-center gap-1 text-[10px] font-semibold leading-tight text-accent">
+                        <span className="size-1.5 shrink-0 animate-pulse rounded-full bg-accent" />
+                        <span>{dict.cards.animatedImages.note}</span>
+                      </span>
+                    ) : (
+                      <span className="text-[10px] font-medium text-ink-4">-</span>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </Reveal>
+        
+
+        <Reveal delay={0.2} className="md:col-span-3">
+          <div className={`${cardCls} h-full`}>
+            <CardHeader
+              icon={<Timer size={20} weight="fill" />}
+              title={dict.cards.speakHold.title}
+              desc={dict.cards.speakHold.desc}
+            />
+            <div className="mt-auto flex flex-col gap-3 sm:flex-row sm:items-center">
+              <div className="flex-1">
+                <div className="flex items-center justify-between text-[11px] font-semibold">
+                  <span className="text-accent">{dict.cards.speakHold.speak}</span>
+                  <span className="text-ink-4">{dict.cards.speakHold.hold}</span>
+                </div>
+                <div className="relative mt-1.5 h-2 overflow-hidden rounded-full bg-surface-2">
+                  <div
+                    className="h-full w-full origin-left rounded-full bg-gradient-to-r from-accent to-accent-deep"
+                    style={{ animation: "speakHold 1.6s ease-in-out infinite" }}
+                  />
+                </div>
+              </div>
+              <Pill accent>{dict.cards.speakHold.note}</Pill>
+            </div>
+          </div>
+        </Reveal>
+
+        <Reveal delay={0.05} className="md:col-span-2">
+          <div className={`${cardCls} h-full`}>
+            <CardHeader
+              icon={<Gauge size={20} weight="fill" />}
+              title={dict.cards.lightweight.title}
+              desc={dict.cards.lightweight.desc}
+            />
+            <div className="mt-auto grid grid-cols-3 gap-2">
+              {[
+                { num: "128 MB", label: dict.cards.lightweight.low },
+                { num: "192 MB", label: dict.cards.lightweight.balanced },
+                { num: "384 MB", label: dict.cards.lightweight.high },
+              ].map((s) => (
+                <div key={s.label} className="rounded-xl border border-line-soft bg-panel p-3 text-center">
+                  <div className="font-display text-lg font-bold text-accent">{s.num}</div>
+                  <div className="mt-0.5 text-[11px] text-ink-3">{s.label}</div>
+                </div>
+              ))}
+            </div>
+            <p className="text-[11px] leading-relaxed text-ink-4">{dict.cards.lightweight.note}</p>
+          </div>
+        </Reveal>
+
+        <Reveal delay={0.05} className="md:col-span-2">
+          <div className={`${cardCls} h-full`}>
+            <CardHeader
+              icon={<GlobeHemisphereWest size={20} weight="fill" />}
+              title={dict.cards.multiLanguage.title}
+              desc={dict.cards.multiLanguage.desc}
+            />
+            <div className="mt-auto flex flex-wrap items-center gap-2">
+              {["EN", "ID", "JA", "KO", "ES", "FR"].map((l, i) => (
+                <Pill key={l} accent={i === 1}>
+                  {l}
+                </Pill>
+              ))}
+              <Pill>{dict.cards.multiLanguage.others}</Pill>
+            </div>
+          </div>
+        </Reveal>
+
+        <Reveal delay={0.1} className="md:col-span-2">
+          <div className={`${cardCls} h-full`}>
+            <CardHeader
+              icon={<UserSwitch size={20} weight="fill" />}
+              title={dict.cards.profileSystem.title}
+              desc={dict.cards.profileSystem.desc}
+            />
+            <div className="mt-auto flex flex-wrap gap-2">
+              {["Normal", "Happy", "Gaming"].map((p) => (
+                <div
+                  key={p}
+                  className="flex items-center gap-2 rounded-xl border border-line-soft bg-surface-2 px-3 py-2"
+                >
+                  <span className="grid size-7 place-items-center rounded-full bg-accent-deep/90 font-display text-xs font-bold text-white">
+                    {p[0]}
+                  </span>
+                  <span className="text-xs font-semibold text-ink-2">{p}</span>
+                </div>
+              ))}
+              <Pill accent>.ptube</Pill>
+            </div>
+          </div>
+        </Reveal>
+      </div>
+    </section>
+  );
+}
