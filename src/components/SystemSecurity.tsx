@@ -37,7 +37,7 @@ export function SystemSecurity({ dict }: { dict: Dictionary["systemSecurity"] })
         </p>
       </Reveal>
 
-      <div className="mt-10 grid gap-4 sm:mt-12 lg:grid-cols-3">
+      <div className="mt-10 grid grid-cols-1 gap-4 sm:mt-12 lg:grid-cols-3">
         {cards.map((c, i) => (
           <Reveal key={c.title} delay={i * 0.08}>
             <div className="glass flex h-full flex-col gap-5 rounded-2xl p-5 sm:p-6">

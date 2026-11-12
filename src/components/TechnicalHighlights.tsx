@@ -26,7 +26,7 @@ export function TechnicalHighlights({ dict }: { dict: Dictionary["technicalHighl
         </p>
       </Reveal>
 
-      <div className="mt-10 grid gap-x-10 sm:mt-12 md:grid-cols-2">
+      <div className="mt-10 grid grid-cols-1 gap-x-10 sm:mt-12 md:grid-cols-2">
         {dict.items.map((it, i) => {
           const Icon = icons[i];
           return (

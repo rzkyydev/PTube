@@ -90,7 +90,7 @@ export function FeatureBento({ dict }: { dict: Dictionary["featureBento"] }) {
               desc={dict.cards.fourStates.desc}
               tint
             />
-            <div className="grid gap-3 sm:grid-cols-2">
+            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
               {[
                 { src: avatarIdle, label: "Idle", name: dict.cards.fourStates.idle },
                 { src: avatarSpeaking, label: "Speaking", name: dict.cards.fourStates.speaking },

@@ -123,7 +123,7 @@ function PlatformCard({
 }) {
   return (
     <div
-      className={`flex h-full flex-col gap-5 rounded-2xl border p-5 transition-colors sm:p-6 ${
+      className={`flex h-full min-w-0 flex-col gap-5 rounded-2xl border p-5 transition-colors sm:p-6 ${
         recommended
           ? "order-first border-accent/50 bg-accent/[0.06] lg:order-none"
           : "border-line bg-surface"
@@ -153,7 +153,7 @@ function PlatformCard({
 
 // Blok catatan di dasar kartu: dipisah garis tipis supaya tombol unduh tetap jadi fokus utama.
 function Notes({ children }: { children: ReactNode }) {
-  return <div className="mt-auto flex flex-col gap-2.5 border-t border-line-soft pt-4">{children}</div>;
+  return <div className="mt-auto flex min-w-0 flex-col gap-2.5 border-t border-line-soft pt-4">{children}</div>;
 }
 
 export function DownloadPicker({ dict }: { dict: Dictionary["downloadCTA"] }) {
@@ -161,7 +161,7 @@ export function DownloadPicker({ dict }: { dict: Dictionary["downloadCTA"] }) {
   const rec = dict.recommended;
 
   return (
-    <div className="grid items-stretch gap-4 lg:grid-cols-3">
+    <div className="grid grid-cols-1 items-stretch gap-4 lg:grid-cols-3">
       <PlatformCard icon={WindowsLogo} name={dict.windows.name} req={dict.windows.req} recommended={os === "windows"} recommendedLabel={rec}>
         <div className="flex flex-col gap-2.5">
           <FileButton file={FILES.windows} label={dict.windows.installer} primary={os === "windows"} />

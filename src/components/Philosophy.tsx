@@ -23,7 +23,7 @@ export function Philosophy({ dict }: { dict: Dictionary["philosophy"] }) {
         </p>
       </Reveal>
 
-      <div className="mt-10 grid gap-4 sm:mt-14 md:grid-cols-2">
+      <div className="mt-10 grid grid-cols-1 gap-4 sm:mt-14 md:grid-cols-2">
         <Reveal delay={0.05}>
           <div className="glass h-full rounded-2xl p-6 sm:p-8">
             <h3 className="font-display text-lg font-bold text-ink-4">

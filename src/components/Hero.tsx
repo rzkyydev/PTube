@@ -15,7 +15,7 @@ export function Hero({
     ? dict.badge.replace(/\bv?\d+(?:\.\d+){1,2}(?:[-+][0-9A-Za-z.-]+)?\b/, "v" + releaseVersion)
     : dict.badge;
   return (
-    <section id="top" className="relative mx-auto grid min-h-svh max-w-6xl items-center gap-10 px-4 pb-16 pt-28 sm:gap-12 sm:pb-20 sm:pt-32 lg:grid-cols-2 lg:gap-16 lg:pt-28">
+    <section id="top" className="relative mx-auto grid min-h-svh grid-cols-1 max-w-6xl items-center gap-10 px-4 pb-16 pt-28 sm:gap-12 sm:pb-20 sm:pt-32 lg:grid-cols-2 lg:gap-16 lg:pt-28">
       <div className="min-w-0">
         <span className="inline-flex max-w-full items-center gap-2 rounded-full border border-accent/30 bg-accent/10 px-3 py-1.5 text-xs font-semibold text-accent">
           <Sparkle size={14} weight="fill" />

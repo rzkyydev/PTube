@@ -22,11 +22,14 @@ export function ScrollyObserver({ rootId }: { rootId: string }) {
     );
     live.observe(root);
 
-    // Pita sempit di layar: langkah yang melewatinya jadi aktif. Desktop = tengah layar
+    // Pita sempit di layar: langkah yang melewatinya jadi aktif. Desktop dan HP landscape = tengah layar
     // (teks di kolom kiri, rata tengah). Mobile = ~70-76% tinggi layar, yaitu tengah area baca di bawah stage sticky.
     // Kalau dua langkah sempat beririsan di batas, yang indeksnya lebih besar menang;
     // begitu salah satunya keluar, hasilnya otomatis benar lagi.
-    const mq = window.matchMedia("(min-width: 768px)");
+    // Harus sama persis dengan media query layout dua kolom di globals.css (desktop atau HP landscape).
+    const mq = window.matchMedia(
+      "(min-width: 768px), (min-width: 560px) and (max-height: 500px) and (orientation: landscape)",
+    );
     const inBand = new Set<number>();
     let current = -1;
     let pick: IntersectionObserver | null = null;

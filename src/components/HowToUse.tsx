@@ -17,7 +17,7 @@ export function HowToUse({ dict }: { dict: Dictionary["howToUse"] }) {
         </div>
       </Reveal>
 
-      <div className="mt-10 grid gap-4 sm:mt-14 sm:gap-5 md:grid-cols-2">
+      <div className="mt-10 grid grid-cols-1 gap-4 sm:mt-14 sm:gap-5 md:grid-cols-2">
         {dict.steps.map((step, index) => {
           const StepIcon = icons[index];
           return (
