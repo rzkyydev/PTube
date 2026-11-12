@@ -5,7 +5,7 @@
 <h1 align="center">PTube</h1>
 
 <p align="center">
-  Lightweight PNGTuber desktop app for Windows. Upload your avatar, speak into your microphone, and watch it come alive.
+  Lightweight PNGTuber desktop app for Windows, macOS and Linux. Upload your avatar, speak into your microphone, and watch it come alive.
 </p>
 
 <p align="center">
@@ -20,7 +20,7 @@ PTube is a simple desktop application that turns a static PNG image into a react
 
 When you are silent, your avatar stays idle. When you speak, it switches to the speaking expression. Blink and mute states are available if you add images for them. It is that simple.
 
-You do not need a webcam. You do not need OBS. You do not need any technical background. Just your PNG files and a microphone.
+You do not need a webcam. You do not need OBS. You do not need any technical background. Just your image files and a microphone.
 
 ---
 
@@ -30,11 +30,12 @@ Most avatar tools try to do everything — face tracking, AI effects, complex wo
 
 PTube is intentionally focused on one thing: **making PNGTubing easy.**
 
-- **Lightweight.** Built to stay under 100 MB of RAM. Runs comfortably on low-end hardware and alongside games, streaming software, and other applications.
-- **Simple.** Upload your PNGs, pick a microphone, and you are ready. No configuration mazes.
-- **Beginner-friendly.** Clear labels, plain-language explanations, and tooltips on technical settings. No raw error messages.
-- **Fast.** Smooth 60 FPS animation with responsive transitions.
+- **Lightweight.** Built with Rust and Tauri, with memory presets and a Performance Mode, so it runs comfortably alongside games, streaming software, and other applications.
+- **Simple.** Upload your images, pick a microphone, and you are ready. No configuration mazes.
+- **Beginner-friendly.** Clear labels, plain-language explanations, and tooltips on technical settings. Error messages that tell you what to do next.
+- **Fast.** Smooth animation with responsive transitions.
 - **Focused.** Only the features you actually need for audio-driven PNGTubing.
+- **Cross-platform.** Windows, macOS (Apple Silicon and Intel) and Linux.
 
 PTube is not trying to do everything. It is trying to make PNGTubing easy.
 
@@ -53,6 +54,8 @@ PTube responds to your voice in real time using four avatar states:
 
 Idle and Speaking are required. Blink and Mute are optional — add them if you want, skip them if you do not need them.
 
+Animated **APNG** and **GIF** avatars are supported and play their animation on the main stage.
+
 ### Microphone Detection
 
 PTube listens to your microphone and adjusts your avatar based on your voice volume.
@@ -60,7 +63,7 @@ PTube listens to your microphone and adjusts your avatar based on your voice vol
 - Pick your microphone device from the list.
 - See a live volume meter so you know what PTube is hearing.
 - Adjust voice sensitivity to control how easily your avatar reacts.
-- Optional advanced audio settings (noise suppression, noise gate, microphone boost, attack and release speed) are tucked behind an advanced section — beginners can leave them alone.
+- Optional advanced audio settings (noise suppression, noise gate, microphone boost, attack and release speed, speak hold time) are tucked behind an advanced section — beginners can leave them alone.
 
 If your microphone is not detected, check that it is connected and that PTube has permission to access it.
 
@@ -70,6 +73,7 @@ Give your avatar personality with built-in animation effects.
 
 - **Idle Motion** — choose from Float/Breathe, Pulse, Sway, Gentle Bounce, Subtle Tilt, or Stationary.
 - **Speaking Motion** — choose from Bounce, High Jump, Shake, Wobble, Pulse, Spin Jump, Side Hop, Glitch, or None.
+- **Transitions** — Smooth Fade, Pop / Elastic, Slide Up, or Instant when the avatar changes state.
 - **Controls** — adjust motion height, motion speed, and avatar scale with simple sliders.
 - **Test Animation** — preview any animation without needing to speak into your microphone.
 - **Visual options** — darken your avatar when idle or on mute, and toggle the mute icon overlay.
@@ -83,7 +87,7 @@ Save different avatar setups as profiles. For example:
 - Gaming
 - Chill
 
-Create, rename, duplicate, and delete profiles without limits. Export a profile as a `.ptube` file to share with friends, or import one they send you.
+Create, rename, duplicate, and delete profiles. Export a profile as a `.ptube` file to share with friends, or import one they send you. Switch between your first nine profiles instantly with `Ctrl + Numpad 1–9`.
 
 ### Stream Mode
 
@@ -91,16 +95,14 @@ Enter Stream Mode to use PTube with OBS or other streaming software.
 
 - The interface disappears and the background becomes transparent or green-screen.
 - Choose from preset backgrounds: transparent, green, blue, magenta, light, or a custom color.
-- Click-Through mode lets mouse clicks pass through the window so you can interact with your game or stream software while streaming.
 - Press **F11** to enter or exit Stream Mode. You are never trapped — press F11 again to leave, or use the exit button in the window.
+- Optional **Auto Stream Mode when Unfocused** switches to Stream Mode when you click another window and back to the editor when you return. It is off by default.
 
 ### Customization
 
 Everything is configurable from the main window:
 
 - Language (31 supported — see Language Support)
-- Window opacity
-- Always on top
 - Auto-save
 - Performance Mode
 - Stage background color
@@ -111,9 +113,8 @@ Everything is configurable from the main window:
 
 PTube is designed to stay lightweight:
 
-- Low RAM usage — well under 100 MB during normal use.
-- Smooth 60 FPS animation.
-- RAM and FPS displayed in the footer so you can monitor performance.
+- Memory presets — **Low**, **Balanced** and **High** — adjust PTube's soft memory budgets and cache sizes.
+- RAM shown in the footer so you can monitor performance.
 - Clean RAM button available to free up memory if needed.
 - Performance Mode can be enabled to further reduce resource usage.
 
@@ -121,7 +122,7 @@ PTube is designed to stay lightweight:
 
 ## How It Works
 
-1. **Choose your PNG avatar.** Upload images for Idle, Speaking, and optionally Blink and Mute. Drag and drop or use the file picker.
+1. **Choose your avatar images.** Upload images for Idle, Speaking, and optionally Blink and Mute. Drag and drop or use the file picker.
 2. **Select your microphone.** Pick your device from the dropdown and speak into it to test.
 3. **Adjust voice sensitivity.** Use the sensitivity slider so your avatar reacts when you want it to.
 4. **Customize movement.** Pick animation presets and adjust speed, height, and scale.
@@ -131,7 +132,7 @@ PTube is designed to stay lightweight:
 
 ## First Time Using PTube
 
-When you open PTube for the first time, you will see the main stage — this is where your avatar appears. On the right side is the control panel with five tabs:
+When you open PTube for the first time, a short welcome guide and tour show you around. You will see the main stage — this is where your avatar appears. On the right side is the control panel with five tabs:
 
 - **Avatar** — upload images and manage profiles
 - **Animation** — choose motion effects and adjust settings
@@ -146,7 +147,7 @@ Here is what the terms mean:
 - **Idle** — the image shown when you are not speaking.
 - **Speaking** — the image shown when PTube detects your voice.
 - **Threshold** — the minimum volume needed to trigger the speaking state. Think of it as the "sensitivity dial."
-- **Stream Mode** — a full-screen transparent mode for use with OBS and streaming software.
+- **Stream Mode** — a mode that hides the interface and shows only your avatar, for use with OBS and streaming software.
 
 ---
 
@@ -160,6 +161,13 @@ Here is what the terms mean:
 | Mute | No | Shown when you manually mute your microphone. |
 
 If optional states are not configured, PTube simply does not use them. The avatar stays on the current required state.
+
+**Image tips**
+
+- Supported formats: PNG (including APNG), GIF, WebP and SVG.
+- Keep each image under **3 MB** (GIF under **15 MB**).
+- Use at most **8192 px per side and 12 megapixels**. A transparent PNG can be small on disk but huge in pixels, and PTube will ask you to resize it. Around **2000×2000 px** is plenty — PNG, JPG and WebP avatars are shrunk to fit 500 px anyway to save memory.
+- Use the same canvas size for all four states so the avatar does not jump when it changes state.
 
 ---
 
@@ -178,6 +186,7 @@ The microphone section is designed to be simple first, powerful when you need it
 - Check that your microphone is plugged in and turned on.
 - Make sure another application is not exclusively using it.
 - Try selecting a different device from the dropdown.
+- On Windows, open **Settings → Privacy & security → Microphone** and allow desktop apps to use your microphone. PTube has an **Open Windows microphone settings** shortcut for this.
 
 **If your avatar is not reacting:**
 
@@ -188,9 +197,9 @@ The microphone section is designed to be simple first, powerful when you need it
 **If your avatar is too sensitive:**
 
 - Raise the Voice Sensitivity threshold so quieter sounds are ignored.
-- Use the Silence Filter (Noise Gate) in Advanced Audio Settings to ignore background hums and noise.
+- Use the **Noise Gate Filter** in Advanced Audio Settings to ignore background hums and noise.
 
-Advanced settings like noise suppression, microphone boost, and attack/release speed are available under **Advanced Audio Settings**. You can leave these at their defaults unless you want to fine-tune things.
+Advanced settings like noise suppression, noise gate, microphone boost, attack/release speed and speak hold time are available under **Advanced Audio Settings**. You can leave these at their defaults unless you want to fine-tune things.
 
 ---
 
@@ -219,6 +228,8 @@ PTube includes a variety of animation presets to bring your avatar to life.
 - Glitch — digital-style shift
 - None — no animation
 
+**Transitions** control how the avatar changes between states: Smooth Fade, Pop / Elastic, Slide Up, or Instant. Fades are switched off automatically in Performance Mode and when your system asks for reduced motion.
+
 **Test Animation** lets you preview any animation instantly without speaking into your microphone. Just click the Test Animation button and see the effect.
 
 Use the **Reset** button to restore all animation settings to their defaults.
@@ -244,19 +255,24 @@ Example profile names: Normal, Happy, Gaming, Chill, or anything you like.
 
 ## Stream Mode
 
-Stream Mode makes PTube work with OBS, VMix, or any streaming software that can capture a window or use a transparent overlay.
+Stream Mode makes PTube work with OBS, VMix, or any streaming software that can capture a window.
 
 **What it does:**
 
 - Hides the PTube interface completely.
-- Makes the background transparent (checkerboard pattern) or applies a green-screen, blue-screen, or magenta-screen color.
+- Makes the background transparent or applies a green-screen, blue-screen, or magenta-screen color.
 - You can also pick a custom background color.
 
 **How to enter:** Press **F11** or click the Stream Mode button in the status bar.
 
-**How to exit:** Press **F11** again. The exit button is also visible in the top-right corner of the window while in Stream Mode. You can always press F11 to leave — you are never stuck.
+**How to exit:** Press **F11** again. The exit button is also visible in the window while in Stream Mode. You can always press F11 to leave — you are never stuck.
 
-**Click-Through (Pass Mouse):** While in Stream Mode, you can enable Click-Through so that mouse clicks pass right through the PTube window. Press **F10** to toggle it on or off. If you ever get stuck, just press F10 again.
+**Using it with OBS:**
+
+- *Transparent (recommended):* choose the transparent background, add a **Window Capture** source in OBS, select the PTube window, and enable **Allow Transparency** in the source properties.
+- *Chroma key:* choose Green (or Blue / Magenta), add a **Window Capture** source, then add a **Chroma Key** filter with the same color.
+
+Tip: turn on **Auto Stream Mode when Unfocused** so the editor hides itself as soon as you click back into your game.
 
 ---
 
@@ -264,14 +280,13 @@ Stream Mode makes PTube work with OBS, VMix, or any streaming software that can 
 
 PTube is built to be fast and gentle on your hardware.
 
-- Uses very little RAM — typically well under 100 MB.
-- Animations run at a smooth 60 FPS.
+- Uses a small memory footprint, with presets (**Low**, **Balanced**, **High**) that set soft memory budgets of about 128, 192 and 384 MB in total, including the web view that draws the interface.
 - Runs fine alongside games, streaming software, and other applications.
-- The footer shows live RAM and FPS readings if you want to check performance.
+- The footer shows a live RAM reading if you want to check performance.
 - **Clean RAM** button is available in the footer to free up memory.
 - **Performance Mode** can be enabled in Settings to further reduce resource usage.
 
-No specific benchmark numbers are claimed. Performance depends on your hardware, avatar image sizes, and animation settings.
+No specific benchmark numbers are claimed. Performance depends on your hardware, avatar image sizes, and animation settings. If your PC is older or you play heavy games, choose the **Low** preset.
 
 ---
 
@@ -291,7 +306,7 @@ PTube is designed so anyone can use it, regardless of experience:
 
 ## Language Support
 
-PTube supports **31 languages**. The interface language can be changed instantly in Settings — no restart needed.
+PTube supports **31 languages**. The interface language can be changed instantly in Settings — no restart needed. By default PTube follows your system language.
 
 Supported languages include:
 
@@ -306,12 +321,49 @@ If a translation is not available for your language, PTube automatically falls b
 | Shortcut | Action |
 |---|---|
 | **F11** | Toggle Stream Mode |
-| **F10** | Toggle Click-Through / Pass Mouse |
 | **Ctrl + M** | Toggle Mute Microphone |
 | **Ctrl + Alt + H** | Hide or Show PTube window |
 | **Ctrl + Numpad 1–9** | Switch between profiles |
 
-These shortcuts can be customized in the Hotkeys tab of the control panel.
+The Stream Mode and Mute shortcuts can be customized in the Hotkeys tab of the control panel.
+
+---
+
+## Download
+
+Download the latest release from **[GitHub Releases](https://github.com/RzkyyDev/PTube/releases/latest)**. Choose the file for your system:
+
+| System | File | How to install |
+|---|---|---|
+| **Windows** 10 / 11 (64-bit) | `PTube-windows.exe` | Run the installer. |
+| **macOS** — Apple Silicon (M1 and newer) | `PTube-macos-arm64.dmg` | Open the DMG and drag PTube to Applications. |
+| **macOS** — Intel | `PTube-macos-x64.dmg` | Same as above. |
+| **Linux** — portable | `PTube-linux.AppImage` | `chmod +x PTube-linux.AppImage`, then run it. |
+| **Linux** — Debian / Ubuntu | `PTube-linux.deb` | `sudo apt install ./PTube-linux.deb` |
+
+**macOS note:** PTube is not signed with an Apple Developer ID, so macOS may say the app is "damaged". Run this once in Terminal, or right-click the app and choose **Open**:
+
+```bash
+xattr -dr com.apple.quarantine /Applications/PTube.app
+```
+
+### System Requirements
+
+| | Windows | macOS | Linux |
+|---|---|---|---|
+| **System** | Windows 10 or 11, 64-bit | macOS 10.15 Catalina or newer | 64-bit (x86_64), as recent as Ubuntu 22.04 |
+| **Needs** | WebView2 Runtime (already included in Windows 10/11) | Nothing extra | WebKitGTK 4.1; AppIndicator for the tray icon |
+
+Hardware needs are modest. As a rough guide (estimates, not benchmarks): a dual-core 64-bit CPU, **4 GB of RAM** (8 GB recommended if you game and stream on the same PC), no dedicated GPU required, and a screen of at least 960×600. Any microphone works.
+
+### Updates
+
+PTube checks GitHub Releases once at startup (you can turn this off in **Settings → System & Help**), or whenever you choose **Check for Updates** in the About page or the tray menu.
+
+- **Windows:** the update downloads inside PTube with a progress bar and the installer starts for you.
+- **macOS and Linux:** updates are manual. **Download from GitHub** opens the latest release page in your browser, where you download and install the new version yourself.
+
+You can also pick **Later** or **Skip this version** in the update dialog.
 
 ---
 
@@ -322,7 +374,7 @@ These shortcuts can be customized in the Hotkeys tab of the control panel.
 - Check that your microphone is plugged in and powered on.
 - Make sure no other application is exclusively using the microphone.
 - Try selecting a different device from the microphone dropdown.
-- Check your system's microphone permissions for PTube.
+- Check your system's microphone permissions for PTube. On Windows, use the **Open Windows microphone settings** shortcut.
 
 ### My microphone is detected but there is no voice activity
 
@@ -342,8 +394,14 @@ These shortcuts can be customized in the Hotkeys tab of the control panel.
 ### My avatar is too sensitive or not sensitive enough
 
 - Raise or lower the Voice Sensitivity slider.
-- Use the Silence Filter (Noise Gate) in Advanced Audio Settings to block background noise.
+- Use the Noise Gate Filter in Advanced Audio Settings to block background noise.
 - Adjust the microphone boost if needed.
+
+### My avatar will not upload ("Failed to save avatar image")
+
+- Check the image size. PTube accepts files up to 3 MB (GIF up to 15 MB) and images up to 8192 px per side and 12 megapixels.
+- A transparent PNG can be small on disk but very large in pixels. Resize it to around 2000×2000 px and try again.
+- From version 4.5.2 the message tells you the reason. If it says PTube cannot write to its folder, check folder permissions, free disk space, and your antivirus (for example Windows Controlled Folder Access).
 
 ### The avatar looks stuck or frozen
 
@@ -354,8 +412,22 @@ These shortcuts can be customized in the Hotkeys tab of the control panel.
 ### Stream Mode confused me
 
 - Press **F11** to exit Stream Mode.
-- Press **F10** if Click-Through is blocking your mouse.
 - The exit button is always visible in the window while in Stream Mode.
+- You can also use the tray icon: **Stream Mode / Editor Mode**.
+
+### The window is off-screen or invisible
+
+- Right-click the tray icon and choose **Reset Window Position and Size**.
+- Press **Ctrl + Alt + H** to show PTube again.
+
+### macOS says the app is damaged
+
+- See the `xattr` command in the [Download](#download) section.
+
+### Linux: no tray icon or hotkeys do not work
+
+- Install AppIndicator support. On GNOME you need the *AppIndicator and KStatusNotifierItem Support* extension.
+- Global hotkeys can be restricted on Wayland. They are most reliable on X11.
 
 ---
 
@@ -367,7 +439,7 @@ PTube is a proprietary application. See the License section below for details.
 
 **What operating systems are supported?**
 
-PTube runs on Windows 10 and Windows 11 (64-bit).
+PTube runs on Windows 10 and 11 (64-bit), macOS 10.15 or newer (Apple Silicon and Intel), and 64-bit Linux (AppImage and .deb).
 
 **Do I need a webcam?**
 
@@ -375,11 +447,11 @@ No. PTube uses only a microphone. No camera is required.
 
 **Do I need a VTuber model?**
 
-You need PNG images for your avatar. PNG, GIF, WebP, and SVG formats are supported.
+You need images for your avatar. PNG, APNG, GIF, WebP, and SVG formats are supported.
 
 **Can I use my own PNG?**
 
-Yes. Upload any PNG (or GIF/SVG where supported) as your avatar images.
+Yes. Upload any PNG (or GIF, WebP, SVG) as your avatar images.
 
 **Do I need OBS?**
 
@@ -387,11 +459,11 @@ No. PTube works on its own as a desktop avatar application. OBS is only needed i
 
 **Is PTube suitable for low-end PCs?**
 
-Yes. PTube is designed to use minimal RAM and CPU. It runs comfortably on low-end hardware.
+PTube is designed to use little RAM and CPU, and has a Low memory preset and a Performance Mode for modest hardware.
 
 **Can I use multiple avatar profiles?**
 
-Yes. Create as many profiles as you like and switch between them instantly.
+Yes. Create profiles and switch between them instantly.
 
 **Can I change expressions?**
 
@@ -403,7 +475,15 @@ Yes. A microphone is required for the voice-reactive features. Any standard micr
 
 **Can I stream with it?**
 
-Yes. Use Stream Mode and Click-Through to integrate PTube with OBS or other streaming software.
+Yes. Use Stream Mode with a window capture in OBS or other streaming software.
+
+**Where are my files stored?**
+
+In PTube's data folder: `%APPDATA%\com.rzkyydev.ptube` on Windows, `~/Library/Application Support/com.rzkyydev.ptube` on macOS, and `~/.local/share/com.rzkyydev.ptube` on Linux. It holds your settings, your avatar images and a log file (`ptube-app.log`) that is useful when reporting a bug. The **Open Avatar Folder** button in the app takes you to your images.
+
+**Can I move my setup to another PC?**
+
+Yes. Use **Settings → Data & Backup** to export everything into one `.ptube` file, then import it on the other PC.
 
 ---
 
@@ -413,12 +493,12 @@ PTube is intentionally focused on audio-driven PNGTubing. It does not:
 
 - Support webcam or AI face tracking
 - Render video avatars
-- Process GIF files
 - Support multiplayer or networked avatars
 - Include complex OBS networking integrations
 - Support VST audio plugins
 - Use cloud services
 - Run unnecessary background services
+- Offer window opacity, always-on-top or click-through options (these were removed in 4.5.0)
 
 These features are outside PTube's core purpose. PTube is not trying to do everything. It is trying to make PNGTubing easy.
 
@@ -430,18 +510,11 @@ All your data stays on your computer:
 
 - Settings are saved locally in your user data folder.
 - Avatar images are stored as files in your user data directory.
-- No data is sent online. There is no telemetry or analytics.
+- Your microphone audio is processed on your computer only. It is never recorded or uploaded.
+- There is no telemetry or analytics. The only network request PTube makes is the optional update check to GitHub described above.
 - Your profile exports are entirely local — `.ptube` files contain only your own data.
 
 PTube accesses only your microphone. It does not access your camera, contacts, files, or any other system resources.
-
----
-
-## Download
-
-Download the latest Windows release from **[GitHub Releases](https://github.com/RzkyyDev/PTube/releases)**.
-
-Choose either the installer or the portable version. No installation commands are needed — just download, run, and start using PTube.
 
 ---
 
@@ -453,9 +526,9 @@ No screenshots are included yet. Launch PTube to see the interface — it is des
 
 ## Roadmap
 
-PTube v4.0 is the current major version, focused on polish, stability, and simplicity.
+PTube v4.5 is the current version, built natively in Rust and now available on Windows, macOS and Linux.
 
-- **Current** — v4.0: Reactive avatar, profiles, animations, Stream Mode, 31 languages, lightweight performance.
+- **Current** — v4.5: Reactive avatar, profiles, animations, Stream Mode, 31 languages, memory presets, and builds for Windows, macOS and Linux.
 - **Planned** — further quality-of-life improvements based on user feedback, additional language support.
 - **Future** — features that align with the lightweight, focused philosophy will be evaluated carefully.
 
@@ -485,5 +558,6 @@ You may not copy, modify, redistribute, or reverse engineer this software withou
 
 **PTube** is made by **RzkyyDev**.
 
-- GitHub: [https://github.com/RzkyyDev](https://github.com/RzkyyDev)
-- Project: [https://github.com/RzkyyDev/PTube](https://github.com/RzkyyDev/PTube)
+- GitHub: [RzkyyDev](https://github.com/rzkyydev)
+- Project: [Repository](https://github.com/rzkyydev/PTube)
+- Website: [Official Site](https://ptuber.web.id)
