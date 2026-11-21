@@ -7,6 +7,7 @@ import {
 import { Mascot } from "./Mascot";
 import { Reveal } from "./Reveal";
 import { DownloadPicker } from "./DownloadPicker";
+import { DownloadSupportModal } from "./DownloadSupportModal";
 import type { Dictionary } from "@/i18n/dictionaries";
 import { FILES, ITCH_URL, RELEASES_URL, downloadUrl } from "@/lib/downloads";
 
@@ -69,6 +70,8 @@ export function DownloadCTA({
           </span>
         </div>
       </div>
+
+      <DownloadSupportModal dict={dict.modal} />
     </section>
   );
 }

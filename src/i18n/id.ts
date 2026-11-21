@@ -264,6 +264,13 @@ export const id: Dictionary = {
     recommendedSettingsDesc: "Preset opsional berisi pengaturan rekomendasi sebagai titik awal yang seimbang.",
     copy: "Salin",
     copied: "Tersalin",
+    modal: {
+      title: "Terima kasih sudah mengunduh PTube!",
+      desc: "PTube gratis dan dikembangkan oleh satu orang. Kalau PTube membantumu saat streaming, kamu bisa mendukung pengembangannya lewat salah satu cara berikut.",
+      starGithub: "Beri bintang di GitHub",
+      supportMe: "Dukung lewat Sociabuzz",
+      closeLabel: "Tutup dialog",
+    },
   },
   changelog: {
     eyebrow: "Changelog",

@@ -35,6 +35,7 @@ function FileButton({ file, label, primary = false }: { file: string; label: str
   return (
     <a
       href={downloadUrl(file)}
+      data-download="app"
       className={`btn group !justify-between !px-4 !py-3 text-left ${
         primary ? "btn-primary" : "btn-secondary"
       }`}

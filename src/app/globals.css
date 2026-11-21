@@ -965,3 +965,26 @@ html:not(.js) .scrolly-step {
 .ptnav[data-state="top"] .ptnav-cta .ptnav-txt {
   padding-left: 0.5rem;
 }
+
+/* ---------- Modal dukungan setelah unduh ---------- */
+.support-modal[open] {
+  animation: support-modal-in 0.22s var(--ease);
+}
+.support-modal::backdrop {
+  background: rgba(0, 0, 0, 0.55);
+}
+@keyframes support-modal-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .support-modal[open] {
+    animation: none;
+  }
+}

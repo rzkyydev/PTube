@@ -263,6 +263,13 @@ export const en: Dictionary = {
     recommendedSettingsDesc: "An optional preset with recommended settings for a balanced starting setup.",
     copy: "Copy",
     copied: "Copied",
+    modal: {
+      title: "Thanks for downloading PTube!",
+      desc: "PTube is free and built by one person. If it helps your streams, you can support its development in one of these ways.",
+      starGithub: "Star PTube on GitHub",
+      supportMe: "Support on Sociabuzz",
+      closeLabel: "Close dialog",
+    },
   },
   changelog: {
     eyebrow: "Changelog",

@@ -120,6 +120,13 @@ export interface Dictionary {
     recommendedSettingsDesc: string;
     copy: string;
     copied: string;
+    modal: {
+      title: string;
+      desc: string;
+      starGithub: string;
+      supportMe: string;
+      closeLabel: string;
+    };
   };
   changelog: {
     eyebrow: string;
