@@ -51,9 +51,9 @@ export interface Dictionary {
     title: string;
     desc: string;
     cards: {
-      fourStates: { title: string; desc: string; idle: string; speaking: string; blink: string; mute: string; autoSwitch: string; };
+      fiveStates: { title: string; desc: string; idle: string; speaking: string; blinkIdle: string; blinkSpeaking: string; mute: string; autoSwitch: string; };
       audioEngine: { title: string; desc: string; };
-      streamMode: { title: string; desc: string; greenScreen: string; transparent: string; hotkey: string; };
+      streamMode: { title: string; desc: string; greenScreen: string; transparent: string; hotkey: string; spout2: string; };
       animationSystem: { title: string; desc: string; speaking: string; idle: string; };
       animatedImages: { title: string; desc: string; apng: string; gif: string; png: string; note: string; };
       speakHold: { title: string; desc: string; speak: string; hold: string; note: string; };
