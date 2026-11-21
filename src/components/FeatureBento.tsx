@@ -21,7 +21,7 @@ import avatarIdle from "@/assets/avatar-idle.webp";
 import avatarSpeaking from "@/assets/avatar-speaking.webp";
 import type { Dictionary } from "@/i18n/dictionaries";
 
-// Dua tingkat kartu: kartu utama (4 state) lebih besar & lebih solid; sisanya datar dan tenang.
+// Dua tingkat kartu: kartu utama (5 state) lebih besar & lebih solid; sisanya datar dan tenang.
 const cardCls = "flex h-full flex-col gap-5 rounded-2xl border border-line bg-surface-2 p-5 sm:p-6";
 
 function CardHeader({
@@ -46,8 +46,8 @@ function CardHeader({
   );
 }
 
-const speakingFx = ["bounce & squish", "high jump", "shake", "wobble", "pulse zoom", "spin jump", "side hop", "glitch"];
-const idleFx = ["float / breathe", "pulse", "sway", "gentle bounce", "subtle tilt"];
+const speakingFx = ["bounce & squish", "high jump", "shake", "wobble", "pulse zoom", "3d spin jump", "side-to-side hop", "cyber glitch"];
+const idleFx = ["float / breathe", "pulse zoom", "sway", "gentle bounce", "subtle 3d tilt", "blink"];
 
 export function FeatureBento({ dict }: { dict: Dictionary["featureBento"] }) {
   const c = dict.cards;
@@ -56,18 +56,18 @@ export function FeatureBento({ dict }: { dict: Dictionary["featureBento"] }) {
       <SectionHeader title={dict.title} desc={dict.desc} />
 
       <div className="mt-10 grid grid-cols-1 gap-4 sm:mt-14 md:grid-cols-2 lg:grid-cols-6">
-        {/* Kartu utama: 4 state avatar */}
+        {/* Kartu utama: 5 state avatar */}
         <div className="md:col-span-2 lg:col-span-4">
           <div className="flex h-full flex-col gap-5 rounded-3xl border border-line bg-panel p-5 sm:p-7">
             <CardHeader
               icon={<Smiley size={20} weight="fill" />}
-              title={c.fourStates.title}
-              desc={c.fourStates.desc}
+              title={c.fiveStates.title}
+              desc={c.fiveStates.desc}
             />
             <div className="grid grid-cols-1 gap-3 min-[480px]:grid-cols-2">
               {[
-                { src: avatarIdle, label: "Idle", name: c.fourStates.idle },
-                { src: avatarSpeaking, label: "Speaking", name: c.fourStates.speaking },
+                { src: avatarIdle, label: "Idle", name: c.fiveStates.idle },
+                { src: avatarSpeaking, label: "Speaking", name: c.fiveStates.speaking },
               ].map((a) => (
                 <figure
                   key={a.label}
@@ -88,13 +88,17 @@ export function FeatureBento({ dict }: { dict: Dictionary["featureBento"] }) {
             <div className="mt-auto flex flex-wrap items-center gap-x-4 gap-y-2 text-xs font-medium text-ink-3">
               <span className="inline-flex items-center gap-1.5">
                 <Eye size={15} weight="fill" aria-hidden="true" />
-                {c.fourStates.blink}
+                {c.fiveStates.blinkIdle}
+              </span>
+              <span className="inline-flex items-center gap-1.5">
+                <Eye size={15} weight="fill" aria-hidden="true" />
+                {c.fiveStates.blinkSpeaking}
               </span>
               <span className="inline-flex items-center gap-1.5">
                 <MicrophoneSlash size={15} weight="fill" aria-hidden="true" />
-                {c.fourStates.mute}
+                {c.fiveStates.mute}
               </span>
-              <span className="text-ink-4 sm:ml-auto">{c.fourStates.autoSwitch}</span>
+              <span className="text-ink-4 sm:ml-auto">{c.fiveStates.autoSwitch}</span>
             </div>
           </div>
         </div>
@@ -142,6 +146,7 @@ export function FeatureBento({ dict }: { dict: Dictionary["featureBento"] }) {
             <div className="flex flex-wrap gap-1.5">
               <span className="chip">{c.streamMode.greenScreen}</span>
               <span className="chip">{c.streamMode.transparent}</span>
+              <span className="chip">{c.streamMode.spout2}</span>
               <span className="chip">{c.streamMode.hotkey}</span>
             </div>
           </div>
